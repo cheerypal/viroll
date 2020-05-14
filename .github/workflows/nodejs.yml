@@ -27,11 +27,8 @@ jobs:
     - run: npm ci
       working-directory: ${{env.working-directory}}
       
-    - name: frontend directory
-      run: ls -R
-      working-directory: ${{env.working-directory}}
     - name: frontend working
-      run: npm run serve
+      run: npm run build
       working-directory: ${{env.working-directory}}
     - name: frontend test
       run: npm run test:unit
