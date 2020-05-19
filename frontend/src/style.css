@@ -5,21 +5,30 @@
 
 @font-face {
   font-family: "Kanit-Reg";
+  src: url("./assets/Fonts/Kanit-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Kanit-Light";
   src: url("./assets/Fonts/Kanit-Light.ttf");
 }
 
 @font-face {
-  font-family: "Kanit-Light ";
+  font-family: "Kanit-ELight ";
   src: url("./assets/Fonts/Kanit-ExtraLight.ttf");
 }
 
 body {
-  font-family: "Kanit-Reg" !important;
+  font-family: "Kanit-Light" !important;
   color: black;
 }
 
 a {
   color: black;
+}
+
+a:hover {
+  font-family: "Kanit-Reg";
 }
 
 input:focus {

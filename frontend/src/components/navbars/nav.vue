@@ -1,10 +1,10 @@
 <template>
   <div>
-    <nav class="custom-navbar">
+    <nav class="custom-navbar fixed-top">
       <div class="container">
         <div class="flex-navbar">
           <a href="#" class="brand-logo">VIROLL</a>
-          <form class="nav-form">
+          <form class="nav-form" id="search">
             <div class="flex-form">
               <input type="text" class="custom-input" placeholder="Country" />
               <div class="input-group-append">
@@ -15,12 +15,15 @@
             </div>
           </form>
           <div>
-            <div class="flex-navbar">
+            <div class="flex-navbar" id="menu">
               <a class="nav-link" href="#">Home</a>
-              <a class="nav-link" href="#">Compare</a>
+              <a class="nav-link" href="#">Country</a>
               <a class="nav-link" href="#">Account</a>
             </div>
           </div>
+          <button id="searchBtn" class="btn" type="button">
+            <i class="fa fa-search"></i>
+          </button>
         </div>
       </div>
     </nav>
@@ -90,5 +93,58 @@ export default {
   color: black;
   text-align: center;
   font-size: 1.4em;
+}
+
+#search {
+  visibility: visible;
+}
+
+#searchBtn {
+  visibility: hidden;
+  display: none;
+}
+
+.fa {
+  font-size: 1.3em;
+}
+
+@media screen and (max-width: 1200px) {
+  .nav-form {
+    width: 30%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .brand-logo {
+    padding-right: 0;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  #search {
+    visibility: hidden;
+    display: none;
+  }
+  #searchBtn {
+    visibility: visible;
+    display: block;
+  }
+
+  .nav-form {
+    width: 100%;
+  }
+  .container {
+    min-margin: 1%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  #menu {
+    display: none;
+  }
+  .fa {
+    font-size: 1.7em;
+    font-weight: bold;
+  }
 }
 </style>
