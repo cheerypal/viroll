@@ -17,7 +17,11 @@
           <div>
             <div class="flex-navbar" id="menu">
               <a class="nav-link" href="#">Home</a>
-              <a class="nav-link" href="#">Country</a>
+              <router-link
+                :to="{ name: 'country', params: { name: 'united-kingdom' } }"
+                class="nav-link"
+                >Country</router-link
+              >
               <a class="nav-link" href="#">Account</a>
             </div>
           </div>
