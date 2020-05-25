@@ -39,10 +39,6 @@ export default {
 };
 </script>
 <style scoped>
-.custom-navbar-top {
-  padding-top: 1%;
-}
-
 .brand-logo {
   font-size: 2.2em;
   font-family: "Kanit-Black";
@@ -59,6 +55,7 @@ export default {
 .custom-navbar {
   padding-top: 1%;
   border: none;
+  background-color: white;
 }
 
 .flex-form {

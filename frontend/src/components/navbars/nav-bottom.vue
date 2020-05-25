@@ -24,11 +24,12 @@ export default {
 .custom-navbar {
   padding-top: 2%;
   padding-bottom: 3%;
+  background-color: white;
 }
 
 .nav-link {
   font-size: 1.3em;
-  font-family: "Kanit-Reg";
+  font-family: "Roboto-Reg";
 }
 
 .flex-nav {
