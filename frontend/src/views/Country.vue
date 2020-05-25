@@ -1,7 +1,15 @@
 <template>
   <div>
     <NavBar />
-    <div id="country">
+    <div
+      id="country"
+      :style="{
+        backgroundImage:
+          'url(' +
+          require('../assets/country-sil/' + countryName + '.gif') +
+          ')',
+      }"
+    >
       <div class="container custom-container">
         <div class="titleSection">
           <h1>{{ format(countryName) }}</h1>
@@ -65,6 +73,8 @@ export default {
         totalDeaths: "",
         recovered: "",
       },
+      backgroundImage:
+        "../assets/country-sil/" + this.$route.params.name + ".png",
     };
   },
   methods: {
@@ -113,6 +123,10 @@ export default {
 <style scoped>
 #country {
   padding-top: 150px;
+  background-position: right;
+  background-repeat: no-repeat;
+  background-color: rgba(255, 255, 255, 0.8);
+  background-blend-mode: lighten;
 }
 
 .custom-container {
@@ -152,10 +166,19 @@ export default {
 
 @media screen and (max-width: 610px) {
   #country {
-    padding-top: 25%;
+    min-height: 100vh;
+    padding-top: 20%;
+    background-size: 100%;
+    background-position: left;
+    background-color: rgba(255, 255, 255, 0.8);
   }
   .custom-container {
     padding-right: 4%;
+    padding-left: 4%;
+  }
+  .dataSection {
+    padding-top: 2%;
+    padding-bottom: 2%;
   }
 }
 </style>
