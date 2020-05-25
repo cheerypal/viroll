@@ -35,6 +35,7 @@
           <h1>News</h1>
           <h3>Today</h3>
         </div>
+        <hr />
       </div>
     </div>
     <NavBot />
@@ -125,7 +126,8 @@ export default {
   padding-top: 150px;
   background-position: right;
   background-repeat: no-repeat;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-attachment: fixed;
+  background-color: rgba(255, 255, 255, 0.6);
   background-blend-mode: lighten;
 }
 
@@ -169,7 +171,7 @@ export default {
     min-height: 100vh;
     padding-top: 20%;
     background-size: 100%;
-    background-position: left;
+    background-position: right;
     background-color: rgba(255, 255, 255, 0.8);
   }
   .custom-container {

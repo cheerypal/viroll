@@ -4,9 +4,14 @@
       <div class="container">
         <div class="flex-navbar">
           <a href="#" class="brand-logo">VIROLL</a>
-          <form class="nav-form" id="search">
+          <form class="nav-form" id="search" @submit="go">
             <div class="flex-form">
-              <input type="text" class="custom-input" placeholder="Country" />
+              <input
+                type="text"
+                v-model="searchBar.value"
+                class="custom-input"
+                placeholder="Country"
+              />
               <div class="input-group-append">
                 <button class="btn" type="submit">
                   <i class="fa fa-search"></i>
@@ -36,6 +41,23 @@
 <script>
 export default {
   name: "navbar",
+  data() {
+    return {
+      searchBar: {
+        value: "",
+      },
+    };
+  },
+  methods: {
+    go() {
+      this.$router.push({
+        name: "country",
+        params: { name: this.searchBar.value },
+      });
+    },
+
+    searchShift() {},
+  },
 };
 </script>
 <style scoped>
@@ -143,6 +165,7 @@ export default {
   #menu {
     display: none;
   }
+
   .fa {
     font-size: 1.7em;
     font-weight: bold;
