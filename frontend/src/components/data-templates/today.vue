@@ -3,15 +3,15 @@
     <h2>Today</h2>
     <div class="dataFlex">
       <div class="dataItem">
-        <h3>New Infected</h3>
+        <h3>Cases</h3>
         <h2 class="dataImportant">{{ formatNums(infected) }}</h2>
       </div>
       <div class="dataItem">
-        <h3>New Recoveries</h3>
+        <h3>Recoveries</h3>
         <h2 class="dataImportant">{{ formatNums(recovered) }}</h2>
       </div>
       <div class="dataItem">
-        <h3>New Deaths</h3>
+        <h3>Deaths</h3>
         <h2 class="dataImportant">{{ formatNums(deaths) }}</h2>
       </div>
     </div>
@@ -34,7 +34,7 @@ export default {
 }
 
 .dataFlex {
-  padding-top: 20px;
+  padding-top: 10px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

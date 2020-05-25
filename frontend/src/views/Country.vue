@@ -2,7 +2,7 @@
   <div>
     <NavBar />
     <div id="country">
-      <div class="container">
+      <div class="container custom-container">
         <div class="titleSection">
           <h1>{{ format(countryName) }}</h1>
           <h3>{{ issueName }} Statistics</h3>
@@ -18,12 +18,15 @@
         <div class="dataSection">
           <Total
             :cases="countryData.totalInfected"
-            :infected="countryData.currentInfected"
             :recovered="countryData.recovered"
             :deaths="countryData.totalDeaths"
           />
         </div>
         <hr />
+        <div class="newsSection">
+          <h1>News</h1>
+          <h3>Today</h3>
+        </div>
       </div>
     </div>
     <NavBot />
@@ -112,6 +115,10 @@ export default {
   padding-top: 150px;
 }
 
+.custom-container {
+  padding-right: 20%;
+}
+
 .titleSection {
   padding-bottom: 20px;
 }
@@ -119,5 +126,36 @@ export default {
 .dataSection {
   padding-top: 40px;
   padding-bottom: 40px;
+}
+
+.newsSection {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+@media screen and (max-width: 710px) {
+  #country {
+    padding-top: 15%;
+  }
+  .titleSection {
+    padding-bottom: 5%;
+  }
+  .dataSection {
+    padding-top: 10%;
+    padding-bottom: 5%;
+  }
+  .newsSection {
+    padding-top: 10%;
+    padding-bottom: 5%;
+  }
+}
+
+@media screen and (max-width: 610px) {
+  #country {
+    padding-top: 25%;
+  }
+  .custom-container {
+    padding-right: 4%;
+  }
 }
 </style>

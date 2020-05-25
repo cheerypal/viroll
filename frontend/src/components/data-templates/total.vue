@@ -1,14 +1,10 @@
 <template>
   <div>
-    <h2>All Time Total</h2>
+    <h2>Total</h2>
     <div class="dataFlex">
       <div class="dataItem">
         <h3>Cases</h3>
         <h2 class="dataImportant">{{ formatNums(cases) }}</h2>
-      </div>
-      <div class="dataItem">
-        <h3>Infected</h3>
-        <h2 class="dataImportant">{{ formatNums(infected) }}</h2>
       </div>
       <div class="dataItem">
         <h3>Recoveries</h3>
@@ -24,7 +20,7 @@
 <script>
 export default {
   name: "total_data",
-  props: ["cases", "infected", "recovered", "deaths"],
+  props: ["cases", "recovered", "deaths"],
   methods: {
     formatNums(number) {
       return number.toLocaleString();
@@ -38,7 +34,7 @@ export default {
 }
 
 .dataFlex {
-  padding-top: 20px;
+  padding-top: 10px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
