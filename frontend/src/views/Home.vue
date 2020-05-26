@@ -12,7 +12,7 @@ export default {
   name: "home",
   components: {
     NavBar,
-    NavBot,
-  },
+    NavBot
+  }
 };
 </script>

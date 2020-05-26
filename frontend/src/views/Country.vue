@@ -31,6 +31,10 @@
           />
         </div>
         <hr />
+        <div class="dataSection">
+          <canvas id="chart" />
+        </div>
+        <hr />
         <div class="newsSection">
           <h1>News</h1>
           <h3>Today</h3>
@@ -49,6 +53,10 @@ import NavBot from "../components/navbars/nav-bottom";
 //data components
 import Today from "../components/data-templates/today.vue";
 import Total from "../components/data-templates/total.vue";
+
+//chart.js
+
+import Chart from "chart.js";
 
 export default {
   name: "countryPage",
@@ -76,6 +84,48 @@ export default {
       },
       backgroundImage:
         "../assets/country-sil/" + this.$route.params.name + ".png",
+
+      chartData: {
+        type: "line",
+        data: {
+          labels: [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday",
+          ],
+          datasets: [
+            {
+              label: "Cases",
+              backgroundColor: "rgba(26, 137, 60, 0.1)",
+              borderColor: "rgba(26, 137, 60, 1)",
+              borderWidth: 0.7,
+              data: [65, 59, 80, 81, 56, 90, 65],
+            },
+          ],
+        },
+        lineChartOptions: {
+          scales: {
+            xAxes: [
+              {
+                gridLines: {
+                  display: true,
+                },
+              },
+            ],
+            yAxes: [
+              {
+                gridLines: {
+                  display: true,
+                },
+              },
+            ],
+          },
+        },
+      },
     };
   },
   methods: {
@@ -113,10 +163,21 @@ export default {
 
       return this.remover(country);
     },
+
+    //chart generation
+    generateChart(chartId, chartData) {
+      const ctx = document.getElementById(chartId);
+      new Chart(ctx, {
+        type: chartData.type,
+        data: chartData.data,
+        options: chartData.lineChartOptions,
+      });
+    },
   },
   mounted: function() {
     //Load data on page load.
     this.getAllDataFromCountry();
+    this.generateChart("chart", this.chartData);
   },
 };
 </script>
