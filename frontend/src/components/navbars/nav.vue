@@ -1,6 +1,11 @@
 <template>
   <div>
-    <nav class="custom-navbar fixed-top">
+    <nav
+      class="custom-navbar fixed-top"
+      v-bind:style="{
+        paddingBottom: searchBarControls.searchButton ? '1%' : '5%',
+      }"
+    >
       <div class="container">
         <div class="flex-navbar">
           <a href="#" class="brand-logo">VIROLL</a>
@@ -30,9 +35,57 @@
               <a class="nav-link" href="#">Account</a>
             </div>
           </div>
-          <button id="searchBtn" class="btn" type="button">
+          <button
+            id="searchBtn"
+            class="btn"
+            type="button"
+            @click="searchBarMobile"
+            v-bind:style="{
+              visibility: searchBarControls.searchButton
+                ? 'visible'
+                : 'hidden ',
+              display: searchBarControls.searchButton
+                ? 'block !important'
+                : 'none !important',
+            }"
+          >
             <i class="fa fa-search"></i>
           </button>
+          <button
+            id="closeSearch"
+            class="btn"
+            type="button"
+            @click="searchBarMobile"
+            v-bind:style="{
+              visibility: searchBarControls.closeS ? 'visible' : 'hidden',
+              display: searchBarControls.closeS ? 'block ' : 'none',
+            }"
+          >
+            <i class="fa fa-times"></i>
+          </button>
+          <form
+            class="nav-form"
+            id="sMobile"
+            @submit="go"
+            v-bind:style="{
+              visibility: searchBarControls.sBar ? 'visible' : 'hidden',
+              display: searchBarControls.sBar ? 'block' : 'none',
+            }"
+          >
+            <div class="flex-form">
+              <input
+                type="text"
+                v-model="searchBar.value"
+                class="custom-input"
+                placeholder="Country"
+              />
+              <div class="input-group-append">
+                <button class="btn" type="submit">
+                  <i class="fa fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </nav>
@@ -46,17 +99,45 @@ export default {
       searchBar: {
         value: "",
       },
+      searchBarControls: {
+        searchButton: true,
+        sBar: false,
+        closeS: false,
+      },
     };
   },
   methods: {
+    //Search bar method to find countries
     go() {
+      let input = this.formatSearchInput(this.searchBar.value);
+      console.log(input);
+
       this.$router.push({
         name: "country",
-        params: { name: this.searchBar.value },
+        params: { name: input },
       });
     },
+    //Format the input from the search bar so that the API can read and get data for the search result.
+    formatSearchInput(text) {
+      return text
+        .split(" ")
+        .join("-")
+        .toLowerCase();
+    },
 
-    searchShift() {},
+    //Change the
+    searchBarMobile() {
+      if (this.searchBarControls.searchButton === true) {
+        this.searchBarControls.searchButton = false;
+        this.searchBarControls.sBar = true;
+        this.searchBarControls.closeS = true;
+      } else {
+        this.searchBarControls.searchButton = true;
+        this.searchBarControls.sBar = false;
+        this.searchBarControls.closeS = false;
+      }
+    },
+    mounted: function() {},
   },
 };
 </script>
@@ -123,6 +204,16 @@ export default {
 }
 
 #searchBtn {
+  visibility: hidden !important;
+  display: none !important;
+}
+
+#sMobile {
+  visibility: hidden;
+  display: none;
+}
+
+#closeSearch {
   visibility: hidden;
   display: none;
 }
@@ -149,8 +240,16 @@ export default {
     display: none;
   }
   #searchBtn {
-    visibility: visible;
+    visibility: visible !important;
+    display: block !important;
+  }
+
+  #sMobile {
+    visibility: hidden;
     display: block;
+  }
+  #closeSearch {
+    visibility: hidden;
   }
 
   .nav-form {

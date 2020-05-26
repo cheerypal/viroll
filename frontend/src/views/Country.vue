@@ -123,6 +123,7 @@ export default {
 
 <style scoped>
 #country {
+  min-height: 100vh;
   padding-top: 150px;
   background-position: right;
   background-repeat: no-repeat;
@@ -132,7 +133,7 @@ export default {
 }
 
 .custom-container {
-  padding-right: 20%;
+  padding-right: 10%;
 }
 
 .titleSection {
@@ -140,19 +141,33 @@ export default {
 }
 
 .dataSection {
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .newsSection {
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+@media screen and (max-width: 1366px) {
+  #country {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+@media screen and (max-width: 990px) {
+  #country {
+    padding-top: 15%;
+    background-size: 60%;
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+  .custom-container {
+    padding-right: 4%;
+  }
 }
 
 @media screen and (max-width: 710px) {
-  #country {
-    padding-top: 15%;
-  }
   .titleSection {
     padding-bottom: 5%;
   }
@@ -168,16 +183,16 @@ export default {
 
 @media screen and (max-width: 610px) {
   #country {
-    min-height: 100vh;
     padding-top: 20%;
     background-size: 100%;
     background-position: right;
     background-color: rgba(255, 255, 255, 0.8);
   }
+
   .custom-container {
     padding-right: 4%;
-    padding-left: 4%;
   }
+
   .dataSection {
     padding-top: 2%;
     padding-bottom: 2%;
