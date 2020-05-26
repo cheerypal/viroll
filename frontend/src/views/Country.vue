@@ -86,7 +86,6 @@ export default {
         "../assets/country-sil/" + this.$route.params.name + ".png",
 
       chartData: {
-        type: "line",
         data: {
           labels: [
             "Monday",
@@ -99,18 +98,50 @@ export default {
           ],
           datasets: [
             {
+              type: "line",
               label: "Cases",
-              backgroundColor: "rgba(26, 137, 60, 0.1)",
+              fill: true,
+              backgroundColor: "rgba(26, 137, 60, 0.2)",
               borderColor: "rgba(26, 137, 60, 1)",
-              borderWidth: 0.7,
+              borderWidth: 3,
+              pointRadius: 6,
+              pointHoverRadius: 12,
               data: [65, 59, 80, 81, 56, 90, 65],
+              yAxisID: "y-axis-id-1",
+            },
+            {
+              type: "bar",
+              label: "Recovered",
+              borderDash: [5, 5],
+              fill: true,
+              backgroundColor: "rgba(255, 195, 0, 0.4)",
+              borderColor: "rgba(255, 195, 0, 1)",
+              borderWidth: 2,
+              pointRadius: 8,
+              pointHoverRadius: 12,
+              data: [65, 59, 22, 11, 22, 11, 22],
+              yAxisID: "y-axis-id-2",
             },
           ],
         },
         lineChartOptions: {
+          legend: {
+            position: "bottom",
+          },
+          responsive: true,
+          tooltips: {
+            mode: "index",
+            intersect: false,
+          },
+
           scales: {
             xAxes: [
               {
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: "Day",
+                },
                 gridLines: {
                   display: true,
                 },
@@ -118,9 +149,22 @@ export default {
             ],
             yAxes: [
               {
-                gridLines: {
+                display: true,
+                scaleLabel: {
                   display: true,
+                  labelString: "Number of Cases",
                 },
+                position: "right",
+                id: "y-axis-id-1",
+              },
+              {
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: "Number of Recoveries",
+                },
+                position: "left",
+                id: "y-axis-id-2",
               },
             ],
           },
