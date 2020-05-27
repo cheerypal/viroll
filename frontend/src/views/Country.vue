@@ -95,6 +95,9 @@ export default {
             "Friday",
             "Saturday",
             "Sunday",
+            "sss",
+            "sssss",
+            "sssssss",
           ],
           datasets: [
             {
@@ -105,12 +108,12 @@ export default {
               borderColor: "rgba(26, 137, 60, 1)",
               borderWidth: 3,
               pointRadius: 6,
-              pointHoverRadius: 12,
-              data: [65, 59, 80, 81, 56, 90, 65],
-              yAxisID: "y-axis-id-1",
+
+              data: [],
             },
+            /*
             {
-              type: "bar",
+              type: "line",
               label: "Recovered",
               borderDash: [5, 5],
               fill: true,
@@ -122,6 +125,7 @@ export default {
               data: [65, 59, 22, 11, 22, 11, 22],
               yAxisID: "y-axis-id-2",
             },
+            */
           ],
         },
         lineChartOptions: {
@@ -129,11 +133,6 @@ export default {
             position: "bottom",
           },
           responsive: true,
-          tooltips: {
-            mode: "index",
-            intersect: false,
-          },
-
           scales: {
             xAxes: [
               {
@@ -142,29 +141,17 @@ export default {
                   display: true,
                   labelString: "Day",
                 },
-                gridLines: {
-                  display: true,
-                },
               },
             ],
             yAxes: [
               {
                 display: true,
+                type: "linear",
                 scaleLabel: {
                   display: true,
                   labelString: "Number of Cases",
                 },
-                position: "right",
-                id: "y-axis-id-1",
-              },
-              {
-                display: true,
-                scaleLabel: {
-                  display: true,
-                  labelString: "Number of Recoveries",
-                },
-                position: "left",
-                id: "y-axis-id-2",
+                ticks: {},
               },
             ],
           },
@@ -196,6 +183,24 @@ export default {
         });
     },
 
+    //Get data for the chart for the past 10 days.
+    getChartDataByCountry() {
+      let url = "http://api.covid19api.com/total/country/" + this.countryName;
+      fetch(url, { method: "GET" })
+        .then((response) => {
+          return response.json();
+        })
+        .then((jsonData) => {
+          let today = jsonData.length - 1;
+          let cap = today - 10;
+          for (let i = today; i > cap; i--) {
+            this.chartData.data.datasets[0].data.push(jsonData[i].Active);
+          }
+          //Get min and max for the graph
+          console.log(this.chartData.data.datasets[0].data);
+        });
+    },
+
     //Formatting methods:
     remover(text) {
       return text.replace(/-/g, " ");
@@ -210,7 +215,7 @@ export default {
 
     //chart generation
     generateChart(chartId, chartData) {
-      const ctx = document.getElementById(chartId);
+      const ctx = document.getElementById(chartId).getContext("2d");
       new Chart(ctx, {
         type: chartData.type,
         data: chartData.data,
@@ -220,6 +225,7 @@ export default {
   },
   mounted: function() {
     //Load data on page load.
+    this.getChartDataByCountry();
     this.getAllDataFromCountry();
     this.generateChart("chart", this.chartData);
   },
