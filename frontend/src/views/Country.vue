@@ -30,9 +30,9 @@
             :deaths="countryData.totalDeaths"
           />
         </div>
-        <hr />
         <div class="dataSection">
-          <canvas id="chart" />
+          <h2>Cases for the last 10 days</h2>
+          <canvas id="chart" class="charts" />
         </div>
         <hr />
         <div class="newsSection">
@@ -87,18 +87,7 @@ export default {
 
       chartData: {
         data: {
-          labels: [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday",
-            "sss",
-            "sssss",
-            "sssssss",
-          ],
+          labels: [],
           datasets: [
             {
               type: "line",
@@ -133,6 +122,7 @@ export default {
             position: "bottom",
           },
           responsive: true,
+
           scales: {
             xAxes: [
               {
@@ -184,7 +174,7 @@ export default {
     },
 
     //Get data for the chart for the past 10 days.
-    getChartDataByCountry() {
+    getChartDataByCountry(chart) {
       let url = "http://api.covid19api.com/total/country/" + this.countryName;
       fetch(url, { method: "GET" })
         .then((response) => {
@@ -194,8 +184,12 @@ export default {
           let today = jsonData.length - 1;
           let cap = today - 10;
           for (let i = today; i > cap; i--) {
+            this.chartData.data.labels.push(
+              this.dateFormatter(jsonData[i].Date)
+            );
             this.chartData.data.datasets[0].data.push(jsonData[i].Active);
           }
+          chart.update();
           //Get min and max for the graph
           console.log(this.chartData.data.datasets[0].data);
         });
@@ -213,21 +207,31 @@ export default {
       return this.remover(country);
     },
 
-    //chart generation
-    generateChart(chartId, chartData) {
-      const ctx = document.getElementById(chartId).getContext("2d");
-      new Chart(ctx, {
-        type: chartData.type,
-        data: chartData.data,
-        options: chartData.lineChartOptions,
-      });
+    dateFormatter(date) {
+      date = date.replace("T", " ");
+      date = date.substring(0, 10);
+      date = date.replace(/(\b-(?!\s))/g, " ");
+      let year = date.substring(0, 4);
+      let month = date.substring(5, 7);
+      let day = date.substring(8, 10);
+      return day + "/" + month + "/" + year;
+    },
+
+    //chart generation must pass chart through to where the chart receives the data so that the chart can update.
+    generateChart(chart) {
+      this.getChartDataByCountry(chart);
     },
   },
   mounted: function() {
-    //Load data on page load.
-    this.getChartDataByCountry();
     this.getAllDataFromCountry();
-    this.generateChart("chart", this.chartData);
+    const ctx = document.getElementById("chart").getContext("2d");
+    let chart = new Chart(ctx, {
+      type: this.chartData.type,
+      data: this.chartData.data,
+      options: this.chartData.lineChartOptions,
+    });
+    //Load data on page load.
+    this.generateChart(chart);
   },
 };
 </script>
@@ -259,6 +263,20 @@ export default {
 .newsSection {
   padding-top: 20px;
   padding-bottom: 20px;
+}
+
+.charts {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+canvas {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  width: 75%;
+  height: 30%;
+  color: black;
 }
 
 @media screen and (max-width: 1366px) {
