@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h2>Today</h2>
+    <h2>Today*</h2>
     <div class="dataFlex">
       <div class="dataItem">
-        <h3>Cases</h3>
+        <h3>Cases**</h3>
         <h2 class="dataImportant">{{ formatNums(infected) }}</h2>
       </div>
       <div class="dataItem">
@@ -24,8 +24,8 @@ export default {
   methods: {
     formatNums(number) {
       return number.toLocaleString();
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>

@@ -25,13 +25,20 @@
         </div>
         <div class="dataSection">
           <Total
-            :cases="countryData.totalInfected"
+            :cases="countryData.currentInfected"
             :recovered="countryData.recovered"
             :deaths="countryData.totalDeaths"
           />
+          <div class="text-right sub">
+            <p></p>
+            <p>
+              * Represents the change in data from yesterday and today<br />
+              ** Active Cases - people currently infected
+            </p>
+          </div>
         </div>
         <div class="dataSection">
-          <h2>Cases for the last 10 days</h2>
+          <h2>Active Cases - last 10 days</h2>
           <canvas id="chart" class="charts" />
         </div>
         <hr />
@@ -100,21 +107,6 @@ export default {
 
               data: [],
             },
-            /*
-            {
-              type: "line",
-              label: "Recovered",
-              borderDash: [5, 5],
-              fill: true,
-              backgroundColor: "rgba(255, 195, 0, 0.4)",
-              borderColor: "rgba(255, 195, 0, 1)",
-              borderWidth: 2,
-              pointRadius: 8,
-              pointHoverRadius: 12,
-              data: [65, 59, 22, 11, 22, 11, 22],
-              yAxisID: "y-axis-id-2",
-            },
-            */
           ],
         },
         lineChartOptions: {
@@ -122,7 +114,6 @@ export default {
             position: "bottom",
           },
           responsive: true,
-
           scales: {
             xAxes: [
               {
@@ -189,6 +180,9 @@ export default {
             );
             this.chartData.data.datasets[0].data.push(jsonData[i].Active);
           }
+          this.chartData.data.labels.reverse();
+          this.chartData.data.datasets[0].data.reverse();
+
           chart.update();
           //Get min and max for the graph
           console.log(this.chartData.data.datasets[0].data);
@@ -270,6 +264,10 @@ export default {
   margin-bottom: 50px;
 }
 
+.sub {
+  padding-top: 20px;
+  font-size: 0.7em;
+}
 canvas {
   -moz-user-select: none;
   -webkit-user-select: none;
