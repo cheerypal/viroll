@@ -30,16 +30,25 @@
             :deaths="countryData.totalDeaths"
           />
           <div class="text-right sub">
-            <p></p>
             <p>
               * Represents the change in data from yesterday and today<br />
-              ** Active Cases - people currently infected
             </p>
           </div>
         </div>
+        <hr />
         <div class="dataSection">
-          <h2>Active Cases - last 10 days</h2>
+          <h2>Confirmed Cases</h2>
           <canvas id="chart" class="charts" />
+        </div>
+        <hr />
+        <div class="dataSection">
+          <h2>Recoveries</h2>
+          <canvas id="chartRecoveries" class="charts" />
+        </div>
+        <hr />
+        <div class="dataSection">
+          <h2>Deaths</h2>
+          <canvas id="chartDeaths" class="charts" />
         </div>
         <hr />
         <div class="newsSection">
@@ -92,6 +101,7 @@ export default {
       backgroundImage:
         "../assets/country-sil/" + this.$route.params.name + ".png",
 
+      //chart data for Active Cases and its own chart characteristics
       chartData: {
         data: {
           labels: [],
@@ -132,7 +142,98 @@ export default {
                   display: true,
                   labelString: "Number of Cases",
                 },
-                ticks: {},
+              },
+            ],
+          },
+        },
+      },
+
+      //this is the dataset for the recovery chart
+      chartDataRecoveries: {
+        data: {
+          labels: [],
+          datasets: [
+            {
+              type: "line",
+              label: "Recoveries",
+              fill: true,
+              backgroundColor: "rgba(26, 137, 60, 0.2)",
+              borderColor: "rgba(26, 137, 60, 1)",
+              borderWidth: 3,
+              pointRadius: 6,
+              data: [],
+            },
+          ],
+        },
+        lineChartOptions: {
+          legend: {
+            position: "bottom",
+          },
+          responsive: true,
+          scales: {
+            xAxes: [
+              {
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: "Day",
+                },
+              },
+            ],
+            yAxes: [
+              {
+                display: true,
+                type: "linear",
+                scaleLabel: {
+                  display: true,
+                  labelString: "Number of Recoveries",
+                },
+              },
+            ],
+          },
+        },
+      },
+
+      //this is the dataset for the recovery chart
+      chartDataDeaths: {
+        data: {
+          labels: [],
+          datasets: [
+            {
+              type: "line",
+              label: "Deaths",
+              fill: true,
+              backgroundColor: "rgba(26, 137, 60, 0.2)",
+              borderColor: "rgba(26, 137, 60, 1)",
+              borderWidth: 3,
+              pointRadius: 6,
+              data: [],
+            },
+          ],
+        },
+        lineChartOptions: {
+          legend: {
+            position: "bottom",
+          },
+          responsive: true,
+          scales: {
+            xAxes: [
+              {
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: "Day",
+                },
+              },
+            ],
+            yAxes: [
+              {
+                display: true,
+                type: "linear",
+                scaleLabel: {
+                  display: true,
+                  labelString: "Number of Deaths",
+                },
               },
             ],
           },
@@ -151,20 +252,20 @@ export default {
         .then((jsonData) => {
           //All time values
           let cData = jsonData[jsonData.length - 1];
-          this.countryData.currentInfected = cData.Active;
-          this.countryData.totalInfected = cData.Confirmed;
+          this.countryData.currentInfected = cData.Confirmed;
           this.countryData.totalDeaths = cData.Deaths;
           this.countryData.recovered = cData.Recovered;
 
           //Daily increases
           let cData2 = jsonData[jsonData.length - 2];
-          this.countryChange.currentInfected = cData.Active - cData2.Active;
+          this.countryChange.currentInfected =
+            cData.Confirmed - cData2.Confirmed;
           this.countryChange.totalDeaths = cData.Deaths - cData2.Deaths;
           this.countryChange.recovered = cData.Recovered - cData2.Recovered;
         });
     },
 
-    //Get data for the chart for the past 10 days.
+    //Get data for the confirmed cases chart for the past 10 days.
     getChartDataByCountry(chart) {
       let url = "http://api.covid19api.com/total/country/" + this.countryName;
       fetch(url, { method: "GET" })
@@ -172,20 +273,102 @@ export default {
           return response.json();
         })
         .then((jsonData) => {
+          //gets todays index in the jsonArray and places it in the chart data
           let today = jsonData.length - 1;
-          let cap = today - 10;
-          for (let i = today; i > cap; i--) {
-            this.chartData.data.labels.push(
-              this.dateFormatter(jsonData[i].Date)
-            );
-            this.chartData.data.datasets[0].data.push(jsonData[i].Active);
+          this.chartData.data.labels.push(
+            this.dateFormatter(jsonData[today].Date)
+          );
+          this.chartData.data.datasets[0].data.push(jsonData[today].Confirmed);
+
+          for (let i = today; i > 0; i--) {
+            if (i % 14 == 0) {
+              this.chartData.data.labels.push(
+                this.dateFormatter(jsonData[i].Date)
+              );
+              this.chartData.data.datasets[0].data.push(jsonData[i].Confirmed);
+            }
           }
+
           this.chartData.data.labels.reverse();
           this.chartData.data.datasets[0].data.reverse();
 
           chart.update();
           //Get min and max for the graph
           console.log(this.chartData.data.datasets[0].data);
+        });
+    },
+
+    //get chart data for the recoveries chart for the past 10 days.
+    getChartDataByCountryRecoveries(chart) {
+      let url = "http://api.covid19api.com/total/country/" + this.countryName;
+      fetch(url, { method: "GET" })
+        .then((response) => {
+          return response.json();
+        })
+        .then((jsonData) => {
+          //gets todays index in the jsonArray and places it in the chart data
+          let today = jsonData.length - 1;
+
+          this.chartDataRecoveries.data.labels.push(
+            this.dateFormatter(jsonData[today].Date)
+          );
+          this.chartDataRecoveries.data.datasets[0].data.push(
+            jsonData[today].Recovered
+          );
+
+          for (let i = today; i > 0; i--) {
+            if (i % 14 == 0) {
+              this.chartDataRecoveries.data.labels.push(
+                this.dateFormatter(jsonData[i].Date)
+              );
+              this.chartDataRecoveries.data.datasets[0].data.push(
+                jsonData[i].Recovered
+              );
+            }
+          }
+
+          this.chartDataRecoveries.data.labels.reverse();
+          this.chartDataRecoveries.data.datasets[0].data.reverse();
+
+          chart.update();
+
+          console.log(this.chartDataRecoveries.data.datasets[0].data);
+        });
+    },
+
+    //get chart data for the recoveries chart for the past 10 days.
+    getChartDataByCountryDeaths(chart) {
+      let url = "http://api.covid19api.com/total/country/" + this.countryName;
+      fetch(url, { method: "GET" })
+        .then((response) => {
+          return response.json();
+        })
+        .then((jsonData) => {
+          let today = jsonData.length - 1;
+
+          this.chartDataDeaths.data.labels.push(
+            this.dateFormatter(jsonData[today].Date)
+          );
+          this.chartDataDeaths.data.datasets[0].data.push(
+            jsonData[today].Deaths
+          );
+
+          for (let i = today; i > 0; i--) {
+            if (i % 14 == 0) {
+              this.chartDataDeaths.data.labels.push(
+                this.dateFormatter(jsonData[i].Date)
+              );
+              this.chartDataDeaths.data.datasets[0].data.push(
+                jsonData[i].Deaths
+              );
+            }
+          }
+          this.chartDataDeaths.data.labels.reverse();
+          this.chartDataDeaths.data.datasets[0].data.reverse();
+
+          chart.update();
+
+          console.log(this.chartDataDeaths.data.datasets[0].data);
         });
     },
 
@@ -212,20 +395,38 @@ export default {
     },
 
     //chart generation must pass chart through to where the chart receives the data so that the chart can update.
-    generateChart(chart) {
+    //All charts will display data that reflects every 2 week milestones.
+    generateCharts(chart, chart1, chart2) {
       this.getChartDataByCountry(chart);
+      this.getChartDataByCountryRecoveries(chart1);
+      this.getChartDataByCountryDeaths(chart2);
     },
   },
   mounted: function() {
     this.getAllDataFromCountry();
     const ctx = document.getElementById("chart").getContext("2d");
+    const ctx1 = document.getElementById("chartRecoveries").getContext("2d");
+    const ctx2 = document.getElementById("chartDeaths").getContext("2d");
+
     let chart = new Chart(ctx, {
       type: this.chartData.type,
       data: this.chartData.data,
       options: this.chartData.lineChartOptions,
     });
+
+    let chart1 = new Chart(ctx1, {
+      type: this.chartDataRecoveries.type,
+      data: this.chartDataRecoveries.data,
+      options: this.chartDataRecoveries.lineChartOptions,
+    });
+
+    let chart2 = new Chart(ctx2, {
+      type: this.chartDataDeaths.type,
+      data: this.chartDataDeaths.data,
+      options: this.chartDataDeaths.lineChartOptions,
+    });
     //Load data on page load.
-    this.generateChart(chart);
+    this.generateCharts(chart, chart1, chart2);
   },
 };
 </script>
