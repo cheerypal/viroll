@@ -50,6 +50,10 @@ router-link {
 a:hover,
 router-link:hover {
   font-family: "Roboto-Bold";
+  outline: none;
+  color: black;
+  box-shadow: none;
+  text-decoration: none;
 }
 
 input:focus {

@@ -30,7 +30,6 @@
               <router-link :to="{ name: 'allCountries' }" class="nav-link"
                 >Country</router-link
               >
-              <a class="nav-link" href="#">Account</a>
             </div>
           </div>
           <button

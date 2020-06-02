@@ -17,8 +17,15 @@
       </div>
       <hr />
       <div class="dataSection">
+        <h1 class="newSection">Countries</h1>
+        <hr />
         <div class="countryFlex">
-          <Country countryName="united-kingdom" />
+          <Country
+            v-for="country in countries"
+            :key="country.countryName"
+            :countryName="country.countryName"
+            :cases="country.confirmed"
+          />
         </div>
       </div>
     </div>
@@ -49,6 +56,7 @@ export default {
         deaths: "",
         recovered: "",
       },
+      countries: [],
     };
   },
 
@@ -68,8 +76,41 @@ export default {
           console.log(err);
         });
     },
+
+    getAllCountries() {
+      let url = "https://api.covid19api.com/countries";
+      fetch(url, { method: "GET" })
+        .then((response) => {
+          return response.json();
+        })
+        .then((jsonData) => {
+          for (let i in jsonData) {
+            this.getConfirmedAllCountries(jsonData[i].Slug);
+          }
+        });
+    },
+    getConfirmedAllCountries(country) {
+      let url = "https://api.covid19api.com/total/country/" + country;
+      fetch(url, { method: "GET" })
+        .then((response) => {
+          return response.json();
+        })
+        .then((jsonData) => {
+          if (jsonData[jsonData.length - 1].Confirmed >= 0) {
+            this.countries.push({
+              countryName: country,
+              confirmed: jsonData[jsonData.length - 1].Confirmed,
+            });
+          }
+          this.countries.sort((a, b) => {
+            return b.confirmed - a.confirmed;
+          });
+        })
+        .catch(() => {});
+    },
   },
   mounted: function() {
+    this.getAllCountries();
     this.getGlobalTotal();
   },
 };
@@ -80,7 +121,7 @@ export default {
 }
 
 .custom-container {
-  padding-right: 10%;
+  padding-right: 5%;
 }
 
 .dataSection {
@@ -88,7 +129,12 @@ export default {
   padding-bottom: 20px;
 }
 
+.newSection {
+  padding-top: 20px;
+}
+
 .countryFlex {
+  padding-top: 20px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

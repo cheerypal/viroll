@@ -4,7 +4,9 @@
     <div class="dataFlex">
       <div class="dataItem">
         <h3>Cases</h3>
-        <h2 class="dataImportant">{{ formatNums(infected) }}</h2>
+        <h2 class="dataImportant">
+          {{ formatNums(infected) }}
+        </h2>
       </div>
       <div class="dataItem">
         <h3>Recoveries</h3>

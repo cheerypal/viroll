@@ -1,15 +1,7 @@
 <template>
   <div>
     <NavBar />
-    <div
-      id="country"
-      :style="{
-        backgroundImage:
-          'url(' +
-          require('../assets/country-sil/' + countryName + '.gif') +
-          ')',
-      }"
-    >
+    <div id="country">
       <div class="container custom-container">
         <div class="titleSection">
           <h1>{{ format(countryName) }}</h1>
@@ -51,11 +43,6 @@
           <canvas id="chartDeaths" class="charts" />
         </div>
         <hr />
-        <div class="newsSection">
-          <h1>News</h1>
-          <h3>Today</h3>
-        </div>
-        <hr />
       </div>
     </div>
     <NavBot />
@@ -71,7 +58,6 @@ import Today from "../components/data-templates/today.vue";
 import Total from "../components/data-templates/total.vue";
 
 //chart.js
-
 import Chart from "chart.js";
 
 export default {
@@ -98,6 +84,8 @@ export default {
         totalDeaths: "",
         recovered: "",
       },
+
+      image: "../assets/country-sil/" + this.$route.params.name + ".gif",
 
       //chart data for Active Cases and its own chart characteristics
       chartData: {
@@ -399,6 +387,15 @@ export default {
       this.getChartDataByCountryRecoveries(chart1);
       this.getChartDataByCountryDeaths(chart2);
     },
+
+    checkImageExists(image) {
+      if (image) {
+        console.log("ss");
+        return "";
+      }
+      console.log("coolio");
+      return image;
+    },
   },
   mounted: function() {
     this.getAllDataFromCountry();
@@ -441,7 +438,7 @@ export default {
 }
 
 .custom-container {
-  padding-right: 10%;
+  padding-right: 5%;
 }
 
 .dataSection {
