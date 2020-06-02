@@ -3,7 +3,7 @@
     <nav
       class="custom-navbar fixed-top"
       v-bind:style="{
-        paddingBottom: searchBarControls.searchButton ? '1%' : '5%'
+        paddingBottom: searchBarControls.searchButton ? '1%' : '5%',
       }"
     >
       <div class="container">
@@ -27,9 +27,7 @@
           <div>
             <div class="flex-navbar" id="menu">
               <a class="nav-link" href="#">Home</a>
-              <router-link
-                :to="{ name: 'country', params: { name: 'united-kingdom' } }"
-                class="nav-link"
+              <router-link :to="{ name: 'allCountries' }" class="nav-link"
                 >Country</router-link
               >
               <a class="nav-link" href="#">Account</a>
@@ -46,7 +44,7 @@
                 : 'hidden ',
               display: searchBarControls.searchButton
                 ? 'block !important'
-                : 'none !important'
+                : 'none !important',
             }"
           >
             <i class="fa fa-search"></i>
@@ -58,7 +56,7 @@
             @click="searchBarMobile"
             v-bind:style="{
               visibility: searchBarControls.closeS ? 'visible' : 'hidden',
-              display: searchBarControls.closeS ? 'block ' : 'none'
+              display: searchBarControls.closeS ? 'block ' : 'none',
             }"
           >
             <i class="fa fa-times"></i>
@@ -69,7 +67,7 @@
             @submit="go"
             v-bind:style="{
               visibility: searchBarControls.sBar ? 'visible' : 'hidden',
-              display: searchBarControls.sBar ? 'block' : 'none'
+              display: searchBarControls.sBar ? 'block' : 'none',
             }"
           >
             <div class="flex-form">
@@ -97,13 +95,13 @@ export default {
   data() {
     return {
       searchBar: {
-        value: ""
+        value: "",
       },
       searchBarControls: {
         searchButton: true,
         sBar: false,
-        closeS: false
-      }
+        closeS: false,
+      },
     };
   },
   methods: {
@@ -114,7 +112,7 @@ export default {
 
       this.$router.push({
         name: "country",
-        params: { name: input }
+        params: { name: input },
       });
     },
     //Format the input from the search bar so that the API can read and get data for the search result.
@@ -137,8 +135,8 @@ export default {
         this.searchBarControls.closeS = false;
       }
     },
-    mounted: function() {}
-  }
+    mounted: function() {},
+  },
 };
 </script>
 <style scoped>

@@ -98,8 +98,6 @@ export default {
         totalDeaths: "",
         recovered: "",
       },
-      backgroundImage:
-        "../assets/country-sil/" + this.$route.params.name + ".png",
 
       //chart data for Active Cases and its own chart characteristics
       chartData: {
@@ -446,10 +444,6 @@ export default {
   padding-right: 10%;
 }
 
-.titleSection {
-  padding-bottom: 20px;
-}
-
 .dataSection {
   padding-top: 20px;
   padding-bottom: 20px;
@@ -457,7 +451,6 @@ export default {
 
 .newsSection {
   padding-top: 20px;
-  padding-bottom: 20px;
 }
 
 .charts {

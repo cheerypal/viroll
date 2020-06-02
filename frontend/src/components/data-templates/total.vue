@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Total</h2>
+    <h2>{{ type }} Total</h2>
     <div class="dataFlex">
       <div class="dataItem">
         <h3>Cases</h3>
@@ -20,7 +20,7 @@
 <script>
 export default {
   name: "total_data",
-  props: ["cases", "recovered", "deaths"],
+  props: ["type", "cases", "recovered", "deaths"],
   methods: {
     formatNums(number) {
       return number.toLocaleString();
