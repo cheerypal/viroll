@@ -19,7 +19,7 @@
 </template>
 <script>
 export default {
-  name: "NavBot",
+  name: "NavBot"
 };
 </script>
 <style scoped>
