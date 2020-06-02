@@ -83,4 +83,16 @@ export default {
   font-family: "Roboto-Black";
   color: #1a893c;
 }
+
+@media screen and (max-width: 770px) {
+  .card-container {
+    width: 45%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .card-container {
+    width: 100%;
+  }
+}
 </style>

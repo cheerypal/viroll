@@ -3,9 +3,15 @@
     <nav id="nav-bot" class="fixed-bottom custom-navbar">
       <div class="container">
         <div class="flex-nav">
-          <a class="nav-link" href="#">Home</a>
-          <a class="nav-link" href="#">Countries</a>
-          <a class="nav-link" href="#">Account</a>
+          <router-link :to="{ name: 'home' }" class="nav-link" href="#">
+            Home
+          </router-link>
+          <router-link :to="{ name: 'allCountries' }" class="nav-link">
+            Country
+          </router-link>
+          <router-link :to="{ name: 'compare' }" class="nav-link">
+            Compare
+          </router-link>
         </div>
       </div>
     </nav>
@@ -13,7 +19,7 @@
 </template>
 <script>
 export default {
-  name: "NavBot"
+  name: "NavBot",
 };
 </script>
 <style scoped>

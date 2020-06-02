@@ -26,10 +26,15 @@
           </form>
           <div>
             <div class="flex-navbar" id="menu">
-              <a class="nav-link" href="#">Home</a>
-              <router-link :to="{ name: 'allCountries' }" class="nav-link"
-                >Country</router-link
-              >
+              <router-link :to="{ name: 'home' }" class="nav-link">
+                Home
+              </router-link>
+              <router-link :to="{ name: 'allCountries' }" class="nav-link">
+                Country
+              </router-link>
+              <router-link :to="{ name: 'compare' }" class="nav-link">
+                Compare
+              </router-link>
             </div>
           </div>
           <button

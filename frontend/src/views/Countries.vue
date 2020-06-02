@@ -118,6 +118,7 @@ export default {
 <style scoped>
 #allCountries {
   padding-top: 150px;
+  padding-bottom: 50px;
 }
 
 .custom-container {
@@ -140,5 +141,26 @@ export default {
   flex-wrap: wrap;
   flex-flow: row wrap;
   justify-content: space-between;
+}
+
+@media screen and (max-width: 990px) {
+  #allCountries {
+    padding-top: 15%;
+    padding-bottom: 20%;
+  }
+  .dataSection {
+    padding-top: 10%;
+    padding-bottom: 10%;
+  }
+}
+
+@media screen and (max-width: 610px) {
+  #allCountries {
+    padding-top: 20%;
+  }
+  .dataSection {
+    padding-top: 2%;
+    padding-bottom: 2%;
+  }
 }
 </style>
