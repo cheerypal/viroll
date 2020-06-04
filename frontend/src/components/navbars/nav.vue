@@ -3,7 +3,7 @@
     <nav
       class="custom-navbar fixed-top"
       v-bind:style="{
-        paddingBottom: searchBarControls.searchButton ? '1%' : '5%'
+        paddingBottom: searchBarControls.searchButton ? '1%' : '5%',
       }"
     >
       <div class="container">
@@ -16,12 +16,25 @@
                 v-model="searchBar.value"
                 class="custom-input"
                 placeholder="Country"
+                v-on:keyup="countryComplete"
               />
               <div class="input-group-append">
                 <button class="btn" type="submit">
                   <i class="fa fa-search"></i>
                 </button>
               </div>
+            </div>
+            <div v-show="autoComplete.length != 0">
+              <ul class="searchList">
+                <li
+                  class="searchItem"
+                  v-for="country in autoComplete"
+                  :key="country"
+                  @click="selectCountry(country)"
+                >
+                  {{ format(country) }}
+                </li>
+              </ul>
             </div>
           </form>
           <div>
@@ -48,7 +61,7 @@
                 : 'hidden ',
               display: searchBarControls.searchButton
                 ? 'block !important'
-                : 'none !important'
+                : 'none !important',
             }"
           >
             <i class="fa fa-search"></i>
@@ -60,7 +73,7 @@
             @click="searchBarMobile"
             v-bind:style="{
               visibility: searchBarControls.closeS ? 'visible' : 'hidden',
-              display: searchBarControls.closeS ? 'block ' : 'none'
+              display: searchBarControls.closeS ? 'block ' : 'none',
             }"
           >
             <i class="fa fa-times"></i>
@@ -71,7 +84,7 @@
             @submit="go"
             v-bind:style="{
               visibility: searchBarControls.sBar ? 'visible' : 'hidden',
-              display: searchBarControls.sBar ? 'block' : 'none'
+              display: searchBarControls.sBar ? 'block' : 'none',
             }"
           >
             <div class="flex-form">
@@ -80,12 +93,25 @@
                 v-model="searchBar.value"
                 class="custom-input"
                 placeholder="Country"
+                v-on:keyup="countryComplete"
               />
               <div class="input-group-append">
                 <button class="btn" type="submit">
                   <i class="fa fa-search"></i>
                 </button>
               </div>
+            </div>
+            <div v-show="autoComplete.length != 0">
+              <ul class="searchList">
+                <li
+                  class="searchItem"
+                  v-for="country in autoComplete"
+                  :key="country"
+                  @click="selectCountry(country)"
+                >
+                  {{ format(country) }}
+                </li>
+              </ul>
             </div>
           </form>
         </div>
@@ -99,26 +125,29 @@ export default {
   data() {
     return {
       searchBar: {
-        value: ""
+        value: "",
       },
       searchBarControls: {
         searchButton: true,
         sBar: false,
-        closeS: false
-      }
+        closeS: false,
+      },
+      countries: [],
+      autoComplete: [],
     };
   },
   methods: {
     //Search bar method to find countries
     go() {
-      let input = this.formatSearchInput(this.searchBar.value);
-      console.log(input);
-
+      let input = this.getCountryNameAbriev(
+        this.formatSearchInput(this.searchBar.value)
+      );
       this.$router.push({
         name: "country",
-        params: { name: input }
+        params: { name: input },
       });
     },
+
     //Format the input from the search bar so that the API can read and get data for the search result.
     formatSearchInput(text) {
       return text
@@ -127,7 +156,7 @@ export default {
         .toLowerCase();
     },
 
-    //Change the
+    //Change the search bar for mobile devices.
     searchBarMobile() {
       if (this.searchBarControls.searchButton === true) {
         this.searchBarControls.searchButton = false;
@@ -139,8 +168,90 @@ export default {
         this.searchBarControls.closeS = false;
       }
     },
-    mounted: function() {}
-  }
+
+    //Slang words for countries function
+    getCountryNameAbriev(country) {
+      switch (country) {
+        case "uk":
+          return "united-kingdom";
+        case "britain":
+          return "united-kingdom";
+        case "scotland":
+          return "united-kingdom";
+        case "england":
+          return "united-kingdom";
+        case "wales":
+          return "united-kingdom";
+        case "northern-ireland":
+          return "united-kingdom";
+        case "america":
+          return "united-states";
+        case "usa":
+          return "united-states";
+        case "us":
+          return "united-states";
+        case "uae":
+          return "united-arab-emirates";
+        default:
+          return country;
+      }
+    },
+
+    //getAllCountries
+    getAllCountries() {
+      let url = "https://api.covid19api.com/countries";
+      fetch(url, { method: "GET" })
+        .then((response) => {
+          return response.json();
+        })
+        .then((jsonData) => {
+          for (let i in jsonData) {
+            this.countries.push(jsonData[i].Country.toLowerCase());
+          }
+          this.countries.sort();
+        })
+        .catch(() => {});
+    },
+
+    //Autocomplete for all the Countries with available data
+    countryComplete() {
+      let input = this.searchBar.value.toLowerCase();
+      this.autoComplete = [];
+      if (input == "") {
+        return;
+      }
+      for (let i in this.countries) {
+        if (this.countries[i].startsWith(input)) {
+          this.autoComplete.push(this.countries[i]);
+          if (this.autoComplete.length >= 10) {
+            break;
+          }
+        }
+      }
+    },
+
+    //When you click a country it will take you to the countries data page showing stats
+    selectCountry(country) {
+      this.searchBar.value = this.format(country);
+      this.go();
+      location.reload();
+    },
+
+    //Formatters
+    remover(text) {
+      return text.replace(/-/g, " ");
+    },
+    format(text) {
+      let country = text.replace(/(\b[a-z](?!\s))/g, function(x) {
+        return x.toUpperCase();
+      });
+
+      return this.remover(country);
+    },
+  },
+  mounted: function() {
+    this.getAllCountries();
+  },
 };
 </script>
 <style scoped>
@@ -218,6 +329,24 @@ export default {
 #closeSearch {
   visibility: hidden;
   display: none;
+}
+
+.searchList {
+  text-align: left;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.searchItem {
+  padding: 5px;
+  font-family: "Roboto-Black";
+  font-size: 1.2em;
+}
+
+.searchItem:hover {
+  cursor: pointer;
+  background-color: #e7e7e7;
 }
 
 .fa {

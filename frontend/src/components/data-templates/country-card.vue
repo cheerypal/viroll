@@ -30,8 +30,8 @@ export default {
     },
     formatNums(number) {
       return number.toLocaleString();
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
@@ -43,7 +43,7 @@ export default {
 .custom-card {
   padding: 30px;
   margin-bottom: 20px;
-  border: solid 2px #000;
+  border: solid 3px #000;
   text-align: center;
   background-position: right;
   background-repeat: no-repeat;
