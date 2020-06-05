@@ -4,6 +4,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Country from "../views/Country.vue";
 import AllCountries from "../views/Countries.vue";
+import NotFound from "../views/NotFound.vue";
 
 Vue.use(VueRouter);
 
@@ -11,24 +12,29 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: Home
+    component: Home,
   },
   {
     path: "/countries",
     name: "allCountries",
-    component: AllCountries
+    component: AllCountries,
   },
   {
     path: "/country/:name",
     name: "country",
-    component: Country
-  }
+    component: Country,
+  },
+  {
+    name: "NotFound",
+    path: "/country_not_found",
+    component: NotFound,
+  },
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
 
 export default router;

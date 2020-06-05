@@ -7,42 +7,63 @@
           <h1>{{ format(countryName) }}</h1>
           <h3>{{ issueName }} Statistics</h3>
         </div>
+
         <hr />
-        <div class="dataSection">
-          <Today
-            :infected="countryChange.currentInfected"
-            :recovered="countryChange.recovered"
-            :deaths="countryChange.totalDeaths"
-          />
+        <div v-show="countryData.currentInfected != ''">
+          <div class="dataSection">
+            <Today
+              :infected="countryChange.currentInfected"
+              :recovered="countryChange.recovered"
+              :deaths="countryChange.totalDeaths"
+            />
+          </div>
+          <div class="dataSection">
+            <Total
+              :cases="countryData.currentInfected"
+              :recovered="countryData.recovered"
+              :deaths="countryData.totalDeaths"
+            />
+            <div class="text-right sub">
+              <p>
+                * Represents the change in data from yesterday and today<br />
+              </p>
+            </div>
+          </div>
+          <hr />
+          <div class="dataSection">
+            <h2>Confirmed Cases</h2>
+            <canvas id="chart" class="charts" />
+          </div>
+          <hr />
+          <div class="dataSection">
+            <h2>Recoveries</h2>
+            <canvas id="chartRecoveries" class="charts" />
+          </div>
+          <hr />
+          <div class="dataSection">
+            <h2>Deaths</h2>
+            <canvas id="chartDeaths" class="charts" />
+          </div>
+          <hr />
         </div>
-        <div class="dataSection">
-          <Total
-            :cases="countryData.currentInfected"
-            :recovered="countryData.recovered"
-            :deaths="countryData.totalDeaths"
-          />
-          <div class="text-right sub">
-            <p>
-              * Represents the change in data from yesterday and today<br />
+        <div v-show="countryData.currentInfected == ''">
+          <div class="dataSection">
+            <h2>
+              Unfortunately we don't have data for this country
+            </h2>
+            <p class="err">
+              Please visit the
+              <router-link class="nav-links" :to="{ name: 'allCountries' }">
+                countries
+              </router-link>
+              page for the full list of
+              <router-link class="nav-links" :to="{ name: 'allCountries' }">
+                countries
+              </router-link>
+              or search for one using the searchbar
             </p>
           </div>
         </div>
-        <hr />
-        <div class="dataSection">
-          <h2>Confirmed Cases</h2>
-          <canvas id="chart" class="charts" />
-        </div>
-        <hr />
-        <div class="dataSection">
-          <h2>Recoveries</h2>
-          <canvas id="chartRecoveries" class="charts" />
-        </div>
-        <hr />
-        <div class="dataSection">
-          <h2>Deaths</h2>
-          <canvas id="chartDeaths" class="charts" />
-        </div>
-        <hr />
       </div>
     </div>
     <NavBot />
@@ -66,7 +87,7 @@ export default {
     NavBar,
     NavBot,
     Today,
-    Total
+    Total,
   },
   data() {
     return {
@@ -77,12 +98,12 @@ export default {
         currentInfected: "",
         totalInfected: "",
         totalDeaths: "",
-        recovered: ""
+        recovered: "",
       },
       countryChange: {
         currentInfected: "",
         totalDeaths: "",
-        recovered: ""
+        recovered: "",
       },
 
       image: "../assets/country-sil/" + this.$route.params.name + ".gif",
@@ -101,13 +122,13 @@ export default {
               borderWidth: 3,
               pointRadius: 6,
 
-              data: []
-            }
-          ]
+              data: [],
+            },
+          ],
         },
         lineChartOptions: {
           legend: {
-            position: "bottom"
+            position: "bottom",
           },
           responsive: true,
           scales: {
@@ -116,9 +137,9 @@ export default {
                 display: true,
                 scaleLabel: {
                   display: true,
-                  labelString: "Day"
-                }
-              }
+                  labelString: "Day",
+                },
+              },
             ],
             yAxes: [
               {
@@ -126,12 +147,12 @@ export default {
                 type: "linear",
                 scaleLabel: {
                   display: true,
-                  labelString: "Number of Cases"
-                }
-              }
-            ]
-          }
-        }
+                  labelString: "Number of Cases",
+                },
+              },
+            ],
+          },
+        },
       },
 
       //this is the dataset for the recovery chart
@@ -147,13 +168,13 @@ export default {
               borderColor: "rgba(26, 137, 60, 1)",
               borderWidth: 3,
               pointRadius: 6,
-              data: []
-            }
-          ]
+              data: [],
+            },
+          ],
         },
         lineChartOptions: {
           legend: {
-            position: "bottom"
+            position: "bottom",
           },
           responsive: true,
           scales: {
@@ -162,9 +183,9 @@ export default {
                 display: true,
                 scaleLabel: {
                   display: true,
-                  labelString: "Day"
-                }
-              }
+                  labelString: "Day",
+                },
+              },
             ],
             yAxes: [
               {
@@ -172,12 +193,12 @@ export default {
                 type: "linear",
                 scaleLabel: {
                   display: true,
-                  labelString: "Number of Recoveries"
-                }
-              }
-            ]
-          }
-        }
+                  labelString: "Number of Recoveries",
+                },
+              },
+            ],
+          },
+        },
       },
 
       //this is the dataset for the recovery chart
@@ -193,13 +214,13 @@ export default {
               borderColor: "rgba(26, 137, 60, 1)",
               borderWidth: 3,
               pointRadius: 6,
-              data: []
-            }
-          ]
+              data: [],
+            },
+          ],
         },
         lineChartOptions: {
           legend: {
-            position: "bottom"
+            position: "bottom",
           },
           responsive: true,
           scales: {
@@ -208,9 +229,9 @@ export default {
                 display: true,
                 scaleLabel: {
                   display: true,
-                  labelString: "Day"
-                }
-              }
+                  labelString: "Day",
+                },
+              },
             ],
             yAxes: [
               {
@@ -218,13 +239,13 @@ export default {
                 type: "linear",
                 scaleLabel: {
                   display: true,
-                  labelString: "Number of Deaths"
-                }
-              }
-            ]
-          }
-        }
-      }
+                  labelString: "Number of Deaths",
+                },
+              },
+            ],
+          },
+        },
+      },
     };
   },
   methods: {
@@ -232,16 +253,18 @@ export default {
     getAllDataFromCountry() {
       let url = "https://api.covid19api.com/total/country/" + this.countryName;
       fetch(url, { method: "GET" })
-        .then(response => {
+        .then((response) => {
           return response.json();
         })
-        .then(jsonData => {
+        .then((jsonData) => {
           //All time values
           let cData = jsonData[jsonData.length - 1];
           this.countryData.currentInfected = cData.Confirmed;
           this.countryData.totalDeaths = cData.Deaths;
           this.countryData.recovered = cData.Recovered;
-
+          if (this.countryData.currentInfected === "NaN") {
+            this.checkIfCountryExists();
+          }
           //Daily increases
           let cData2 = jsonData[jsonData.length - 2];
           this.countryChange.currentInfected =
@@ -255,10 +278,10 @@ export default {
     getChartDataByCountry(chart) {
       let url = "http://api.covid19api.com/total/country/" + this.countryName;
       fetch(url, { method: "GET" })
-        .then(response => {
+        .then((response) => {
           return response.json();
         })
-        .then(jsonData => {
+        .then((jsonData) => {
           //gets todays index in the jsonArray and places it in the chart data
           let today = jsonData.length - 1;
           this.chartData.data.labels.push(
@@ -281,6 +304,9 @@ export default {
           chart.update();
           //Get min and max for the graph
           console.log(this.chartData.data.datasets[0].data);
+        })
+        .catch((err) => {
+          console.log(err);
         });
     },
 
@@ -288,10 +314,10 @@ export default {
     getChartDataByCountryRecoveries(chart) {
       let url = "http://api.covid19api.com/total/country/" + this.countryName;
       fetch(url, { method: "GET" })
-        .then(response => {
+        .then((response) => {
           return response.json();
         })
-        .then(jsonData => {
+        .then((jsonData) => {
           //gets todays index in the jsonArray and places it in the chart data
           let today = jsonData.length - 1;
 
@@ -319,6 +345,9 @@ export default {
           chart.update();
 
           console.log(this.chartDataRecoveries.data.datasets[0].data);
+        })
+        .catch((err) => {
+          console.log(err);
         });
     },
 
@@ -326,10 +355,10 @@ export default {
     getChartDataByCountryDeaths(chart) {
       let url = "http://api.covid19api.com/total/country/" + this.countryName;
       fetch(url, { method: "GET" })
-        .then(response => {
+        .then((response) => {
           return response.json();
         })
-        .then(jsonData => {
+        .then((jsonData) => {
           let today = jsonData.length - 1;
 
           this.chartDataDeaths.data.labels.push(
@@ -355,6 +384,10 @@ export default {
           chart.update();
 
           console.log(this.chartDataDeaths.data.datasets[0].data);
+        })
+        .catch((err) => {
+          console.log(err);
+          this.checkIfCountryExists();
         });
     },
 
@@ -388,6 +421,7 @@ export default {
       this.getChartDataByCountryDeaths(chart2);
     },
 
+    /*
     checkImageExists(image) {
       if (image) {
         console.log("ss");
@@ -395,10 +429,17 @@ export default {
       }
       console.log("coolio");
       return image;
-    }
+    },
+    */
+
+    checkIfCountryExists() {
+      if (this.countryData.currentInfected != "")
+        this.$router.push({ name: "NotFound" });
+    },
   },
   mounted: function() {
     this.getAllDataFromCountry();
+
     const ctx = document.getElementById("chart").getContext("2d");
     const ctx1 = document.getElementById("chartRecoveries").getContext("2d");
     const ctx2 = document.getElementById("chartDeaths").getContext("2d");
@@ -406,23 +447,24 @@ export default {
     let chart = new Chart(ctx, {
       type: this.chartData.type,
       data: this.chartData.data,
-      options: this.chartData.lineChartOptions
+      options: this.chartData.lineChartOptions,
     });
 
     let chart1 = new Chart(ctx1, {
       type: this.chartDataRecoveries.type,
       data: this.chartDataRecoveries.data,
-      options: this.chartDataRecoveries.lineChartOptions
+      options: this.chartDataRecoveries.lineChartOptions,
     });
 
     let chart2 = new Chart(ctx2, {
       type: this.chartDataDeaths.type,
       data: this.chartDataDeaths.data,
-      options: this.chartDataDeaths.lineChartOptions
+      options: this.chartDataDeaths.lineChartOptions,
     });
     //Load data on page load.
+
     this.generateCharts(chart, chart1, chart2);
-  }
+  },
 };
 </script>
 
@@ -459,6 +501,12 @@ export default {
   padding-top: 20px;
   font-size: 0.7em;
 }
+
+.err {
+  padding-top: 30px;
+  font-size: 1.3em;
+}
+
 canvas {
   -moz-user-select: none;
   -webkit-user-select: none;
