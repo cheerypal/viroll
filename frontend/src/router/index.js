@@ -5,6 +5,7 @@ import Home from "../views/Home.vue";
 import Country from "../views/Country.vue";
 import AllCountries from "../views/Countries.vue";
 import NotFound from "../views/NotFound.vue";
+import NotFound404 from "../views/NotFound404.vue";
 
 Vue.use(VueRouter);
 
@@ -26,8 +27,13 @@ const routes = [
   },
   {
     name: "NotFound",
-    path: "/country_not_found",
+    path: "/country_not_found/:name",
     component: NotFound,
+  },
+  {
+    path: "*",
+    name: "NotFound404",
+    component: NotFound404,
   },
 ];
 

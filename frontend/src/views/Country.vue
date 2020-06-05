@@ -60,7 +60,7 @@
               <router-link class="nav-links" :to="{ name: 'allCountries' }">
                 countries
               </router-link>
-              or search for one using the searchbar
+              or search for another one using the search bar
             </p>
           </div>
         </div>
@@ -434,7 +434,10 @@ export default {
 
     checkIfCountryExists() {
       if (this.countryData.currentInfected != "")
-        this.$router.push({ name: "NotFound" });
+        this.$router.push({
+          name: "NotFound",
+          param: { name: this.countryName },
+        });
     },
   },
   mounted: function() {
