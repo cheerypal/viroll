@@ -7,7 +7,6 @@
           <h1>{{ format(countryName) }}</h1>
           <h3>{{ issueName }} Statistics</h3>
         </div>
-
         <hr />
         <div v-show="countryData.currentInfected != ''">
           <div class="dataSection">
@@ -432,6 +431,8 @@ export default {
     },
     */
 
+    //Checker function that is triggered when an error is found by one of the fetches when a country that was searched for doesnt exist
+    //Functions forwards the user to the 404 page that revolves around the searched for country
     checkIfCountryExists() {
       if (this.countryData.currentInfected != "")
         this.$router.push({
@@ -440,9 +441,12 @@ export default {
         });
     },
   },
+
   mounted: function() {
+    //Get data for the country that was searched for.
     this.getAllDataFromCountry();
 
+    //Set up variables for the charts
     const ctx = document.getElementById("chart").getContext("2d");
     const ctx1 = document.getElementById("chartRecoveries").getContext("2d");
     const ctx2 = document.getElementById("chartDeaths").getContext("2d");
@@ -464,8 +468,8 @@ export default {
       data: this.chartDataDeaths.data,
       options: this.chartDataDeaths.lineChartOptions,
     });
-    //Load data on page load.
 
+    //Load data on page load.
     this.generateCharts(chart, chart1, chart2);
   },
 };

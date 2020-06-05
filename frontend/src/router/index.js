@@ -6,9 +6,10 @@ import Country from "../views/Country.vue";
 import AllCountries from "../views/Countries.vue";
 import NotFound from "../views/NotFound.vue";
 import NotFound404 from "../views/NotFound404.vue";
+import Compare from "../views/Compare.vue";
 
 Vue.use(VueRouter);
-
+//Main pages that are accessed via the navigation bar or search bar
 const routes = [
   {
     path: "/",
@@ -24,6 +25,11 @@ const routes = [
     path: "/country/:name",
     name: "country",
     component: Country,
+  },
+  {
+    path: "/compare",
+    name: "compare",
+    component: Compare,
   },
   {
     name: "NotFound",
