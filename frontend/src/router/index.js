@@ -14,39 +14,39 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: Home,
+    component: Home
   },
   {
     path: "/countries",
     name: "allCountries",
-    component: AllCountries,
+    component: AllCountries
   },
   {
     path: "/country/:name",
     name: "country",
-    component: Country,
+    component: Country
   },
   {
     path: "/compare",
     name: "compare",
-    component: Compare,
+    component: Compare
   },
   {
     name: "NotFound",
     path: "/country_not_found/:name",
-    component: NotFound,
+    component: NotFound
   },
   {
     path: "*",
     name: "NotFound404",
-    component: NotFound404,
-  },
+    component: NotFound404
+  }
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes,
+  routes
 });
 
 export default router;

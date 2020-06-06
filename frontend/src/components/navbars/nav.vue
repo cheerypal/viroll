@@ -3,7 +3,7 @@
     <nav
       class="custom-navbar fixed-top"
       v-bind:style="{
-        paddingBottom: searchBarControls.searchButton ? '1%' : '5%',
+        paddingBottom: searchBarControls.searchButton ? '1%' : '5%'
       }"
     >
       <div class="container">
@@ -61,7 +61,7 @@
                 : 'hidden ',
               display: searchBarControls.searchButton
                 ? 'block !important'
-                : 'none !important',
+                : 'none !important'
             }"
           >
             <i class="fa fa-search"></i>
@@ -73,7 +73,7 @@
             @click="searchBarMobile"
             v-bind:style="{
               visibility: searchBarControls.closeS ? 'visible' : 'hidden',
-              display: searchBarControls.closeS ? 'block ' : 'none',
+              display: searchBarControls.closeS ? 'block ' : 'none'
             }"
           >
             <i class="fa fa-times"></i>
@@ -84,7 +84,7 @@
             @submit="go"
             v-bind:style="{
               visibility: searchBarControls.sBar ? 'visible' : 'hidden',
-              display: searchBarControls.sBar ? 'block' : 'none',
+              display: searchBarControls.sBar ? 'block' : 'none'
             }"
           >
             <div class="flex-form">
@@ -125,15 +125,15 @@ export default {
   data() {
     return {
       searchBar: {
-        value: "",
+        value: ""
       },
       searchBarControls: {
         searchButton: true,
         sBar: false,
-        closeS: false,
+        closeS: false
       },
       countries: [],
-      autoComplete: [],
+      autoComplete: []
     };
   },
   methods: {
@@ -144,7 +144,7 @@ export default {
       );
       this.$router.push({
         name: "country",
-        params: { name: input },
+        params: { name: input }
       });
     },
 
@@ -201,10 +201,10 @@ export default {
     getAllCountries() {
       let url = "https://api.covid19api.com/countries";
       fetch(url, { method: "GET" })
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((jsonData) => {
+        .then(jsonData => {
           for (let i in jsonData) {
             this.countries.push(jsonData[i].Country.toLowerCase());
           }
@@ -247,11 +247,11 @@ export default {
       });
 
       return this.remover(country);
-    },
+    }
   },
   mounted: function() {
     this.getAllCountries();
-  },
+  }
 };
 </script>
 <style scoped>

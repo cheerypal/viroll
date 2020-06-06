@@ -20,18 +20,18 @@ export default {
   name: "404",
   components: {
     NavBar,
-    NavBot,
+    NavBot
   },
   data() {
     return {
-      search: this.$route.params.name,
+      search: this.$route.params.name
     };
   },
   methods: {
     format(text) {
       return "'" + text + "'";
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>
