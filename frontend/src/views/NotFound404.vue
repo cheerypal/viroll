@@ -2,7 +2,7 @@
   <div>
     <NavBar />
     <div id="NotFound">
-      <div class="container custom-container">
+      <div class="container">
         <div class="titleSection">
           <h1>404 Page Not Found</h1>
           <h3>Unfortunately the page you were looking for was not found</h3>
@@ -10,17 +10,15 @@
         <hr />
       </div>
     </div>
-    <NavBot />
   </div>
 </template>
 <script>
 import NavBar from "../components/navbars/nav";
-import NavBot from "../components/navbars/nav-bottom";
+
 export default {
-  name: "404",
+  name: "NotFound",
   components: {
-    NavBar,
-    NavBot
+    NavBar
   },
   data() {
     return {
@@ -40,7 +38,15 @@ export default {
   padding-top: 150px;
 }
 
-.custom-container {
-  padding-right: 5%;
+@media screen and (max-width: 990px) {
+  #NotFound {
+    padding-top: 15%;
+  }
+}
+
+@media screen and (max-width: 610px) {
+  #NotFound {
+    padding-top: 20%;
+  }
 }
 </style>

@@ -2,7 +2,7 @@
   <div>
     <NavBar />
     <div id="compare">
-      <div class="container custom-container">
+      <div class="container">
         <div class="titleSection">
           <h1>Compare Countries</h1>
           <h3>{{ issueName }} Statistics</h3>
@@ -36,18 +36,15 @@
         </div>
       </div>
     </div>
-    <NavBot />
   </div>
 </template>
 <script>
 import NavBar from "../components/navbars/nav";
-import NavBot from "../components/navbars/nav-bottom";
 
 export default {
   name: "Compare",
   components: {
-    NavBar,
-    NavBot
+    NavBar
   },
   data() {
     return {
@@ -108,9 +105,5 @@ export default {
 .dataSection {
   padding-top: 20px;
   padding-bottom: 20px;
-}
-
-.custom-container {
-  padding-right: 5%;
 }
 </style>

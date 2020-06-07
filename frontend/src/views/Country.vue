@@ -2,7 +2,7 @@
   <div>
     <NavBar />
     <div id="country">
-      <div class="container custom-container">
+      <div class="container">
         <div class="titleSection">
           <h1>{{ format(countryName) }}</h1>
           <h3>{{ issueName }} Statistics</h3>
@@ -52,11 +52,11 @@
             </h2>
             <p class="err">
               Please visit the
-              <router-link class="nav-links" :to="{ name: 'allCountries' }">
+              <router-link class="nav-links" :to="{ name: 'home' }">
                 countries
               </router-link>
               page for the full list of
-              <router-link class="nav-links" :to="{ name: 'allCountries' }">
+              <router-link class="nav-links" :to="{ name: 'home' }">
                 countries
               </router-link>
               or search for another one using the search bar
@@ -65,13 +65,11 @@
         </div>
       </div>
     </div>
-    <NavBot />
   </div>
 </template>
 <script>
 //Navbars
 import NavBar from "../components/navbars/nav";
-import NavBot from "../components/navbars/nav-bottom";
 
 //data components
 import Today from "../components/data-templates/today.vue";
@@ -84,9 +82,9 @@ export default {
   name: "countryPage",
   components: {
     NavBar,
-    NavBot,
+
     Today,
-    Total,
+    Total
   },
   data() {
     return {
@@ -97,12 +95,12 @@ export default {
         currentInfected: "",
         totalInfected: "",
         totalDeaths: "",
-        recovered: "",
+        recovered: ""
       },
       countryChange: {
         currentInfected: "",
         totalDeaths: "",
-        recovered: "",
+        recovered: ""
       },
 
       image: "../assets/country-sil/" + this.$route.params.name + ".gif",
@@ -121,13 +119,13 @@ export default {
               borderWidth: 3,
               pointRadius: 6,
 
-              data: [],
-            },
-          ],
+              data: []
+            }
+          ]
         },
         lineChartOptions: {
           legend: {
-            position: "bottom",
+            position: "bottom"
           },
           responsive: true,
           scales: {
@@ -136,9 +134,9 @@ export default {
                 display: true,
                 scaleLabel: {
                   display: true,
-                  labelString: "Day",
-                },
-              },
+                  labelString: "Day"
+                }
+              }
             ],
             yAxes: [
               {
@@ -146,12 +144,12 @@ export default {
                 type: "linear",
                 scaleLabel: {
                   display: true,
-                  labelString: "Number of Cases",
-                },
-              },
-            ],
-          },
-        },
+                  labelString: "Number of Cases"
+                }
+              }
+            ]
+          }
+        }
       },
 
       //this is the dataset for the recovery chart
@@ -167,13 +165,13 @@ export default {
               borderColor: "rgba(26, 137, 60, 1)",
               borderWidth: 3,
               pointRadius: 6,
-              data: [],
-            },
-          ],
+              data: []
+            }
+          ]
         },
         lineChartOptions: {
           legend: {
-            position: "bottom",
+            position: "bottom"
           },
           responsive: true,
           scales: {
@@ -182,9 +180,9 @@ export default {
                 display: true,
                 scaleLabel: {
                   display: true,
-                  labelString: "Day",
-                },
-              },
+                  labelString: "Day"
+                }
+              }
             ],
             yAxes: [
               {
@@ -192,12 +190,12 @@ export default {
                 type: "linear",
                 scaleLabel: {
                   display: true,
-                  labelString: "Number of Recoveries",
-                },
-              },
-            ],
-          },
-        },
+                  labelString: "Number of Recoveries"
+                }
+              }
+            ]
+          }
+        }
       },
 
       //this is the dataset for the recovery chart
@@ -213,13 +211,13 @@ export default {
               borderColor: "rgba(26, 137, 60, 1)",
               borderWidth: 3,
               pointRadius: 6,
-              data: [],
-            },
-          ],
+              data: []
+            }
+          ]
         },
         lineChartOptions: {
           legend: {
-            position: "bottom",
+            position: "bottom"
           },
           responsive: true,
           scales: {
@@ -228,9 +226,9 @@ export default {
                 display: true,
                 scaleLabel: {
                   display: true,
-                  labelString: "Day",
-                },
-              },
+                  labelString: "Day"
+                }
+              }
             ],
             yAxes: [
               {
@@ -238,13 +236,13 @@ export default {
                 type: "linear",
                 scaleLabel: {
                   display: true,
-                  labelString: "Number of Deaths",
-                },
-              },
-            ],
-          },
-        },
-      },
+                  labelString: "Number of Deaths"
+                }
+              }
+            ]
+          }
+        }
+      }
     };
   },
   methods: {
@@ -252,10 +250,10 @@ export default {
     getAllDataFromCountry() {
       let url = "https://api.covid19api.com/total/country/" + this.countryName;
       fetch(url, { method: "GET" })
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((jsonData) => {
+        .then(jsonData => {
           //All time values
           let cData = jsonData[jsonData.length - 1];
           this.countryData.currentInfected = cData.Confirmed;
@@ -270,6 +268,10 @@ export default {
             cData.Confirmed - cData2.Confirmed;
           this.countryChange.totalDeaths = cData.Deaths - cData2.Deaths;
           this.countryChange.recovered = cData.Recovered - cData2.Recovered;
+        })
+        .catch(err => {
+          console.log(err);
+          this.checkIfCountryExists();
         });
     },
 
@@ -277,10 +279,10 @@ export default {
     getChartDataByCountry(chart) {
       let url = "https://api.covid19api.com/total/country/" + this.countryName;
       fetch(url, { method: "GET" })
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((jsonData) => {
+        .then(jsonData => {
           //gets todays index in the jsonArray and places it in the chart data
           let today = jsonData.length - 1;
           this.chartData.data.labels.push(
@@ -304,8 +306,9 @@ export default {
           //Get min and max for the graph
           console.log(this.chartData.data.datasets[0].data);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
+          this.checkIfCountryExists();
         });
     },
 
@@ -313,10 +316,10 @@ export default {
     getChartDataByCountryRecoveries(chart) {
       let url = "https://api.covid19api.com/total/country/" + this.countryName;
       fetch(url, { method: "GET" })
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((jsonData) => {
+        .then(jsonData => {
           //gets todays index in the jsonArray and places it in the chart data
           let today = jsonData.length - 1;
 
@@ -345,8 +348,9 @@ export default {
 
           console.log(this.chartDataRecoveries.data.datasets[0].data);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
+          this.checkIfCountryExists();
         });
     },
 
@@ -354,10 +358,10 @@ export default {
     getChartDataByCountryDeaths(chart) {
       let url = "https://api.covid19api.com/total/country/" + this.countryName;
       fetch(url, { method: "GET" })
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((jsonData) => {
+        .then(jsonData => {
           let today = jsonData.length - 1;
 
           this.chartDataDeaths.data.labels.push(
@@ -384,7 +388,7 @@ export default {
 
           console.log(this.chartDataDeaths.data.datasets[0].data);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
           this.checkIfCountryExists();
         });
@@ -437,9 +441,9 @@ export default {
       if (this.countryData.currentInfected != "")
         this.$router.push({
           name: "NotFound",
-          param: { name: this.countryName },
+          param: { name: this.countryName }
         });
-    },
+    }
   },
 
   mounted: function() {
@@ -454,24 +458,24 @@ export default {
     let chart = new Chart(ctx, {
       type: this.chartData.type,
       data: this.chartData.data,
-      options: this.chartData.lineChartOptions,
+      options: this.chartData.lineChartOptions
     });
 
     let chart1 = new Chart(ctx1, {
       type: this.chartDataRecoveries.type,
       data: this.chartDataRecoveries.data,
-      options: this.chartDataRecoveries.lineChartOptions,
+      options: this.chartDataRecoveries.lineChartOptions
     });
 
     let chart2 = new Chart(ctx2, {
       type: this.chartDataDeaths.type,
       data: this.chartDataDeaths.data,
-      options: this.chartDataDeaths.lineChartOptions,
+      options: this.chartDataDeaths.lineChartOptions
     });
 
     //Load data on page load.
     this.generateCharts(chart, chart1, chart2);
-  },
+  }
 };
 </script>
 
@@ -484,10 +488,6 @@ export default {
   background-attachment: fixed;
   background-color: rgba(255, 255, 255, 0.6);
   background-blend-mode: lighten;
-}
-
-.custom-container {
-  padding-right: 5%;
 }
 
 .dataSection {
@@ -535,9 +535,6 @@ canvas {
     background-size: 60%;
     background-color: rgba(255, 255, 255, 0.9);
   }
-  .custom-container {
-    padding-right: 4%;
-  }
 }
 
 @media screen and (max-width: 710px) {
@@ -560,10 +557,6 @@ canvas {
     background-size: 100%;
     background-position: right;
     background-color: rgba(255, 255, 255, 0.8);
-  }
-
-  .custom-container {
-    padding-right: 4%;
   }
 
   .dataSection {

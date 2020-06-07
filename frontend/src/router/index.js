@@ -3,7 +3,6 @@ import VueRouter from "vue-router";
 
 import Home from "../views/Home.vue";
 import Country from "../views/Country.vue";
-import AllCountries from "../views/Countries.vue";
 import NotFound from "../views/NotFound.vue";
 import NotFound404 from "../views/NotFound404.vue";
 import Compare from "../views/Compare.vue";
@@ -15,11 +14,6 @@ const routes = [
     path: "/",
     name: "home",
     component: Home
-  },
-  {
-    path: "/countries",
-    name: "allCountries",
-    component: AllCountries
   },
   {
     path: "/country/:name",

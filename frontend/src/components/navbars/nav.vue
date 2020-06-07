@@ -1,14 +1,11 @@
 <template>
   <div>
-    <nav
-      class="custom-navbar fixed-top"
-      v-bind:style="{
-        paddingBottom: searchBarControls.searchButton ? '1%' : '5%'
-      }"
-    >
+    <nav class="custom-navbar fixed-top">
       <div class="container">
         <div class="flex-navbar">
-          <a href="#" class="brand-logo">VIROLL</a>
+          <router-link :to="{ name: 'home' }" class="brand-logo">
+            VIROLL
+          </router-link>
           <form class="nav-form" id="search" @submit="go">
             <div class="flex-form">
               <input
@@ -37,85 +34,61 @@
               </ul>
             </div>
           </form>
-          <div>
-            <div class="flex-navbar" id="menu">
-              <router-link :to="{ name: 'home' }" class="nav-link">
-                Home
-              </router-link>
-              <router-link :to="{ name: 'allCountries' }" class="nav-link">
-                Country
-              </router-link>
-              <router-link :to="{ name: 'compare' }" class="nav-link">
-                Compare
-              </router-link>
-            </div>
+          <div id="dropMenu " @click="showNav">
+            <i class="button fa fa-bars"></i>
           </div>
-          <button
-            id="searchBtn"
-            class="btn"
-            type="button"
-            @click="searchBarMobile"
-            v-bind:style="{
-              visibility: searchBarControls.searchButton
-                ? 'visible'
-                : 'hidden ',
-              display: searchBarControls.searchButton
-                ? 'block !important'
-                : 'none !important'
-            }"
-          >
-            <i class="fa fa-search"></i>
-          </button>
-          <button
-            id="closeSearch"
-            class="btn"
-            type="button"
-            @click="searchBarMobile"
-            v-bind:style="{
-              visibility: searchBarControls.closeS ? 'visible' : 'hidden',
-              display: searchBarControls.closeS ? 'block ' : 'none'
-            }"
-          >
-            <i class="fa fa-times"></i>
-          </button>
-          <form
-            class="nav-form"
-            id="sMobile"
-            @submit="go"
-            v-bind:style="{
-              visibility: searchBarControls.sBar ? 'visible' : 'hidden',
-              display: searchBarControls.sBar ? 'block' : 'none'
-            }"
-          >
-            <div class="flex-form">
-              <input
-                type="text"
-                v-model="searchBar.value"
-                class="custom-input"
-                placeholder="Country"
-                v-on:keyup="countryComplete"
-              />
-              <div class="input-group-append">
-                <button class="btn" type="submit">
-                  <i class="fa fa-search"></i>
-                </button>
-              </div>
-            </div>
-            <div v-show="autoComplete.length != 0">
-              <ul class="searchList">
-                <li
-                  class="searchItem"
-                  v-for="country in autoComplete"
-                  :key="country"
-                  @click="selectCountry(country)"
-                >
-                  {{ format(country) }}
-                </li>
-              </ul>
-            </div>
-          </form>
         </div>
       </div>
+      <transition name="fade">
+        <ul v-if="clicked" class="custom-nav-mobile fixed-top">
+          <router-link :to="{ name: 'home' }" class="nav-link-logo nav-link">
+            VIROLL
+          </router-link>
+          <li>
+            <form class="nav-form" id="searchMobile" @submit="go">
+              <div class="flex-form">
+                <input
+                  type="text"
+                  v-model="searchBar.value"
+                  class="custom-input"
+                  placeholder="Country"
+                  v-on:keyup="countryComplete"
+                />
+                <div class="input-group-append">
+                  <button class="btn" type="submit">
+                    <i class="fa fa-search"></i>
+                  </button>
+                </div>
+              </div>
+              <div v-show="autoComplete.length != 0">
+                <ul class="searchList">
+                  <li
+                    class="searchItem"
+                    v-for="country in autoComplete"
+                    :key="country"
+                    @click="selectCountry(country)"
+                  >
+                    {{ format(country) }}
+                  </li>
+                </ul>
+              </div>
+            </form>
+          </li>
+          <li>
+            <router-link :to="{ name: 'home' }" class="nav-link">
+              Countries
+            </router-link>
+          </li>
+          <li>
+            <router-link :to="{ name: 'compare' }" class="nav-link">
+              Compare
+            </router-link>
+          </li>
+          <li @click="showNav">
+            <i class="nav-link closeBut fa fa-times"></i>
+          </li>
+        </ul>
+      </transition>
     </nav>
   </div>
 </template>
@@ -127,16 +100,21 @@ export default {
       searchBar: {
         value: ""
       },
-      searchBarControls: {
-        searchButton: true,
-        sBar: false,
-        closeS: false
-      },
+      clicked: false,
       countries: [],
       autoComplete: []
     };
   },
   methods: {
+    //Function to open and close the navigation bar
+    showNav() {
+      if (this.clicked === false) {
+        this.clicked = true;
+      } else {
+        this.clicked = false;
+      }
+    },
+
     //Search bar method to find countries
     go() {
       let input = this.getCountryNameAbriev(
@@ -154,19 +132,6 @@ export default {
         .split(" ")
         .join("-")
         .toLowerCase();
-    },
-
-    //Change the search bar for mobile devices.
-    searchBarMobile() {
-      if (this.searchBarControls.searchButton === true) {
-        this.searchBarControls.searchButton = false;
-        this.searchBarControls.sBar = true;
-        this.searchBarControls.closeS = true;
-      } else {
-        this.searchBarControls.searchButton = true;
-        this.searchBarControls.sBar = false;
-        this.searchBarControls.closeS = false;
-      }
     },
 
     //Slang words for countries function
@@ -223,7 +188,7 @@ export default {
       for (let i in this.countries) {
         if (this.countries[i].startsWith(input)) {
           this.autoComplete.push(this.countries[i]);
-          if (this.autoComplete.length >= 10) {
+          if (this.autoComplete.length >= 8) {
             break;
           }
         }
@@ -271,7 +236,7 @@ export default {
 .custom-navbar {
   padding-top: 1%;
   border: none;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 1);
 }
 
 .flex-form {
@@ -283,10 +248,6 @@ export default {
 .custom-input {
   flex: 2;
   border: none;
-}
-
-.custom-button {
-  width: 20%;
 }
 
 .flex-navbar {
@@ -304,31 +265,34 @@ export default {
   padding-left: 10px;
   padding-right: 10px;
   border: 2px solid black;
+  font-family: "Roboto-Reg";
+  font-size: 1em;
+  background-color: white;
 }
 
 .nav-link {
   color: black;
+  padding: 10px;
   text-align: center;
   font-size: 1.4em;
+  transition: all 0.1s ease-in-out;
+  animation: fadeIn 1s 1 ease-in-out;
 }
 
-#search {
-  visibility: visible;
+.nav-link:hover {
+  color: black;
+  text-align: center;
+  font-size: 1.7em;
 }
 
-#searchBtn {
-  visibility: hidden !important;
-  display: none !important;
+.nav-link-logo {
+  font-family: "Kanit-Black";
+  margin-bottom: 50px;
+  font-size: 1.8em;
 }
 
-#sMobile {
-  visibility: hidden;
-  display: none;
-}
-
-#closeSearch {
-  visibility: hidden;
-  display: none;
+.nav-link-logo:hover {
+  font-size: 2em;
 }
 
 .searchList {
@@ -336,6 +300,7 @@ export default {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  background-color: white;
 }
 
 .searchItem {
@@ -353,9 +318,71 @@ export default {
   font-size: 1.3em;
 }
 
+.button {
+  font-size: 2.2em;
+  padding: 10px 20px;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+#dropMenu {
+  margin: 10px;
+}
+
+#searchMobile {
+  display: none;
+}
+
+.closeBut {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+
+.closeBut:hover {
+  cursor: pointer;
+}
+
+.custom-nav-mobile {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: black;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 100px;
+  list-style: none;
+  text-align: center;
+  font-family: "Roboto-Black";
+  font-size: 1.5em;
+  transition: all 1s ease-in-out;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 @media screen and (max-width: 1200px) {
   .nav-form {
-    width: 30%;
+    width: 50%;
   }
 }
 
@@ -370,32 +397,31 @@ export default {
     visibility: hidden;
     display: none;
   }
-  #searchBtn {
-    visibility: visible !important;
-    display: block !important;
+
+  .nav-link-logo {
+    margin-bottom: 10px;
   }
 
-  #sMobile {
-    visibility: hidden;
+  #searchMobile {
+    visibility: visible;
     display: block;
-  }
-  #closeSearch {
-    visibility: hidden;
+    transition: all 0.1s ease-in-out;
+    animation: fadeIn 1s 1 ease-in-out;
   }
 
+  .searchItem {
+    font-size: 1em;
+  }
   .nav-form {
     width: 100%;
   }
-  .container {
-    min-margin: 1%;
+
+  .closeBut {
+    padding: 10px;
   }
 }
 
 @media screen and (max-width: 700px) {
-  #menu {
-    display: none;
-  }
-
   .fa {
     font-size: 1.7em;
     font-weight: bold;
