@@ -18,6 +18,7 @@ export default {
   name: "country-card",
   props: ["countryName", "cases"],
   methods: {
+    //Format variables
     remover(text) {
       return text.replace(/-/g, " ");
     },
@@ -30,8 +31,8 @@ export default {
     },
     formatNums(number) {
       return number.toLocaleString();
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>

@@ -124,24 +124,30 @@ export default {
       //Main data stored.
       countryName: this.$route.params.name,
       issueName: "Coronavirus",
+
+      //Data for the country
       countryData: {
         currentInfected: "",
         totalInfected: "",
         totalDeaths: "",
         recovered: "",
       },
+
+      //Data for the country that changed between yesterday and today
       countryChange: {
         currentInfected: "",
         totalDeaths: "",
         recovered: "",
       },
 
+      //chart data objects for the charts that are on this page.
       charts: {
         chart: "",
         chart1: "",
         chart2: "",
       },
 
+      //Form data objects that hold the default data for the form. This data controls what the graph looks like from load and from the filter button is clicked
       form: {
         daily: true,
         increments: 1,
@@ -149,7 +155,7 @@ export default {
 
       image: "../assets/country-sil/" + this.$route.params.name + ".gif",
 
-      //chart data for Active Cases and its own chart characteristics
+      //chart data for confirmed Cases and its own chart characteristics
       chartData: {
         data: {
           labels: [],
@@ -244,7 +250,7 @@ export default {
         },
       },
 
-      //this is the dataset for the recovery chart
+      //this is the dataset for the death chart
       chartDataDeaths: {
         data: {
           labels: [],
@@ -330,17 +336,20 @@ export default {
           return response.json();
         })
         .then((jsonData) => {
-          //gets todays index in the jsonArray and places it in the chart data
+          //checks to make sure that if the there is already data available then it will delete all the current data before adding new data to the chart
           if (this.chartData.data.datasets[0].data.length > 0) {
             this.chartData.data.labels = [];
             this.chartData.data.datasets[0].data = [];
           }
 
+          //gets todays index in the jsonArray and places it in the chart data
           let today = jsonData.length - 1;
           this.chartData.data.labels.push(
             this.dateFormatter(jsonData[today].Date)
           );
 
+          //This is the standard loop to get all the data for the country that is being queried
+          //Increments will take a value given by the user to increment so many days and store the value for that day
           this.chartData.data.datasets[0].data.push(jsonData[today].Confirmed);
           for (let i = today; i > 0; i--) {
             if (i % increments == 0) {
@@ -351,6 +360,7 @@ export default {
             }
           }
 
+          //This is code that is run to get the daily increase and decrease for the given stat
           if (daily === true) {
             let size = this.chartData.data.datasets[0].data.length;
             for (let i = 0; i < size; i++) {
@@ -359,12 +369,14 @@ export default {
                 this.chartData.data.datasets[0].data[i] -
                 this.chartData.data.datasets[0].data[j];
 
+              //If the value is a value that is below 0 then the value will be replaced by 0.
               if (this.chartData.data.datasets[0].data[i] < 0) {
                 this.chartData.data.datasets[0].data[i] = 0;
               }
             }
           }
 
+          //This will reverse the data so that it is past to present on the graph
           this.chartData.data.labels.reverse();
           this.chartData.data.datasets[0].data.reverse();
 
@@ -386,13 +398,12 @@ export default {
           return response.json();
         })
         .then((jsonData) => {
-          //gets todays index in the jsonArray and places it in the chart data
-
+          //checks to make sure that if the there is already data available then it will delete all the current data before adding new data to the chart
           if (this.chartDataRecoveries.data.datasets[0].data.length > 0) {
             this.chartDataRecoveries.data.labels = [];
             this.chartDataRecoveries.data.datasets[0].data = [];
           }
-
+          //gets todays index in the jsonArray and places it in the chart data
           let today = jsonData.length - 1;
           this.chartDataRecoveries.data.labels.push(
             this.dateFormatter(jsonData[today].Date)
@@ -402,6 +413,8 @@ export default {
             jsonData[today].Recovered
           );
 
+          //This is the standard loop to get all the data for the country that is being queried
+          //Increments will take a value given by the user to increment so many days and store the value for that day
           for (let i = today; i > 0; i--) {
             if (i % increments == 0) {
               this.chartDataRecoveries.data.labels.push(
@@ -413,6 +426,7 @@ export default {
             }
           }
 
+          //This is code that is run to get the daily increase and decrease for the given stat
           if (daily === true) {
             let size = this.chartDataRecoveries.data.datasets[0].data.length;
             for (let i = 0; i < size; i++) {
@@ -427,6 +441,7 @@ export default {
             }
           }
 
+          //This will reverse the data so that it is past to present on the graph
           this.chartDataRecoveries.data.labels.reverse();
           this.chartDataRecoveries.data.datasets[0].data.reverse();
 
@@ -448,11 +463,13 @@ export default {
           return response.json();
         })
         .then((jsonData) => {
+          //checks to make sure that if the there is already data available then it will delete all the current data before adding new data to the chart
           if (this.chartDataDeaths.data.datasets[0].data.length > 0) {
             this.chartDataDeaths.data.labels = [];
             this.chartDataDeaths.data.datasets[0].data = [];
           }
 
+          //gets todays index in the jsonArray and places it in the chart data
           let today = jsonData.length - 1;
           this.chartDataDeaths.data.labels.push(
             this.dateFormatter(jsonData[today].Date)
@@ -461,6 +478,8 @@ export default {
             jsonData[today].Deaths
           );
 
+          //This is the standard loop to get all the data for the country that is being queried
+          //Increments will take a value given by the user to increment so many days and store the value for that day
           for (let i = today; i > 0; i--) {
             if (i % increments == 0) {
               this.chartDataDeaths.data.labels.push(
@@ -472,6 +491,7 @@ export default {
             }
           }
 
+          //This will reverse the data so that it is past to present on the graph
           if (daily === true) {
             let size = this.chartDataDeaths.data.datasets[0].data.length;
             for (let i = 0; i < size; i++) {
@@ -486,6 +506,7 @@ export default {
             }
           }
 
+          //This will reverse the data so that it is past to present on the graph
           this.chartDataDeaths.data.labels.reverse();
           this.chartDataDeaths.data.datasets[0].data.reverse();
 
@@ -529,6 +550,7 @@ export default {
       this.getChartDataByCountryDeaths(chart2, increments, daily);
     },
 
+    //This function is called when the filter form is submitted. This will update the graphs depending on the data that was given in the form.
     updateCharts(evt) {
       this.generateCharts(
         this.charts.chart,
@@ -541,6 +563,8 @@ export default {
     },
 
     /*
+    This function may get used later on when the country page eventually uses images.
+
     checkImageExists(image) {
       if (image) {
         console.log("ss");
@@ -571,6 +595,7 @@ export default {
     const ctx1 = document.getElementById("chartRecoveries").getContext("2d");
     const ctx2 = document.getElementById("chartDeaths").getContext("2d");
 
+    //Load the chart data variables with data and options and load to canvases
     this.charts.chart = new Chart(ctx, {
       type: this.chartData.type,
       data: this.chartData.data,
