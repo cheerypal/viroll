@@ -29,6 +29,34 @@
             </div>
           </div>
           <hr />
+
+          <div class="chartSection">
+            <h1>Charts</h1>
+            <div class="flex-form">
+              <h3>{{ form.increments }} Day Data</h3>
+
+              <form class="form-inline" @submit="updateCharts">
+                <div>
+                  <select class="form-control" v-model="form.daily">
+                    <option v-bind:value="false">All Time Data</option>
+                    <option v-bind:value="true">Change Data</option>
+                  </select>
+                </div>
+                <div>
+                  <select class="form-control" v-model="form.increments">
+                    <option value="7">Weekly Data</option>
+                    <option value="14">2 Week Data</option>
+                    <option value="30">Monthly Data (30 Days)</option>
+                    <option value="1">Since the beginning</option>
+                  </select>
+                </div>
+                <div>
+                  <button class="btn" type="submit">Filter</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <hr />
           <div class="dataSection">
             <h2>Confirmed Cases</h2>
             <div class="chart-container">
@@ -88,7 +116,6 @@ export default {
   name: "countryPage",
   components: {
     NavBar,
-
     Today,
     Total,
   },
@@ -107,6 +134,17 @@ export default {
         currentInfected: "",
         totalDeaths: "",
         recovered: "",
+      },
+
+      charts: {
+        chart: "",
+        chart1: "",
+        chart2: "",
+      },
+
+      form: {
+        daily: true,
+        increments: 1,
       },
 
       image: "../assets/country-sil/" + this.$route.params.name + ".gif",
@@ -285,7 +323,7 @@ export default {
     },
 
     //Get data for the confirmed cases chart for the past 10 days.
-    getChartDataByCountry(chart) {
+    getChartDataByCountry(chart, increments, daily) {
       let url = "https://api.covid19api.com/total/country/" + this.countryName;
       fetch(url, { method: "GET" })
         .then((response) => {
@@ -293,18 +331,37 @@ export default {
         })
         .then((jsonData) => {
           //gets todays index in the jsonArray and places it in the chart data
+          if (this.chartData.data.datasets[0].data.length > 0) {
+            this.chartData.data.labels = [];
+            this.chartData.data.datasets[0].data = [];
+          }
+
           let today = jsonData.length - 1;
           this.chartData.data.labels.push(
             this.dateFormatter(jsonData[today].Date)
           );
-          this.chartData.data.datasets[0].data.push(jsonData[today].Confirmed);
 
+          this.chartData.data.datasets[0].data.push(jsonData[today].Confirmed);
           for (let i = today; i > 0; i--) {
-            if (i % 14 == 0) {
+            if (i % increments == 0) {
               this.chartData.data.labels.push(
                 this.dateFormatter(jsonData[i].Date)
               );
               this.chartData.data.datasets[0].data.push(jsonData[i].Confirmed);
+            }
+          }
+
+          if (daily === true) {
+            let size = this.chartData.data.datasets[0].data.length;
+            for (let i = 0; i < size; i++) {
+              let j = i + 1;
+              this.chartData.data.datasets[0].data[i] =
+                this.chartData.data.datasets[0].data[i] -
+                this.chartData.data.datasets[0].data[j];
+
+              if (this.chartData.data.datasets[0].data[i] < 0) {
+                this.chartData.data.datasets[0].data[i] = 0;
+              }
             }
           }
 
@@ -322,7 +379,7 @@ export default {
     },
 
     //get chart data for the recoveries chart for the past 10 days.
-    getChartDataByCountryRecoveries(chart) {
+    getChartDataByCountryRecoveries(chart, increments, daily) {
       let url = "https://api.covid19api.com/total/country/" + this.countryName;
       fetch(url, { method: "GET" })
         .then((response) => {
@@ -330,23 +387,43 @@ export default {
         })
         .then((jsonData) => {
           //gets todays index in the jsonArray and places it in the chart data
-          let today = jsonData.length - 1;
 
+          if (this.chartDataRecoveries.data.datasets[0].data.length > 0) {
+            this.chartDataRecoveries.data.labels = [];
+            this.chartDataRecoveries.data.datasets[0].data = [];
+          }
+
+          let today = jsonData.length - 1;
           this.chartDataRecoveries.data.labels.push(
             this.dateFormatter(jsonData[today].Date)
           );
+
           this.chartDataRecoveries.data.datasets[0].data.push(
             jsonData[today].Recovered
           );
 
           for (let i = today; i > 0; i--) {
-            if (i % 14 == 0) {
+            if (i % increments == 0) {
               this.chartDataRecoveries.data.labels.push(
                 this.dateFormatter(jsonData[i].Date)
               );
               this.chartDataRecoveries.data.datasets[0].data.push(
                 jsonData[i].Recovered
               );
+            }
+          }
+
+          if (daily === true) {
+            let size = this.chartDataRecoveries.data.datasets[0].data.length;
+            for (let i = 0; i < size; i++) {
+              let j = i + 1;
+              this.chartDataRecoveries.data.datasets[0].data[i] =
+                this.chartDataRecoveries.data.datasets[0].data[i] -
+                this.chartDataRecoveries.data.datasets[0].data[j];
+
+              if (this.chartDataRecoveries.data.datasets[0].data[i] < 0) {
+                this.chartDataRecoveries.data.datasets[0].data[i] = 0;
+              }
             }
           }
 
@@ -364,15 +441,19 @@ export default {
     },
 
     //get chart data for the recoveries chart for the past 10 days.
-    getChartDataByCountryDeaths(chart) {
+    getChartDataByCountryDeaths(chart, increments, daily) {
       let url = "https://api.covid19api.com/total/country/" + this.countryName;
       fetch(url, { method: "GET" })
         .then((response) => {
           return response.json();
         })
         .then((jsonData) => {
-          let today = jsonData.length - 1;
+          if (this.chartDataDeaths.data.datasets[0].data.length > 0) {
+            this.chartDataDeaths.data.labels = [];
+            this.chartDataDeaths.data.datasets[0].data = [];
+          }
 
+          let today = jsonData.length - 1;
           this.chartDataDeaths.data.labels.push(
             this.dateFormatter(jsonData[today].Date)
           );
@@ -381,7 +462,7 @@ export default {
           );
 
           for (let i = today; i > 0; i--) {
-            if (i % 14 == 0) {
+            if (i % increments == 0) {
               this.chartDataDeaths.data.labels.push(
                 this.dateFormatter(jsonData[i].Date)
               );
@@ -390,6 +471,21 @@ export default {
               );
             }
           }
+
+          if (daily === true) {
+            let size = this.chartDataDeaths.data.datasets[0].data.length;
+            for (let i = 0; i < size; i++) {
+              let j = i + 1;
+              this.chartDataDeaths.data.datasets[0].data[i] =
+                this.chartDataDeaths.data.datasets[0].data[i] -
+                this.chartDataDeaths.data.datasets[0].data[j];
+
+              if (this.chartDataDeaths.data.datasets[0].data[i] < 0) {
+                this.chartDataDeaths.data.datasets[0].data[i] = 0;
+              }
+            }
+          }
+
           this.chartDataDeaths.data.labels.reverse();
           this.chartDataDeaths.data.datasets[0].data.reverse();
 
@@ -427,10 +523,21 @@ export default {
 
     //chart generation must pass chart through to where the chart receives the data so that the chart can update.
     //All charts will display data that reflects every 2 week milestones.
-    generateCharts(chart, chart1, chart2) {
-      this.getChartDataByCountry(chart);
-      this.getChartDataByCountryRecoveries(chart1);
-      this.getChartDataByCountryDeaths(chart2);
+    generateCharts(chart, chart1, chart2, increments, daily) {
+      this.getChartDataByCountry(chart, increments, daily);
+      this.getChartDataByCountryRecoveries(chart1, increments, daily);
+      this.getChartDataByCountryDeaths(chart2, increments, daily);
+    },
+
+    updateCharts(evt) {
+      this.generateCharts(
+        this.charts.chart,
+        this.charts.chart1,
+        this.charts.chart2,
+        this.form.increments,
+        this.form.daily
+      );
+      evt.preventDefault();
     },
 
     /*
@@ -464,26 +571,32 @@ export default {
     const ctx1 = document.getElementById("chartRecoveries").getContext("2d");
     const ctx2 = document.getElementById("chartDeaths").getContext("2d");
 
-    let chart = new Chart(ctx, {
+    this.charts.chart = new Chart(ctx, {
       type: this.chartData.type,
       data: this.chartData.data,
       options: this.chartData.lineChartOptions,
     });
 
-    let chart1 = new Chart(ctx1, {
+    this.charts.chart1 = new Chart(ctx1, {
       type: this.chartDataRecoveries.type,
       data: this.chartDataRecoveries.data,
       options: this.chartDataRecoveries.lineChartOptions,
     });
 
-    let chart2 = new Chart(ctx2, {
+    this.charts.chart2 = new Chart(ctx2, {
       type: this.chartDataDeaths.type,
       data: this.chartDataDeaths.data,
       options: this.chartDataDeaths.lineChartOptions,
     });
 
     //Load data on page load.
-    this.generateCharts(chart, chart1, chart2);
+    this.generateCharts(
+      this.charts.chart,
+      this.charts.chart1,
+      this.charts.chart2,
+      this.form.increments,
+      this.form.daily
+    );
   },
 };
 </script>
@@ -523,6 +636,10 @@ export default {
   font-size: 1.3em;
 }
 
+.chartSection {
+  padding-top: 50px;
+}
+
 canvas {
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -539,6 +656,13 @@ canvas {
   width: 100%;
 }
 
+.flex-form {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
 @media screen and (max-width: 1366px) {
   #country {
     background-color: rgba(255, 255, 255, 0.8);
@@ -553,10 +677,21 @@ canvas {
   }
 }
 
+@media screen and (max-width: 812px) {
+  .chart-container {
+    height: 80vh;
+  }
+}
+
 @media screen and (max-width: 710px) {
   .titleSection {
     padding-bottom: 5%;
   }
+
+  .chartSection {
+    padding-top: 30px;
+  }
+
   .dataSection {
     padding-top: 10%;
     padding-bottom: 5%;
@@ -578,6 +713,9 @@ canvas {
   .dataSection {
     padding-top: 2%;
     padding-bottom: 2%;
+  }
+  .chart-container {
+    height: 50vh;
   }
 }
 </style>
