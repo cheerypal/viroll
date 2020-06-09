@@ -44,16 +44,16 @@ import NavBar from "../components/navbars/nav";
 export default {
   name: "Compare",
   components: {
-    NavBar,
+    NavBar
   },
   data() {
     return {
       form: {
         country1: "",
-        country2: "",
+        country2: ""
       },
       issueName: "Coronavirus",
-      countries: [],
+      countries: []
     };
   },
   methods: {
@@ -61,10 +61,10 @@ export default {
     getAllCountries() {
       let url = "https://api.covid19api.com/countries";
       fetch(url, { method: "GET" })
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((jsonData) => {
+        .then(jsonData => {
           for (let i in jsonData) {
             this.getConfirmedAllCountries(jsonData[i].Slug);
           }
@@ -75,14 +75,14 @@ export default {
     getConfirmedAllCountries(country) {
       let url = "https://api.covid19api.com/total/country/" + country;
       fetch(url, { method: "GET" })
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((jsonData) => {
+        .then(jsonData => {
           if (jsonData[jsonData.length - 1].Confirmed >= 0) {
             this.countries.push({
               countryName: country,
-              confirmed: jsonData[jsonData.length - 1].Confirmed,
+              confirmed: jsonData[jsonData.length - 1].Confirmed
             });
           }
           this.countries.sort((a, b) => {
@@ -90,12 +90,12 @@ export default {
           });
         })
         .catch(() => {});
-    },
+    }
   },
   mounted: function() {
     //Function that is called on page load.
     this.getAllCountries();
-  },
+  }
 };
 </script>
 <style scoped>

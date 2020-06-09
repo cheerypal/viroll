@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Today*</h2>
+    <h2>Yesterday</h2>
     <div class="dataFlex">
       <div class="dataItem">
         <h3>Cases</h3>
