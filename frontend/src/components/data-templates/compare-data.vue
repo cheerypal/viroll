@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="flex-compare">
+    <div class="dataSection">
+      <h2>{{ countryOName }}</h2>
       <div class="flex-data-compare">
         <div class="dataItem">
           <h3>Cases</h3>
@@ -21,6 +22,9 @@
           </h2>
         </div>
       </div>
+    </div>
+    <div class="dataSection">
+      <h2>{{ countryTName }}</h2>
       <div class="flex-data-compare">
         <div class="dataItem">
           <h3>Cases</h3>
@@ -42,17 +46,18 @@
         </div>
       </div>
     </div>
+    <hr />
   </div>
 </template>
 <script>
 export default {
   name: "compare_data",
-  props: ["countryO", "countryT"],
+  props: ["countryO", "countryT", "countryOName", "countryTName"],
   methods: {
     formatNums(number) {
       return number.toLocaleString();
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>
@@ -71,11 +76,18 @@ export default {
   justify-content: space-between;
 }
 
-.dataItem {
-  width: 20%;
-  padding-right: 40px;
+.dataSection {
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
+
 .dataImportant {
   color: #1a893c;
+}
+
+@media screen and (max-width: 710px) {
+  .flex-compare {
+    padding-top: 5px;
+  }
 }
 </style>

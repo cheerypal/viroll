@@ -3,106 +3,153 @@
     <NavBar />
     <div id="compare">
       <div class="container">
-        <h1>Compare Countries</h1>
+        <h1>{{ format(country1.name) }} & {{ format(country2.name) }}</h1>
         <h3>{{ issueName }} Statistics</h3>
         <hr />
-        <div class="titleSection">
-          <h1 class="countryTitles">
-            {{ format(country1.name) }}
-          </h1>
-          <h3>
-            vs
-          </h3>
-          <h1 class="countryTitles">
-            {{ format(country2.name) }}
-          </h1>
-        </div>
-        <hr />
-        <div class="dataSection">
-          <h2>Yesterday</h2>
-          <CompareData
-            :countryO="country1.changeData"
-            :countryT="country2.changeData"
-          />
-        </div>
-        <div class="dataSection">
-          <h2>Total</h2>
-          <CompareData :countryO="country1" :countryT="country2" />
-        </div>
-        <hr />
-        <div class="chartSection">
-          <h1>Charts</h1>
-
-          <div class="flex-form">
-            <div class="form-title">
-              <h3>Filter Charts</h3>
+        <div v-show="country1.confirmed != ''">
+          <div v-show="country2.confirmed != ''">
+            <div class="dataSection">
+              <h2 class="dataImportant">Yesterday</h2>
+              <CompareData
+                :countryO="country1.changeData"
+                :countryT="country2.changeData"
+                :countryOName="format(country1.name)"
+                :countryTName="format(country2.name)"
+              />
             </div>
-            <form class="custom-form-filter form-inline" @submit="updateCharts">
-              <div>
-                <select class="form-control custom-select" v-model="form.daily">
-                  <option v-bind:value="true">Change Data</option>
-                  <option v-bind:value="false">All Time Data</option>
-                </select>
-              </div>
-              <div>
-                <select
-                  class="form-control custom-select"
-                  v-model="form.increments"
+            <div class="dataSection">
+              <h2 class="dataImportant">Total</h2>
+              <CompareData
+                :countryO="country1"
+                :countryT="country2"
+                :countryOName="format(country1.name)"
+                :countryTName="format(country2.name)"
+              />
+            </div>
+            <div class="chartSection">
+              <h1>Charts</h1>
+              <div class="flex-form">
+                <div class="form-title">
+                  <h3>Filter Charts</h3>
+                </div>
+                <form
+                  class="custom-form-filter form-inline"
+                  @submit="updateCharts"
                 >
-                  <option value="1">Every Recorded Day</option>
-                  <option value="7">Weekly Data</option>
-                  <option value="14">2 Week Data</option>
-                  <option value="30">Monthly Data (30 Days)</option>
-                </select>
+                  <div>
+                    <select
+                      class="form-control custom-select"
+                      v-model="form.daily"
+                    >
+                      <option v-bind:value="true">Change Data</option>
+                      <option v-bind:value="false">All Time Data</option>
+                    </select>
+                  </div>
+                  <div>
+                    <select
+                      class="form-control custom-select"
+                      v-model="form.increments"
+                    >
+                      <option value="1">Every Recorded Day</option>
+                      <option value="7">Weekly Data</option>
+                      <option value="14">2 Week Data</option>
+                      <option value="30">Monthly Data (30 Days)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <button class="custom-button" type="submit">
+                      Filter
+                    </button>
+                  </div>
+                </form>
               </div>
-              <div>
-                <button class="custom-button" type="submit">
-                  Filter
-                </button>
+            </div>
+            <hr />
+            <div class="dataSection">
+              <h2>Confirmed Cases</h2>
+              <div class="chart-container">
+                <canvas id="chart" class="charts" />
               </div>
-            </form>
+            </div>
+            <hr />
+            <div class="dataSection">
+              <h2>Recoveries</h2>
+              <div class="chart-container">
+                <canvas id="chartRecoveries" class="charts" />
+              </div>
+            </div>
+            <hr />
+            <div class="dataSection">
+              <h2>Deaths</h2>
+              <div class="chart-container">
+                <canvas id="chartDeaths" class="charts" />
+              </div>
+            </div>
+            <hr />
           </div>
         </div>
-        <hr />
-        <div class="dataSection">
-          <h2>Confirmed Cases</h2>
-          <div class="chart-container">
-            <canvas id="chart" class="charts" />
+        <!--Error with finding data chunk-->
+        <div v-show="country1.confirmed == ''">
+          <div class="dataSection">
+            <h2>
+              Unfortunately we don't have data for {{ format(country1.name) }}
+            </h2>
+            <p class="err">
+              Please visit the
+              <router-link class="nav-links bold-link" :to="{ name: 'home' }">
+                countries
+              </router-link>
+              page for the full list of
+              <router-link class="nav-links bold-link" :to="{ name: 'home' }">
+                countries
+              </router-link>
+              <br />
+              or
+              <br />
+              search for another country using the search bar
+              <br />
+              or
+              <br />
+              visit
+              <router-link
+                class="nav-links bold-link"
+                :to="{ name: 'country', params: { name: country2.name } }"
+              >
+                {{ format(country2.name) }} </router-link
+              >country page.
+            </p>
           </div>
         </div>
-        <hr />
-        <div class="dataSection">
-          <h2>Recoveries</h2>
-          <div class="chart-container">
-            <canvas id="chartRecoveries" class="charts" />
+        <div v-show="country2.confirmed == ''">
+          <div class="dataSection">
+            <h2>
+              Unfortunately we don't have data for {{ format(country2.name) }}
+            </h2>
+            <p class="err">
+              Please visit the
+              <router-link class="nav-links bold-link" :to="{ name: 'home' }">
+                countries
+              </router-link>
+              page for the full list of
+              <router-link class="nav-links bold-link" :to="{ name: 'home' }">
+                countries
+              </router-link>
+              <br />
+              or
+              <br />
+              search for another country using the search bar
+              <br />
+              or
+              <br />
+              visit
+              <router-link
+                class="nav-links bold-link"
+                :to="{ name: 'country', params: { name: country1.name } }"
+              >
+                {{ format(country1.name) }} </router-link
+              >country page.
+            </p>
           </div>
-        </div>
-        <hr />
-        <div class="dataSection">
-          <h2>Deaths</h2>
-          <div class="chart-container">
-            <canvas id="chartDeaths" class="charts" />
-          </div>
-        </div>
-        <hr />
-      </div>
-      <!--Error with finding data chunk-->
-      <div v-show="country1.confirmed == ''">
-        <div class="dataSection">
-          <h2>
-            Unfortunately we don't have data for this country
-          </h2>
-          <p class="err">
-            Please visit the
-            <router-link class="nav-links" :to="{ name: 'home' }">
-              countries
-            </router-link>
-            page for the full list of
-            <router-link class="nav-links" :to="{ name: 'home' }">
-              countries
-            </router-link>
-            or search for another one using the search bar
-          </p>
         </div>
       </div>
     </div>
@@ -119,7 +166,7 @@ export default {
   name: "Comparing_Countries",
   components: {
     NavBar,
-    CompareData,
+    CompareData
   },
 
   data() {
@@ -132,8 +179,8 @@ export default {
         changeData: {
           confirmed: "",
           recovered: "",
-          dead: "",
-        },
+          dead: ""
+        }
       },
       country2: {
         name: this.$route.params.country2,
@@ -143,19 +190,19 @@ export default {
         changeData: {
           confirmed: "",
           recovered: "",
-          dead: "",
-        },
+          dead: ""
+        }
       },
       issueName: "Coronavirus",
       charts: {
         chart: "",
         chart1: "",
-        chart2: "",
+        chart2: ""
       },
 
       form: {
         daily: true,
-        increments: 1,
+        increments: 1
       },
 
       //Case chart data.
@@ -171,7 +218,7 @@ export default {
               borderColor: "rgba(26, 137, 60, 1)",
               borderWidth: 3,
               pointRadius: 6,
-              data: [],
+              data: []
             },
             {
               type: "line",
@@ -181,13 +228,13 @@ export default {
               borderColor: "rgba(255, 195, 0, 1)",
               borderWidth: 3,
               pointRadius: 6,
-              data: [],
-            },
-          ],
+              data: []
+            }
+          ]
         },
         lineChartOptions: {
           legend: {
-            position: "bottom",
+            position: "bottom"
           },
           responsive: true,
           maintainAspectRatio: false,
@@ -197,9 +244,9 @@ export default {
                 display: true,
                 scaleLabel: {
                   display: true,
-                  labelString: "Day",
-                },
-              },
+                  labelString: "Day"
+                }
+              }
             ],
             yAxes: [
               {
@@ -207,12 +254,12 @@ export default {
                 type: "linear",
                 scaleLabel: {
                   display: true,
-                  labelString: "Number of Cases",
-                },
-              },
-            ],
-          },
-        },
+                  labelString: "Number of Cases"
+                }
+              }
+            ]
+          }
+        }
       },
 
       //Recovery chart data.
@@ -228,7 +275,7 @@ export default {
               borderColor: "rgba(26, 137, 60, 1)",
               borderWidth: 3,
               pointRadius: 6,
-              data: [],
+              data: []
             },
             {
               type: "line",
@@ -238,13 +285,13 @@ export default {
               borderColor: "rgba(255, 195, 0, 1)",
               borderWidth: 3,
               pointRadius: 6,
-              data: [],
-            },
-          ],
+              data: []
+            }
+          ]
         },
         lineChartOptions: {
           legend: {
-            position: "bottom",
+            position: "bottom"
           },
           responsive: true,
           maintainAspectRatio: false,
@@ -254,9 +301,9 @@ export default {
                 display: true,
                 scaleLabel: {
                   display: true,
-                  labelString: "Day",
-                },
-              },
+                  labelString: "Day"
+                }
+              }
             ],
             yAxes: [
               {
@@ -264,12 +311,12 @@ export default {
                 type: "linear",
                 scaleLabel: {
                   display: true,
-                  labelString: "Number of Recoveries",
-                },
-              },
-            ],
-          },
-        },
+                  labelString: "Number of Recoveries"
+                }
+              }
+            ]
+          }
+        }
       },
 
       //Death chart data.
@@ -285,7 +332,7 @@ export default {
               borderColor: "rgba(26, 137, 60, 1)",
               borderWidth: 3,
               pointRadius: 6,
-              data: [],
+              data: []
             },
             {
               type: "line",
@@ -295,13 +342,13 @@ export default {
               borderColor: "rgba(255, 195, 0, 1)",
               borderWidth: 3,
               pointRadius: 6,
-              data: [],
-            },
-          ],
+              data: []
+            }
+          ]
         },
         lineChartOptions: {
           legend: {
-            position: "bottom",
+            position: "bottom"
           },
           responsive: true,
           maintainAspectRatio: false,
@@ -311,9 +358,9 @@ export default {
                 display: true,
                 scaleLabel: {
                   display: true,
-                  labelString: "Day",
-                },
-              },
+                  labelString: "Day"
+                }
+              }
             ],
             yAxes: [
               {
@@ -321,13 +368,13 @@ export default {
                 type: "linear",
                 scaleLabel: {
                   display: true,
-                  labelString: "Number of Deaths",
-                },
-              },
-            ],
-          },
-        },
-      },
+                  labelString: "Number of Deaths"
+                }
+              }
+            ]
+          }
+        }
+      }
     };
   },
   methods: {
@@ -336,10 +383,10 @@ export default {
       let url =
         "https://api.covid19api.com/total/country/" + this.country1.name;
       fetch(url, { method: "GET" })
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((jsonData) => {
+        .then(jsonData => {
           //This section looks at getting data for the top section of the page
           //This will be displayed as stand alone data.
           let today = jsonData.length - 1;
@@ -352,7 +399,8 @@ export default {
             jsonData[today].Recovered - jsonData[today - 1].Recovered;
           this.country1.changeData.dead =
             jsonData[today].Deaths - jsonData[today - 1].Deaths;
-        });
+        })
+        .catch(() => {});
     },
 
     //Get all the data for country 2 and store in the state
@@ -360,10 +408,10 @@ export default {
       let url =
         "https://api.covid19api.com/total/country/" + this.country2.name;
       fetch(url, { method: "GET" })
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((jsonData) => {
+        .then(jsonData => {
           //This section looks at getting data for the top section of the page
           //This will be displayed as stand alone data.
           let today = jsonData.length - 1;
@@ -376,21 +424,313 @@ export default {
             jsonData[today].Recovered - jsonData[today - 1].Recovered;
           this.country2.changeData.dead =
             jsonData[today].Deaths - jsonData[today - 1].Deaths;
+        })
+        .catch(() => {});
+    },
+
+    //gets data for the cases chart - country 1
+    getChartDataByCountry(chart, increments, daily) {
+      let url =
+        "https://api.covid19api.com/total/country/" + this.country1.name;
+      fetch(url, { method: "GET" })
+        .then(response => {
+          return response.json();
+        })
+        .then(jsonData => {
+          //checks to make sure that if the there is already data available then it will delete all the current data before adding new data to the chart
+          if (this.chartData.data.datasets[0].data.length > 0) {
+            this.chartData.data.labels = [];
+            this.chartData.data.datasets[0].data = [];
+          }
+
+          //gets todays index in the jsonArray and places it in the chart data
+          let today = jsonData.length - 1;
+
+          //This is the standard loop to get all the data for the country that is being queried
+          //Increments will take a value given by the user to increment so many days and store the value for that day
+          for (let i = today; i > 0; i--) {
+            if (i % increments == 0) {
+              this.chartData.data.labels.push(
+                this.dateFormatter(jsonData[i].Date)
+              );
+              this.chartData.data.datasets[0].data.push(jsonData[i].Confirmed);
+            }
+          }
+
+          //This is code that is run to get the daily increase and decrease for the given stat
+          if (daily === true) {
+            let size = this.chartData.data.datasets[0].data.length;
+            for (let i = 0; i < size; i++) {
+              let j = i + 1;
+              this.chartData.data.datasets[0].data[i] =
+                this.chartData.data.datasets[0].data[i] -
+                this.chartData.data.datasets[0].data[j];
+
+              //If the value is a value that is below 0 then the value will be replaced by 0.
+              if (this.chartData.data.datasets[0].data[i] < 0) {
+                this.chartData.data.datasets[0].data[i] = 0;
+              }
+            }
+          }
+
+          //This will reverse the data so that it is past to present on the graph
+          this.chartData.data.labels.reverse();
+          this.chartData.data.datasets[0].data.reverse();
+
+          //Get min and max for the graph
+          chart.update();
+        })
+        .catch(err => {
+          console.log(err);
         });
     },
 
-    updateCharts(evt) {
-      evt.preventDefault();
+    //get chart data for the recoveries chart  - country 1
+    getChartDataByCountryRecoveries(chart, increments, daily) {
+      let url =
+        "https://api.covid19api.com/total/country/" + this.country1.name;
+      fetch(url, { method: "GET" })
+        .then(response => {
+          return response.json();
+        })
+        .then(jsonData => {
+          //checks to make sure that if the there is already data available then it will delete all the current data before adding new data to the chart
+          if (this.chartDataRecoveries.data.datasets[0].data.length > 0) {
+            this.chartDataRecoveries.data.labels = [];
+            this.chartDataRecoveries.data.datasets[0].data = [];
+          }
+          //gets todays index in the jsonArray and places it in the chart data
+          let today = jsonData.length - 1;
+
+          //This is the standard loop to get all the data for the country that is being queried
+          //Increments will take a value given by the user to increment so many days and store the value for that day
+          for (let i = today; i > 0; i--) {
+            if (i % increments == 0) {
+              this.chartDataRecoveries.data.labels.push(
+                this.dateFormatter(jsonData[i].Date)
+              );
+              this.chartDataRecoveries.data.datasets[0].data.push(
+                jsonData[i].Recovered
+              );
+            }
+          }
+
+          //This is code that is run to get the daily increase and decrease for the given stat
+          if (daily === true) {
+            let size = this.chartDataRecoveries.data.datasets[0].data.length;
+            for (let i = 0; i < size; i++) {
+              let j = i + 1;
+              this.chartDataRecoveries.data.datasets[0].data[i] =
+                this.chartDataRecoveries.data.datasets[0].data[i] -
+                this.chartDataRecoveries.data.datasets[0].data[j];
+
+              if (this.chartDataRecoveries.data.datasets[0].data[i] < 0) {
+                this.chartDataRecoveries.data.datasets[0].data[i] = 0;
+              }
+            }
+          }
+
+          //This will reverse the data so that it is past to present on the graph
+          this.chartDataRecoveries.data.labels.reverse();
+          this.chartDataRecoveries.data.datasets[0].data.reverse();
+          chart.update();
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
 
-    dateFormatter(date) {
-      date = date.replace("T", " ");
-      date = date.substring(0, 10);
-      date = date.replace(/(\b-(?!\s))/g, " ");
-      let year = date.substring(0, 4);
-      let month = date.substring(5, 7);
-      let day = date.substring(8, 10);
-      return day + "/" + month + "/" + year;
+    //get chart data for the death chart  - country 1
+    getChartDataByCountryDeaths(chart, increments, daily) {
+      let url =
+        "https://api.covid19api.com/total/country/" + this.country1.name;
+      fetch(url, { method: "GET" })
+        .then(response => {
+          return response.json();
+        })
+        .then(jsonData => {
+          //checks to make sure that if the there is already data available then it will delete all the current data before adding new data to the chart
+          if (this.chartDataDeaths.data.datasets[0].data.length > 0) {
+            this.chartDataDeaths.data.labels = [];
+            this.chartDataDeaths.data.datasets[0].data = [];
+          }
+
+          //gets todays index in the jsonArray and places it in the chart data
+          let today = jsonData.length - 1;
+
+          //This is the standard loop to get all the data for the country that is being queried
+          //Increments will take a value given by the user to increment so many days and store the value for that day
+          for (let i = today; i > 0; i--) {
+            if (i % increments == 0) {
+              this.chartDataDeaths.data.labels.push(
+                this.dateFormatter(jsonData[i].Date)
+              );
+              this.chartDataDeaths.data.datasets[0].data.push(
+                jsonData[i].Deaths
+              );
+            }
+          }
+
+          //This will reverse the data so that it is past to present on the graph
+          if (daily === true) {
+            let size = this.chartDataDeaths.data.datasets[0].data.length;
+            for (let i = 0; i < size; i++) {
+              let j = i + 1;
+              this.chartDataDeaths.data.datasets[0].data[i] =
+                this.chartDataDeaths.data.datasets[0].data[i] -
+                this.chartDataDeaths.data.datasets[0].data[j];
+
+              if (this.chartDataDeaths.data.datasets[0].data[i] < 0) {
+                this.chartDataDeaths.data.datasets[0].data[i] = 0;
+              }
+            }
+          }
+
+          //This will reverse the data so that it is past to present on the graph
+          this.chartDataDeaths.data.labels.reverse();
+          this.chartDataDeaths.data.datasets[0].data.reverse();
+          chart.update();
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+
+    //This function will get the data from the second country and place it in the data section to be used for the chart
+    getCountry2Cases(chart, increments, daily) {
+      let url =
+        "https://api.covid19api.com/total/country/" + this.country2.name;
+      fetch(url, { method: "GET" })
+        .then(response => {
+          return response.json();
+        })
+        .then(jsonData => {
+          if (this.chartData.data.datasets[1].data.length > 0) {
+            this.chartData.data.datasets[1].data = [];
+          }
+          let today = jsonData.length - 1;
+          for (let i = today; i > 0; i--) {
+            if (i % increments == 0) {
+              this.chartData.data.datasets[1].data.push(jsonData[i].Confirmed);
+            }
+          }
+          if (daily === true) {
+            let size = this.chartData.data.datasets[1].data.length;
+            for (let i = 0; i < size; i++) {
+              let j = i + 1;
+              this.chartData.data.datasets[1].data[i] =
+                this.chartData.data.datasets[1].data[i] -
+                this.chartData.data.datasets[1].data[j];
+
+              if (this.chartData.data.datasets[1].data[i] < 0) {
+                this.chartData.data.datasets[1].data[i] = 0;
+              }
+            }
+          }
+          this.chartData.data.datasets[1].data.reverse();
+          chart.update();
+        })
+        .catch(() => {});
+    },
+
+    //This function will get the data from the second country and place it in the data section to be used for the chart
+    getCountry2Recov(chart, increments, daily) {
+      let url =
+        "https://api.covid19api.com/total/country/" + this.country2.name;
+      fetch(url, { method: "GET" })
+        .then(response => {
+          return response.json();
+        })
+        .then(jsonData => {
+          if (this.chartDataRecoveries.data.datasets[1].data.length > 0) {
+            this.chartDataRecoveries.data.datasets[1].data = [];
+          }
+          let today = jsonData.length - 1;
+          for (let i = today; i > 0; i--) {
+            if (i % increments == 0) {
+              this.chartDataRecoveries.data.datasets[1].data.push(
+                jsonData[i].Recovered
+              );
+            }
+          }
+          if (daily === true) {
+            let size = this.chartDataRecoveries.data.datasets[1].data.length;
+            for (let i = 0; i < size; i++) {
+              let j = i + 1;
+              this.chartDataRecoveries.data.datasets[1].data[i] =
+                this.chartDataRecoveries.data.datasets[1].data[i] -
+                this.chartDataRecoveries.data.datasets[1].data[j];
+
+              if (this.chartDataRecoveries.data.datasets[1].data[i] < 0) {
+                this.chartDataRecoveries.data.datasets[1].data[i] = 0;
+              }
+            }
+          }
+          this.chartDataRecoveries.data.datasets[1].data.reverse();
+          chart.update();
+        })
+        .catch(() => {});
+    },
+
+    //This function will get the data from the second country and place it in the data section to be used for the chart
+    getCountry2Deaths(chart, increments, daily) {
+      let url =
+        "https://api.covid19api.com/total/country/" + this.country2.name;
+      fetch(url, { method: "GET" })
+        .then(response => {
+          return response.json();
+        })
+        .then(jsonData => {
+          if (this.chartDataDeaths.data.datasets[1].data.length > 0) {
+            this.chartDataDeaths.data.datasets[1].data = [];
+          }
+          let today = jsonData.length - 1;
+          for (let i = today; i > 0; i--) {
+            if (i % increments == 0) {
+              this.chartDataDeaths.data.datasets[1].data.push(
+                jsonData[i].Deaths
+              );
+            }
+          }
+          if (daily === true) {
+            let size = this.chartDataDeaths.data.datasets[1].data.length;
+            for (let i = 0; i < size; i++) {
+              let j = i + 1;
+              this.chartDataDeaths.data.datasets[1].data[i] =
+                this.chartDataDeaths.data.datasets[1].data[i] -
+                this.chartDataDeaths.data.datasets[1].data[j];
+
+              if (this.chartDataDeaths.data.datasets[1].data[i] < 0) {
+                this.chartDataDeaths.data.datasets[1].data[i] = 0;
+              }
+            }
+          }
+          this.chartDataDeaths.data.datasets[1].data.reverse();
+          chart.update();
+        })
+        .catch(() => {});
+    },
+
+    //Function will generate charts and update them with data that was search for
+    generateCharts(chart, chart1, chart2, increments, daily) {
+      this.getChartDataByCountry(chart, increments, daily);
+      this.getCountry2Cases(chart, increments, daily);
+      this.getChartDataByCountryRecoveries(chart1, increments, daily);
+      this.getCountry2Recov(chart1, increments, daily);
+      this.getChartDataByCountryDeaths(chart2, increments, daily);
+      this.getCountry2Deaths(chart2, increments, daily);
+    },
+
+    //Function is called when the user want to filter the charts
+    updateCharts(evt) {
+      this.generateCharts(
+        this.charts.chart,
+        this.charts.chart1,
+        this.charts.chart2,
+        this.form.increments,
+        this.form.daily
+      );
+      evt.preventDefault();
     },
 
     //Formatting methods:
@@ -404,8 +744,18 @@ export default {
 
       return this.remover(country);
     },
+    dateFormatter(date) {
+      date = date.replace("T", " ");
+      date = date.substring(0, 10);
+      date = date.replace(/(\b-(?!\s))/g, " ");
+      let year = date.substring(0, 4);
+      let month = date.substring(5, 7);
+      let day = date.substring(8, 10);
+      return day + "/" + month + "/" + year;
+    }
   },
   mounted: function() {
+    //Get summary data for the countries.
     this.getCountry1Data();
     this.getCountry2Data();
 
@@ -417,21 +767,30 @@ export default {
     this.charts.chart = new Chart(ctx, {
       type: this.chartData.type,
       data: this.chartData.data,
-      options: this.chartData.lineChartOptions,
+      options: this.chartData.lineChartOptions
     });
 
     this.charts.chart1 = new Chart(ctx1, {
       type: this.chartDataRecoveries.type,
       data: this.chartDataRecoveries.data,
-      options: this.chartDataRecoveries.lineChartOptions,
+      options: this.chartDataRecoveries.lineChartOptions
     });
 
     this.charts.chart2 = new Chart(ctx2, {
       type: this.chartDataDeaths.type,
       data: this.chartDataDeaths.data,
-      options: this.chartDataDeaths.lineChartOptions,
+      options: this.chartDataDeaths.lineChartOptions
     });
-  },
+
+    //Generate the charts when the page loads.
+    this.generateCharts(
+      this.charts.chart,
+      this.charts.chart1,
+      this.charts.chart2,
+      this.form.increments,
+      this.form.daily
+    );
+  }
 };
 </script>
 <style scoped>
@@ -505,6 +864,18 @@ canvas {
 
 .custom-form-filter {
   margin-bottom: 10px;
+}
+
+.countryName-flex {
+  padding-top: 30px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.dataImportant {
+  color: #1a893c;
 }
 
 @media screen and (max-width: 990px) {

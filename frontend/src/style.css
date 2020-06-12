@@ -56,6 +56,10 @@ router-link:hover {
   text-decoration: none;
 }
 
+.bold-link {
+  font-family: "Roboto-Black";
+}
+
 input:focus {
   outline: none;
   box-shadow: none;
@@ -114,7 +118,7 @@ input:focus {
     font-size: 2.3em;
   }
   h2 {
-    font-size: 1.7em;
+    font-size: 1.6em;
   }
   h3 {
     font-size: 1.3em;
