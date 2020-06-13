@@ -14,7 +14,6 @@ Application Features:
 
 - Application uses an external public api to get up to date and accurate data on the coronavirus pandemic
 
----
 
 ## `.github`
 
