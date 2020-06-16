@@ -434,7 +434,7 @@ export default {
           //This is the standard loop to get all the data for the country that is being queried
           //Increments will take a value given by the user to increment so many days and store the value for that day
           for (let i = today; i > 0; i--) {
-            if (i % increments == 0) {
+            if (i % increments == 0 || i === today) {
               this.chartData.data.labels.push(
                 this.dateFormatter(jsonData[i].Date)
               );
@@ -490,7 +490,7 @@ export default {
           //This is the standard loop to get all the data for the country that is being queried
           //Increments will take a value given by the user to increment so many days and store the value for that day
           for (let i = today; i > 0; i--) {
-            if (i % increments == 0) {
+            if (i % increments == 0 || i === today) {
               this.chartDataRecoveries.data.labels.push(
                 this.dateFormatter(jsonData[i].Date)
               );
@@ -547,7 +547,7 @@ export default {
           //This is the standard loop to get all the data for the country that is being queried
           //Increments will take a value given by the user to increment so many days and store the value for that day
           for (let i = today; i > 0; i--) {
-            if (i % increments == 0) {
+            if (i % increments == 0 || i === today) {
               this.chartDataDeaths.data.labels.push(
                 this.dateFormatter(jsonData[i].Date)
               );
