@@ -220,6 +220,14 @@ export default {
           },
           responsive: true,
           maintainAspectRatio: false,
+          hover: {
+            mode: "nearest",
+            intersect: true,
+          },
+          tooltips: {
+            mode: "index",
+            intersect: false,
+          },
           scales: {
             xAxes: [
               {
@@ -266,6 +274,10 @@ export default {
             position: "bottom",
           },
           responsive: true,
+          tooltips: {
+            mode: "index",
+            intersect: false,
+          },
           maintainAspectRatio: false,
           scales: {
             xAxes: [
@@ -313,6 +325,10 @@ export default {
             position: "bottom",
           },
           responsive: true,
+          tooltips: {
+            mode: "index",
+            intersect: false,
+          },
           maintainAspectRatio: false,
           scales: {
             xAxes: [
