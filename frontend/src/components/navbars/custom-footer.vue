@@ -15,7 +15,7 @@
         </div>
         <div class="text-center">
           Data updated on {{ dateFormatter(updatedAt) }} at
-          {{ timeFormatter(updatedAt) }}
+          {{ timeFormatter(updatedAt) }}am
           <br />
           <br />
         </div>
@@ -69,7 +69,7 @@ export default {
 
     //time format to get time from time stamp string
     timeFormatter(time) {
-      time = time.substring(11, 19);
+      time = time.substring(11, 16);
       return time;
     },
   },
