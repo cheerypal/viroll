@@ -24,32 +24,34 @@
         </div>
       </div>
     </div>
+    <CustomFooter />
   </div>
 </template>
 
 <script>
 import NavBar from "../components/navbars/nav";
-
+import CustomFooter from "../components/navbars/custom-footer";
 export default {
   name: "NotFound",
   components: {
-    NavBar
+    NavBar,
+    CustomFooter,
   },
   data() {
     return {
-      search: this.$route.params.name
+      search: this.$route.params.name,
     };
   },
   methods: {
     format(text) {
       return "'" + text + "'";
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
 #NotFound {
-  min-height: 100vh;
+  min-height: 75vh;
   padding-top: 150px;
 }
 

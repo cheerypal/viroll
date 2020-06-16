@@ -6,31 +6,6 @@
         <div class="titleSection">
           <h1>{{ format(countryName) }}</h1>
           <h3>{{ issueName }} Statistics</h3>
-          <div class="flex-form">
-            <div class="form-title">
-              <h3>Compare country with:</h3>
-            </div>
-            <form class="custom-form-filter form-inline" @submit="compare">
-              <div>
-                <select
-                  class="form-control custom-select"
-                  v-model="cForm.country2"
-                >
-                  <option disabled value>Country</option>
-                  <option
-                    v-for="country in countries"
-                    :key="country"
-                    :value="country"
-                  >
-                    {{ format(country) }}
-                  </option>
-                </select>
-              </div>
-              <div>
-                <button class="custom-button" type="submit">Compare</button>
-              </div>
-            </form>
-          </div>
         </div>
         <hr />
         <div v-show="countryData.currentInfected != ''">
@@ -49,6 +24,34 @@
               :recovered="countryData.recovered"
               :deaths="countryData.totalDeaths"
             />
+          </div>
+          <hr />
+          <div class="compareSection">
+            <div class="flex-form">
+              <div class="form-title">
+                <h3>Compare {{ format(countryName) }} with:</h3>
+              </div>
+              <form class="custom-form-filter form-inline" @submit="compare">
+                <div>
+                  <select
+                    class="form-control custom-select"
+                    v-model="cForm.country2"
+                  >
+                    <option disabled value>Country</option>
+                    <option
+                      v-for="country in countries"
+                      :key="country"
+                      :value="country"
+                    >
+                      {{ format(country) }}
+                    </option>
+                  </select>
+                </div>
+                <div>
+                  <button class="custom-button" type="submit">Compare</button>
+                </div>
+              </form>
+            </div>
           </div>
           <hr />
           <div class="chartSection">
@@ -112,6 +115,7 @@
           </div>
           <hr />
         </div>
+
         <!--Error with finding data chunk-->
         <div v-show="countryData.currentInfected == ''">
           <div class="dataSection">
@@ -136,12 +140,13 @@
         </div>
       </div>
     </div>
+    <CustomFooter />
   </div>
 </template>
 <script>
 //Navbars
 import NavBar from "../components/navbars/nav";
-
+import CustomFooter from "../components/navbars/custom-footer";
 //data components
 import Summary from "../components/data-templates/summary.vue";
 
@@ -153,6 +158,7 @@ export default {
   components: {
     NavBar,
     Summary,
+    CustomFooter,
   },
   data() {
     return {
@@ -700,9 +706,15 @@ export default {
   background-attachment: fixed;
   background-color: rgba(255, 255, 255, 0.6);
   background-blend-mode: lighten;
+  padding-bottom: 50px;
 }
 
 .dataSection {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.compareSection {
   padding-top: 20px;
   padding-bottom: 20px;
 }
@@ -761,6 +773,10 @@ canvas {
   font-family: "Roboto-Black";
 }
 
+.dataImportant {
+  color: #1a893c;
+}
+
 .custom-form-filter {
   margin-bottom: 10px;
 }
@@ -790,6 +806,11 @@ canvas {
     padding-top: 30px;
   }
 
+  .compareSection {
+    padding-top: 10%;
+    padding-bottom: 5%;
+  }
+
   .dataSection {
     padding-top: 10%;
     padding-bottom: 5%;
@@ -812,6 +833,12 @@ canvas {
     padding-top: 2%;
     padding-bottom: 2%;
   }
+
+  .compareSection {
+    padding-top: 2%;
+    padding-bottom: 2%;
+  }
+
   .chart-container {
     height: 50vh;
   }

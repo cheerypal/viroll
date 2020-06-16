@@ -66,12 +66,13 @@
         </div>
       </div>
     </div>
+    <CustomFooter />
   </div>
 </template>
 <script>
 //Navbar comps
 import NavBar from "../components/navbars/nav";
-
+import CustomFooter from "../components/navbars/custom-footer";
 //Data comps
 import Country from "../components/data-templates/country-card";
 import Summary from "../components/data-templates/summary";
@@ -82,6 +83,7 @@ export default {
     NavBar,
     Country,
     Summary,
+    CustomFooter,
   },
   data() {
     return {
@@ -199,8 +201,9 @@ export default {
           break;
       }
     },
+
+    //Function orders countries by alphabetical order.
     compareStrings(a, b) {
-      // Assuming you want case-insensitive comparison
       a = a.toLowerCase();
       b = b.toLowerCase();
 
@@ -260,11 +263,10 @@ export default {
 @media screen and (max-width: 990px) {
   #allCountries {
     padding-top: 15%;
-    padding-bottom: 20%;
   }
   .dataSection {
     padding-top: 10%;
-    padding-bottom: 10%;
+    padding-bottom: 2%;
   }
 }
 

@@ -159,12 +159,14 @@
         </div>
       </div>
     </div>
+    <CustomFooter />
   </div>
 </template>
 
 <script>
 //Navbar
 import NavBar from "../components/navbars/nav";
+import CustomFooter from "../components/navbars/custom-footer";
 import CompareData from "../components/data-templates/compare-data.vue";
 import Chart from "chart.js";
 
@@ -173,6 +175,7 @@ export default {
   components: {
     NavBar,
     CompareData,
+    CustomFooter,
   },
 
   data() {
@@ -819,6 +822,7 @@ export default {
 #compare {
   min-height: 100vh;
   padding-top: 150px;
+  padding-bottom: 50px;
 }
 
 .titleSection {
