@@ -1,10 +1,12 @@
 <template>
   <div>
-    <h2>{{ type }} Total</h2>
+    <h2>{{ title }}</h2>
     <div class="dataFlex">
       <div class="dataItem">
         <h3>Cases</h3>
-        <h2 class="dataImportant">{{ formatNums(cases) }}</h2>
+        <h2 class="dataImportant">
+          {{ formatNums(infected) }}
+        </h2>
       </div>
       <div class="dataItem">
         <h3>Recoveries</h3>
@@ -19,13 +21,13 @@
 </template>
 <script>
 export default {
-  name: "total_data",
-  props: ["type", "cases", "recovered", "deaths"],
+  name: "todays_Data",
+  props: ["title", "infected", "recovered", "deaths"],
   methods: {
     formatNums(number) {
       return number.toLocaleString();
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
