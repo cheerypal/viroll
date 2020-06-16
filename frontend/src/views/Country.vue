@@ -6,6 +6,31 @@
         <div class="titleSection">
           <h1>{{ format(countryName) }}</h1>
           <h3>{{ issueName }} Statistics</h3>
+          <div class="flex-form">
+            <div class="form-title">
+              <h3>Compare country with:</h3>
+            </div>
+            <form class="custom-form-filter form-inline" @submit="compare">
+              <div>
+                <select
+                  class="form-control custom-select"
+                  v-model="cForm.country2"
+                >
+                  <option disabled value>Country</option>
+                  <option
+                    v-for="country in countries"
+                    :key="country"
+                    :value="country"
+                  >
+                    {{ format(country) }}
+                  </option>
+                </select>
+              </div>
+              <div>
+                <button class="custom-button" type="submit">Compare</button>
+              </div>
+            </form>
+          </div>
         </div>
         <hr />
         <div v-show="countryData.currentInfected != ''">
@@ -163,7 +188,13 @@ export default {
         increments: 1,
       },
 
-      image: "../assets/country-sil/" + this.$route.params.name + ".gif",
+      //compare form data objects
+      cForm: {
+        country1: this.$route.params.name,
+        country2: "",
+      },
+
+      countries: [],
 
       //chart data for confirmed Cases and its own chart characteristics
       chartData: {
@@ -336,6 +367,35 @@ export default {
           console.log(err);
           this.checkIfCountryExists();
         });
+    },
+
+    //get all other countries that are available for the
+    getAllOtherCountries() {
+      let url = "https://api.covid19api.com/countries";
+      fetch(url, { method: "GET" })
+        .then((response) => {
+          return response.json();
+        })
+        .then((jsonData) => {
+          for (let i in jsonData) {
+            if (jsonData[i].Slug === this.cForm.country1) {
+              continue;
+            }
+            this.countries.push(jsonData[i].Slug);
+          }
+          this.countries.sort();
+        });
+    },
+
+    //compare form submit function
+    compare() {
+      this.$router.push({
+        name: "compareCountries",
+        params: {
+          country1: this.cForm.country1,
+          country2: this.cForm.country2,
+        },
+      });
     },
 
     //Get data for the confirmed cases chart
@@ -577,6 +637,7 @@ export default {
   mounted: function() {
     //Get data for the country that was searched for.
     this.getAllDataFromCountry();
+    this.getAllOtherCountries();
 
     //Set up variables for the charts
     const ctx = document.getElementById("chart").getContext("2d");
@@ -709,10 +770,6 @@ canvas {
 }
 
 @media screen and (max-width: 710px) {
-  .titleSection {
-    padding-bottom: 5%;
-  }
-
   .chartSection {
     padding-top: 30px;
   }
