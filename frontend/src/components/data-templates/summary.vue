@@ -42,4 +42,13 @@ export default {
   flex-wrap: wrap;
   justify-content: space-between;
 }
+.dataItem {
+  width: 10%;
+}
+
+@media screen and (max-width: 840px) {
+  .dataItem {
+    width: 27%;
+  }
+}
 </style>

@@ -832,7 +832,7 @@ export default {
 
 .link-cont {
   color: black;
-  margin-top: 3%;
+  margin-top: 30px;
 }
 
 .bold-link {

@@ -9,6 +9,12 @@
         <p class="custom-card-subheading">
           <span class="cases">{{ formatNums(cases) }}</span> cases
         </p>
+        <p class="custom-card-subheading">
+          <span class="cases">{{ formatNums(recoveries) }}</span> recoveries
+        </p>
+        <p class="custom-card-subheading">
+          <span class="cases">{{ formatNums(deaths) }}</span> deaths
+        </p>
       </div>
     </router-link>
   </div>
@@ -16,7 +22,7 @@
 <script>
 export default {
   name: "country-card",
-  props: ["countryName", "cases"],
+  props: ["countryName", "cases", "recoveries", "deaths"],
   methods: {
     //Format variables
     remover(text) {
@@ -31,8 +37,8 @@ export default {
     },
     formatNums(number) {
       return number.toLocaleString();
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>

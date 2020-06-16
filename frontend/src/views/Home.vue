@@ -18,6 +18,41 @@
       <hr />
       <div class="dataSection">
         <h1 class="newSection">Countries</h1>
+        <div class="flex-form">
+          <div class="form-title">
+            <h3>Sort countries</h3>
+          </div>
+          <form class="custom-form-filter form-inline" @submit="sortCountries">
+            <div>
+              <select class="form-control custom-select" v-model="form.choice">
+                <option value="cases_high_to_low">
+                  Cases (Highest to Lowest)
+                </option>
+                <option value="cases_low_to_high">
+                  Cases (Lowest to Highest)
+                </option>
+                <option value="recov_high_to_low">
+                  Recoveries (Highest to Lowest)
+                </option>
+                <option value="recov_low_to_high">
+                  Recoveries (Lowest to Highest)
+                </option>
+                <option value="deaths_high_to_low">
+                  Deaths (Highest to Lowest)
+                </option>
+                <option value="deaths_low_to_high">
+                  Deaths (Lowest to Highest)
+                </option>
+                <option value="alpha">
+                  Alphabetical
+                </option>
+              </select>
+            </div>
+            <div>
+              <button class="custom-button" type="submit">Sort</button>
+            </div>
+          </form>
+        </div>
         <hr />
         <div class="countryFlex">
           <Country
@@ -25,6 +60,8 @@
             :key="country.countryName"
             :countryName="country.countryName"
             :cases="country.confirmed"
+            :recoveries="country.recoveries"
+            :deaths="country.deaths"
           />
         </div>
       </div>
@@ -54,6 +91,9 @@ export default {
         recovered: "",
       },
       countries: [],
+      form: {
+        choice: "cases_high_to_low",
+      },
     };
   },
 
@@ -101,6 +141,8 @@ export default {
             this.countries.push({
               countryName: country,
               confirmed: jsonData[jsonData.length - 1].Confirmed,
+              recoveries: jsonData[jsonData.length - 1].Recovered,
+              deaths: jsonData[jsonData.length - 1].Deaths,
             });
           }
           this.countries.sort((a, b) => {
@@ -108,6 +150,61 @@ export default {
           });
         })
         .catch(() => {});
+    },
+
+    //sort countries - triggered when the form is submitted
+    sortCountries(evt) {
+      evt.preventDefault();
+      switch (this.form.choice) {
+        case "cases_high_to_low":
+          this.countries.sort((a, b) => {
+            return b.confirmed - a.confirmed;
+          });
+          break;
+        case "cases_low_to_high":
+          this.countries.sort((a, b) => {
+            return a.confirmed - b.confirmed;
+          });
+          break;
+        case "recov_high_to_low":
+          this.countries.sort((a, b) => {
+            return b.recoveries - a.recoveries;
+          });
+          break;
+        case "recov_low_to_high":
+          this.countries.sort((a, b) => {
+            return a.recoveries - b.recoveries;
+          });
+          break;
+        case "deaths_high_to_low":
+          this.countries.sort((a, b) => {
+            return b.deaths - a.deaths;
+          });
+          break;
+        case "deaths_low_to_high":
+          this.countries.sort((a, b) => {
+            return a.deaths - b.deaths;
+          });
+          break;
+        case "alpha":
+          this.countries.sort((a, b) => {
+            return this.compareStrings(a.countryName, b.countryName);
+          });
+          break;
+
+        default:
+          this.countries.sort((a, b) => {
+            return b.confirmed - a.confirmed;
+          });
+          break;
+      }
+    },
+    compareStrings(a, b) {
+      // Assuming you want case-insensitive comparison
+      a = a.toLowerCase();
+      b = b.toLowerCase();
+
+      return a < b ? -1 : a > b ? 1 : 0;
     },
   },
   mounted: function() {
@@ -130,6 +227,25 @@ export default {
 
 .newSection {
   padding-top: 20px;
+}
+
+.flex-form {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.form-title {
+  margin-bottom: 10px;
+  font-size: 1.1em;
+  font-family: "Roboto-Black";
+}
+
+.custom-form-filter {
+  margin-bottom: 10px;
 }
 
 .countryFlex {
