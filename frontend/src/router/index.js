@@ -7,6 +7,7 @@ import NotFound from "../views/NotFound.vue";
 import NotFound404 from "../views/NotFound404.vue";
 import Compare from "../views/Compare.vue";
 import CompareCountries from "../views/Compare_Countries.vue";
+import About from "../views/About.vue";
 
 Vue.use(VueRouter);
 //Main pages that are accessed via the navigation bar or search bar
@@ -14,39 +15,45 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: Home
+    component: Home,
   },
   {
     path: "/country/:name",
     name: "country",
-    component: Country
+    component: Country,
   },
   {
     path: "/compare",
     name: "compare",
-    component: Compare
+    component: Compare,
   },
   {
     path: "/compare/:country1/:country2",
     name: "compareCountries",
-    component: CompareCountries
+    component: CompareCountries,
   },
+  {
+    path: "/about",
+    name: "about",
+    component: About,
+  },
+
   {
     name: "NotFound",
     path: "/country_not_found/:name",
-    component: NotFound
+    component: NotFound,
   },
   {
     path: "*",
     name: "NotFound404",
-    component: NotFound404
-  }
+    component: NotFound404,
+  },
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
 
 export default router;

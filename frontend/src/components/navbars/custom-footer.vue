@@ -2,16 +2,14 @@
   <div>
     <div id="custom-footer">
       <div class="container">
+        <hr />
         <div class="flex-foot">
-          <router-link :to="{ name: '#' }" class="spacer dataItem">
+          <router-link :to="{ name: 'about' }" class="spacer dataItem">
             About
           </router-link>
-          <a class="spacer" href="https://github.com/cheerypal/viroll">
-            <i class="fa fa-github"></i>
+          <a class="spacer dataItem" href="https://github.com/cheerypal/viroll">
+            Github
           </a>
-          <router-link :to="{ name: '#' }" class="spacer dataItem"
-            >Contact Us</router-link
-          >
         </div>
         <div class="text-center">
           Data updated on {{ dateFormatter(updatedAt) }} at
@@ -45,13 +43,13 @@ export default {
   methods: {
     //get update time from api
     getTimeUpdated() {
-      let url = "https://api.covid19api.com/stats";
+      let url = "https://api.covid19api.com/total/country/united-kingdom";
       fetch(url, { method: "GET" })
         .then((response) => {
           return response.json();
         })
         .then((jsonData) => {
-          this.updatedAt = jsonData.AllUpdated;
+          this.updatedAt = jsonData[jsonData.length - 1].Date;
         });
     },
 
@@ -114,12 +112,9 @@ export default {
 }
 
 @media screen and (max-width: 500px) {
-  .flex-foot {
-    flex-direction: column;
-  }
   .spacer {
     padding-bottom: 10px;
-    width: 100%;
+    width: 50%;
   }
 }
 </style>

@@ -90,7 +90,6 @@
                 <canvas id="chartDeaths" class="charts" />
               </div>
             </div>
-            <hr />
           </div>
         </div>
 

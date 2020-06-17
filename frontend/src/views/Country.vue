@@ -113,7 +113,6 @@
               <canvas id="chartDeaths" class="charts" />
             </div>
           </div>
-          <hr />
         </div>
 
         <!--Error with finding data chunk-->
