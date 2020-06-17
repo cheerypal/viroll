@@ -103,11 +103,11 @@ export default {
   data() {
     return {
       searchBar: {
-        value: "",
+        value: ""
       },
       clicked: false,
       countries: [],
-      autoComplete: [],
+      autoComplete: []
     };
   },
   methods: {
@@ -127,7 +127,7 @@ export default {
       );
       this.$router.push({
         name: "country",
-        params: { name: input },
+        params: { name: input }
       });
     },
 
@@ -171,10 +171,10 @@ export default {
     getAllCountries() {
       let url = "https://api.covid19api.com/countries";
       fetch(url, { method: "GET" })
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((jsonData) => {
+        .then(jsonData => {
           for (let i in jsonData) {
             this.countries.push(jsonData[i].Country.toLowerCase());
           }
@@ -217,11 +217,11 @@ export default {
       });
 
       return this.remover(country);
-    },
+    }
   },
   mounted: function() {
     this.getAllCountries();
-  },
+  }
 };
 </script>
 <style scoped>

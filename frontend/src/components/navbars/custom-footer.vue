@@ -37,7 +37,7 @@ export default {
   name: "customFooter",
   data() {
     return {
-      updatedAt: "",
+      updatedAt: ""
     };
   },
   methods: {
@@ -45,10 +45,10 @@ export default {
     getTimeUpdated() {
       let url = "https://api.covid19api.com/total/country/united-kingdom";
       fetch(url, { method: "GET" })
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((jsonData) => {
+        .then(jsonData => {
           this.updatedAt = jsonData[jsonData.length - 1].Date;
         });
     },
@@ -69,11 +69,11 @@ export default {
     timeFormatter(time) {
       time = time.substring(11, 16);
       return time;
-    },
+    }
   },
   mounted: function() {
     this.getTimeUpdated();
-  },
+  }
 };
 </script>
 <style scoped>

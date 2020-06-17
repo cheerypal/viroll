@@ -63,16 +63,16 @@ export default {
   name: "Compare",
   components: {
     NavBar,
-    CustomFooter,
+    CustomFooter
   },
   data() {
     return {
       form: {
         country1: "",
-        country2: "",
+        country2: ""
       },
       issueName: "Coronavirus",
-      countries: [],
+      countries: []
     };
   },
   methods: {
@@ -81,8 +81,8 @@ export default {
         name: "compareCountries",
         params: {
           country1: this.form.country1,
-          country2: this.form.country2,
-        },
+          country2: this.form.country2
+        }
       });
     },
 
@@ -90,10 +90,10 @@ export default {
     getAllCountries() {
       let url = "https://api.covid19api.com/countries";
       fetch(url, { method: "GET" })
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((jsonData) => {
+        .then(jsonData => {
           for (let i in jsonData) {
             this.countries.push(this.format(jsonData[i].Slug));
           }
@@ -118,12 +118,12 @@ export default {
         .split(" ")
         .join("-")
         .toLowerCase();
-    },
+    }
   },
   mounted: function() {
     //Function that is called on page load.
     this.getAllCountries();
-  },
+  }
 };
 </script>
 <style scoped>

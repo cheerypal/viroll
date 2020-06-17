@@ -15,45 +15,45 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: Home,
+    component: Home
   },
   {
     path: "/country/:name",
     name: "country",
-    component: Country,
+    component: Country
   },
   {
     path: "/compare",
     name: "compare",
-    component: Compare,
+    component: Compare
   },
   {
     path: "/compare/:country1/:country2",
     name: "compareCountries",
-    component: CompareCountries,
+    component: CompareCountries
   },
   {
     path: "/about",
     name: "about",
-    component: About,
+    component: About
   },
 
   {
     name: "NotFound",
     path: "/country_not_found/:name",
-    component: NotFound,
+    component: NotFound
   },
   {
     path: "*",
     name: "NotFound404",
-    component: NotFound404,
-  },
+    component: NotFound404
+  }
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes,
+  routes
 });
 
 export default router;

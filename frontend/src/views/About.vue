@@ -133,8 +133,8 @@ export default {
   name: "about",
   components: {
     NavBar,
-    CustomFooter,
-  },
+    CustomFooter
+  }
 };
 </script>
 <style scoped>

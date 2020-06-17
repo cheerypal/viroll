@@ -35,18 +35,18 @@ export default {
   name: "NotFound",
   components: {
     NavBar,
-    CustomFooter,
+    CustomFooter
   },
   data() {
     return {
-      search: this.$route.params.name,
+      search: this.$route.params.name
     };
   },
   methods: {
     format(text) {
       return "'" + text + "'";
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>

@@ -56,8 +56,8 @@ export default {
   methods: {
     formatNums(number) {
       return number.toLocaleString();
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>
