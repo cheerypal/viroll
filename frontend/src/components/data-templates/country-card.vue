@@ -4,7 +4,14 @@
       class="custom-link"
       :to="{ name: 'country', params: { name: countryName } }"
     >
-      <div class="custom-card">
+      <div
+        class="custom-card"
+        v-bind:style="{
+          backgroundColor: cookie ? 'rgba(14, 14, 14, 0.9)' : 'white',
+          color: cookie ? 'white' : 'black',
+          borderColor: cookie ? '#8E8E8E' : 'black',
+        }"
+      >
         <h4 class="custom-card-heading">{{ format(countryName) }}</h4>
         <p class="custom-card-subheading">
           <span class="cases">{{ formatNums(cases) }}</span> cases
@@ -23,6 +30,11 @@
 export default {
   name: "country-card",
   props: ["countryName", "cases", "recoveries", "deaths"],
+  data() {
+    return {
+      cookie: "",
+    };
+  },
   methods: {
     //Format variables
     remover(text) {
@@ -37,8 +49,18 @@ export default {
     },
     formatNums(number) {
       return number.toLocaleString();
-    }
-  }
+    },
+    checkCookie() {
+      if (this.$cookies.get("dark-mode") === null) {
+        this.cookie = false;
+      } else {
+        this.cookie = true;
+      }
+    },
+  },
+  mounted: function() {
+    this.checkCookie();
+  },
 };
 </script>
 <style scoped>
@@ -52,11 +74,7 @@ export default {
   margin-bottom: 20px;
   border: solid 3px #000;
   text-align: center;
-  background-position: right;
-  background-repeat: no-repeat;
-  background-size: 40%;
-  background-color: rgba(255, 255, 255, 0.2);
-  background-blend-mode: lighten;
+  background-color: transparent;
   transition: all 0.2s ease-in-out;
 }
 
@@ -70,9 +88,7 @@ export default {
 }
 
 .custom-card:hover {
-  border: solid 3px #1a893c;
-  background-color: rgba(255, 255, 255, 0);
-  background-blend-mode: lighten;
+  padding: 60px;
 }
 
 .custom-card-subheading {

@@ -1,12 +1,28 @@
 <template>
   <div>
     <NavBar />
-    <div id="about">
+    <div
+      id="about"
+      v-bind:style="{
+        backgroundColor: cookie ? 'black' : 'white',
+        color: cookie ? 'white' : 'black',
+      }"
+    >
       <div class="container">
         <div class="dataSection">
           <h1>About Us</h1>
-          <hr />
-          <h2>We are a Coronavirus Statistics Site</h2>
+          <hr
+            v-bind:style="{
+              backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+            }"
+          />
+          <h2
+            v-bind:style="{
+              color: cookie ? 'white' : 'black',
+            }"
+          >
+            We are a Coronavirus Statistics Site
+          </h2>
           <ul>
             <li>Get country by country statistics</li>
             <li>
@@ -30,16 +46,37 @@
         </div>
         <div class="dataSection">
           <h1>Our Datasource</h1>
-          <hr />
-          <h2><a href="https://covid19api.com/">COVID 19 API</a></h2>
+          <hr
+            v-bind:style="{
+              backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+            }"
+          />
+          <h2>
+            <a
+              v-bind:style="{
+                color: cookie ? 'white' : 'black',
+              }"
+              href="https://covid19api.com/"
+              >COVID 19 API</a
+            >
+          </h2>
           <ul>
             <li>
               VIROLL uses a public API/Datasource that was created by
-              <a class="bold-important" href="https://ksred.me/">
+              <a
+                v-bind:style="{
+                  color: cookie ? 'white' : 'black',
+                }"
+                class="bold-important"
+                href="https://ksred.me/"
+              >
                 Kyle Redelinghuys
               </a>
               who sourced the data from
               <a
+                v-bind:style="{
+                  color: cookie ? 'white' : 'black',
+                }"
                 class="bold-important"
                 href="https://github.com/CSSEGISandData/COVID-19"
               >
@@ -48,20 +85,35 @@
             </li>
             <li>
               Please support this API by going to
-              <a class="bold-important" href="https://covid19api.com/">
+              <a
+                v-bind:style="{
+                  color: cookie ? 'white' : 'black',
+                }"
+                class="bold-important"
+                href="https://covid19api.com/"
+              >
                 COVID 19 API
               </a>
             </li>
             <li>
               Documentation for the API/Datasource is
               <a
+                v-bind:style="{
+                  color: cookie ? 'white' : 'black',
+                }"
                 class="bold-important"
                 href="https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest"
                 >here</a
               >
             </li>
             <li>
-              <a class="bold-important" href="https://covid19api.com/">
+              <a
+                v-bind:style="{
+                  color: cookie ? 'white' : 'black',
+                }"
+                class="bold-important"
+                href="https://covid19api.com/"
+              >
                 COVID 19 API
               </a>
               gives VIROLL updated data everyday at 00:00am
@@ -70,7 +122,11 @@
         </div>
         <div class="dataSection">
           <h1>Our Site is a PWA</h1>
-          <hr />
+          <hr
+            v-bind:style="{
+              backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+            }"
+          />
           <p class="custom-para">
             This site is a PWA (Progressive Web App). This means you can
             download this as an application on desktop, or if you are on a
@@ -103,16 +159,30 @@
         </div>
         <div class="dataSection">
           <h1>Report a problem</h1>
-          <hr />
+          <hr
+            v-bind:style="{
+              backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+            }"
+          />
           <ul>
             <li>
               If you have any issues you can email me directly
-              <a class="bold-important" href="mailto:ejg9@hw.ac.uk">here!</a>
+              <a
+                v-bind:style="{
+                  color: cookie ? 'white' : 'black',
+                }"
+                class="bold-important"
+                href="mailto:ejg9@hw.ac.uk"
+                >here!</a
+              >
             </li>
             <li>or</li>
             <li>
               Create an issue on the
               <a
+                v-bind:style="{
+                  color: cookie ? 'white' : 'black',
+                }"
                 class="bold-important"
                 href="https://github.com/cheerypal/viroll"
               >
@@ -133,8 +203,25 @@ export default {
   name: "about",
   components: {
     NavBar,
-    CustomFooter
-  }
+    CustomFooter,
+  },
+  data() {
+    return {
+      cookie: "",
+    };
+  },
+  methods: {
+    checkCookie() {
+      if (this.$cookies.get("dark-mode") === null) {
+        this.cookie = false;
+      } else {
+        this.cookie = true;
+      }
+    },
+  },
+  mounted: function() {
+    this.checkCookie();
+  },
 };
 </script>
 <style scoped>

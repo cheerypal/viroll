@@ -1,13 +1,29 @@
 <template>
   <div>
     <NavBar />
-    <div id="NotFound">
+    <div
+      id="NotFound"
+      v-bind:style="{
+        backgroundColor: cookie ? 'black' : 'white',
+        color: cookie ? 'white' : 'black',
+      }"
+    >
       <div class="container">
         <div class="titleSection">
           <h1>404 Page Not Found</h1>
-          <h3>Unfortunately the page you were looking for was not found</h3>
+          <h3
+            v-bind:style="{
+              color: cookie ? 'white' : 'black',
+            }"
+          >
+            Unfortunately the page you were looking for was not found
+          </h3>
         </div>
-        <hr />
+        <hr
+          v-bind:style="{
+            backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+          }"
+        />
       </div>
     </div>
     <CustomFooter />
@@ -20,18 +36,29 @@ export default {
   name: "NotFound",
   components: {
     NavBar,
-    CustomFooter
+    CustomFooter,
   },
   data() {
     return {
-      search: this.$route.params.name
+      search: this.$route.params.name,
+      cookie: "",
     };
   },
   methods: {
     format(text) {
       return "'" + text + "'";
-    }
-  }
+    },
+    checkCookie() {
+      if (this.$cookies.get("dark-mode") === null) {
+        this.cookie = false;
+      } else {
+        this.cookie = true;
+      }
+    },
+  },
+  mounted: function() {
+    this.checkCookie();
+  },
 };
 </script>
 <style scoped>

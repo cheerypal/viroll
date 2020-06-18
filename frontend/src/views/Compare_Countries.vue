@@ -1,16 +1,31 @@
 <template>
   <div>
     <NavBar />
-    <div id="compare">
+    <div
+      id="compare"
+      v-bind:style="{
+        backgroundColor: cookie ? 'black' : 'white',
+        color: cookie ? 'white' : 'black',
+      }"
+    >
       <div class="container">
         <h1>{{ format(country1.name) }} & {{ format(country2.name) }}</h1>
         <h3>{{ issueName }} Statistics</h3>
         <div class="link-cont">
-          <router-link class="bold-link" :to="{ name: 'compare' }"
+          <router-link
+            v-bind:style="{
+              color: cookie ? 'white' : 'black',
+            }"
+            class="bold-link"
+            :to="{ name: 'compare' }"
             >Compare other countries here ></router-link
           >
         </div>
-        <hr />
+        <hr
+          v-bind:style="{
+            backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+          }"
+        />
         <div v-show="country1.confirmed != ''">
           <div v-show="country2.confirmed != ''">
             <div class="dataSection">
@@ -43,49 +58,145 @@
                 >
                   <div>
                     <select
+                      v-bind:style="{
+                        backgroundColor: cookie
+                          ? 'rgba(14, 14, 14, 0.9)'
+                          : 'white',
+                        color: cookie ? 'white' : 'black',
+                        borderColor: cookie ? '#8E8E8E' : 'black',
+                      }"
                       class="form-control custom-select"
                       v-model="form.daily"
                     >
-                      <option v-bind:value="true">Change Data</option>
-                      <option v-bind:value="false">All Time Data</option>
+                      <option
+                        v-bind:style="{
+                          backgroundColor: cookie ? 'black' : 'white',
+                          color: cookie ? 'white' : 'black',
+                        }"
+                        v-bind:value="true"
+                        >Change Data</option
+                      >
+                      <option
+                        v-bind:style="{
+                          backgroundColor: cookie ? 'black' : 'white',
+                          color: cookie ? 'white' : 'black',
+                        }"
+                        v-bind:value="false"
+                        >All Time Data</option
+                      >
                     </select>
                   </div>
                   <div>
                     <select
+                      v-bind:style="{
+                        backgroundColor: cookie
+                          ? 'rgba(14, 14, 14, 0.9)'
+                          : 'white',
+                        color: cookie ? 'white' : 'black',
+                        borderColor: cookie ? '#8E8E8E' : 'black',
+                      }"
                       class="form-control custom-select"
                       v-model="form.increments"
                     >
-                      <option value="1">Every Recorded Day</option>
-                      <option value="7">Weekly Data</option>
-                      <option value="14">2 Week Data</option>
-                      <option value="30">Monthly Data (30 Days)</option>
+                      <option
+                        v-bind:style="{
+                          backgroundColor: cookie ? 'black' : 'white',
+                          color: cookie ? 'white' : 'black',
+                        }"
+                        value="1"
+                        >Every Recorded Day</option
+                      >
+                      <option
+                        v-bind:style="{
+                          backgroundColor: cookie ? 'black' : 'white',
+                          color: cookie ? 'white' : 'black',
+                        }"
+                        value="7"
+                        >Weekly Data</option
+                      >
+                      <option
+                        v-bind:style="{
+                          backgroundColor: cookie ? 'black' : 'white',
+                          color: cookie ? 'white' : 'black',
+                        }"
+                        value="14"
+                        >2 Week Data</option
+                      >
+                      <option
+                        v-bind:style="{
+                          backgroundColor: cookie ? 'black' : 'white',
+                          color: cookie ? 'white' : 'black',
+                        }"
+                        value="30"
+                        >Monthly Data (30 Days)</option
+                      >
                     </select>
                   </div>
                   <div>
-                    <button class="custom-button" type="submit">
+                    <button
+                      v-bind:style="{
+                        backgroundColor: cookie
+                          ? 'rgba(14, 14, 14, 0.9)'
+                          : 'white',
+                        color: cookie ? 'white' : 'black',
+                        borderColor: cookie ? '#8E8E8E' : 'black',
+                      }"
+                      class="custom-button"
+                      type="submit"
+                    >
                       Filter
                     </button>
                   </div>
                 </form>
               </div>
             </div>
-            <hr />
+            <hr
+              v-bind:style="{
+                backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+              }"
+            />
             <div class="dataSection">
-              <h2>Confirmed Cases</h2>
+              <h2
+                v-bind:style="{
+                  color: cookie ? 'white' : 'black',
+                }"
+              >
+                Confirmed Cases
+              </h2>
               <div class="chart-container">
                 <canvas id="chart" class="charts" />
               </div>
             </div>
-            <hr />
+            <hr
+              v-bind:style="{
+                backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+              }"
+            />
             <div class="dataSection">
-              <h2>Recoveries</h2>
+              <h2
+                v-bind:style="{
+                  color: cookie ? 'white' : 'black',
+                }"
+              >
+                Recoveries
+              </h2>
               <div class="chart-container">
                 <canvas id="chartRecoveries" class="charts" />
               </div>
             </div>
-            <hr />
+            <hr
+              v-bind:style="{
+                backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+              }"
+            />
             <div class="dataSection">
-              <h2>Deaths</h2>
+              <h2
+                v-bind:style="{
+                  color: cookie ? 'white' : 'black',
+                }"
+              >
+                Deaths
+              </h2>
               <div class="chart-container">
                 <canvas id="chartDeaths" class="charts" />
               </div>
@@ -96,16 +207,32 @@
         <!--Error with finding data chunks-->
         <div v-show="country1.confirmed == ''">
           <div class="dataSection">
-            <h2>
+            <h2
+              v-bind:style="{
+                color: cookie ? 'white' : 'black',
+              }"
+            >
               Unfortunately we don't have data for {{ format(country1.name) }}
             </h2>
             <p class="err">
               Please visit the
-              <router-link class="nav-links bold-link" :to="{ name: 'home' }">
+              <router-link
+                v-bind:style="{
+                  color: cookie ? 'white' : 'black',
+                }"
+                class="nav-links bold-link"
+                :to="{ name: 'home' }"
+              >
                 countries
               </router-link>
               page for the full list of
-              <router-link class="nav-links bold-link" :to="{ name: 'home' }">
+              <router-link
+                v-bind:style="{
+                  color: cookie ? 'white' : 'black',
+                }"
+                class="nav-links bold-link"
+                :to="{ name: 'home' }"
+              >
                 countries
               </router-link>
               <br />
@@ -117,6 +244,9 @@
               <br />
               visit
               <router-link
+                v-bind:style="{
+                  color: cookie ? 'white' : 'black',
+                }"
                 class="nav-links bold-link"
                 :to="{ name: 'country', params: { name: country2.name } }"
               >
@@ -127,16 +257,32 @@
         </div>
         <div v-show="country2.confirmed == ''">
           <div class="dataSection">
-            <h2>
+            <h2
+              v-bind:style="{
+                color: cookie ? 'white' : 'black',
+              }"
+            >
               Unfortunately we don't have data for {{ format(country2.name) }}
             </h2>
             <p class="err">
               Please visit the
-              <router-link class="nav-links bold-link" :to="{ name: 'home' }">
+              <router-link
+                v-bind:style="{
+                  color: cookie ? 'white' : 'black',
+                }"
+                class="nav-links bold-link"
+                :to="{ name: 'home' }"
+              >
                 countries
               </router-link>
               page for the full list of
-              <router-link class="nav-links bold-link" :to="{ name: 'home' }">
+              <router-link
+                v-bind:style="{
+                  color: cookie ? 'white' : 'black',
+                }"
+                class="nav-links bold-link"
+                :to="{ name: 'home' }"
+              >
                 countries
               </router-link>
               <br />
@@ -148,6 +294,9 @@
               <br />
               visit
               <router-link
+                v-bind:style="{
+                  color: cookie ? 'white' : 'black',
+                }"
                 class="nav-links bold-link"
                 :to="{ name: 'country', params: { name: country1.name } }"
               >
@@ -179,6 +328,7 @@ export default {
 
   data() {
     return {
+      cookie: "",
       country1: {
         name: this.$route.params.country1,
         confirmed: "",
@@ -783,11 +933,19 @@ export default {
       let day = date.substring(8, 10);
       return day + "/" + month + "/" + year;
     },
+    checkCookie() {
+      if (this.$cookies.get("dark-mode") === null) {
+        this.cookie = false;
+      } else {
+        this.cookie = true;
+      }
+    },
   },
   mounted: function() {
     //Get summary data for the countries.
     this.getCountry1Data();
     this.getCountry2Data();
+    this.checkCookie();
 
     const ctx = document.getElementById("chart").getContext("2d");
     const ctx1 = document.getElementById("chartRecoveries").getContext("2d");

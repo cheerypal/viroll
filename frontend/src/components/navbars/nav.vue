@@ -1,12 +1,33 @@
 <template>
   <div>
-    <nav class="custom-navbar fixed-top">
+    <nav
+      class="custom-navbar fixed-top"
+      v-bind:style="{
+        backgroundColor: cookie ? 'black' : 'white',
+        color: cookie ? 'white' : 'black',
+      }"
+    >
       <div class="container">
         <div class="flex-navbar">
-          <router-link :to="{ name: 'home' }" class="brand-logo">
+          <router-link
+            :to="{ name: 'home' }"
+            class="brand-logo"
+            v-bind:style="{
+              color: cookie ? 'white' : 'black',
+            }"
+          >
             VIROLL
           </router-link>
-          <form class="nav-form" id="search" @submit="go">
+          <form
+            class="nav-form"
+            id="search"
+            @submit="go"
+            v-bind:style="{
+              backgroundColor: cookie ? 'rgba(14, 14, 14, 0.9)' : 'white',
+              color: cookie ? 'white' : 'black',
+              borderColor: cookie ? '#8E8E8E' : 'black',
+            }"
+          >
             <div class="flex-form">
               <input
                 type="text"
@@ -14,20 +35,39 @@
                 class="custom-input"
                 placeholder="Country"
                 v-on:keyup="countryComplete"
+                v-bind:style="{
+                  backgroundColor: cookie ? 'rgba(14, 14, 14, 0.9)' : 'white',
+                  color: cookie ? 'white' : 'black',
+                }"
               />
               <div class="input-group-append">
                 <button class="btn" type="submit">
-                  <i class="fa fa-search"></i>
+                  <i
+                    class="fa fa-search"
+                    v-bind:style="{
+                      color: cookie ? 'white' : 'black',
+                    }"
+                  ></i>
                 </button>
               </div>
             </div>
             <div v-show="autoComplete.length != 0">
-              <ul class="searchList">
+              <ul
+                class="searchList"
+                v-bind:style="{
+                  backgroundColor: cookie ? 'rgba(14, 14, 14, 0.9)' : 'white',
+                  color: cookie ? 'white' : 'black',
+                }"
+              >
                 <li
                   class="searchItem"
                   v-for="country in autoComplete"
                   :key="country"
                   @click="selectCountry(country)"
+                  v-bind:style="{
+                    backgroundColor: cookie ? 'rgba(14, 14, 14, 0.9)' : 'white',
+                    color: cookie ? 'white' : 'black',
+                  }"
                 >
                   {{ format(country) }}
                 </li>
@@ -40,12 +80,34 @@
         </div>
       </div>
       <transition name="fade">
-        <ul v-if="clicked" class="custom-nav-mobile fixed-top">
-          <router-link :to="{ name: 'home' }" class="nav-link-logo nav-link">
+        <ul
+          v-if="clicked"
+          class="custom-nav-mobile fixed-top"
+          v-bind:style="{
+            backgroundColor: cookie ? 'rgba(14, 14, 14, 0.9)' : 'white',
+            color: cookie ? 'white' : 'black',
+          }"
+        >
+          <router-link
+            :to="{ name: 'home' }"
+            class="nav-link-logo nav-link"
+            v-bind:style="{
+              color: cookie ? 'white' : 'black',
+            }"
+          >
             VIROLL
           </router-link>
           <li>
-            <form class="nav-form" id="searchMobile" @submit="go">
+            <form
+              class="nav-form"
+              id="searchMobile"
+              @submit="go"
+              v-bind:style="{
+                backgroundColor: cookie ? 'rgba(14, 14, 14, 0.9)' : 'white',
+                color: cookie ? 'white' : 'black',
+                borderColor: cookie ? '#8E8E8E' : 'black',
+              }"
+            >
               <div class="flex-form">
                 <input
                   type="text"
@@ -53,20 +115,41 @@
                   class="custom-input"
                   placeholder="Country"
                   v-on:keyup="countryComplete"
+                  v-bind:style="{
+                    backgroundColor: cookie ? 'rgba(14, 14, 14, 0.9)' : 'white',
+                    color: cookie ? 'white' : 'black',
+                  }"
                 />
                 <div class="input-group-append">
                   <button class="btn" type="submit">
-                    <i class="fa fa-search"></i>
+                    <i
+                      class="fa fa-search"
+                      v-bind:style="{
+                        color: cookie ? 'white' : 'black',
+                      }"
+                    ></i>
                   </button>
                 </div>
               </div>
               <div v-show="autoComplete.length != 0">
-                <ul class="searchList">
+                <ul
+                  class="searchList"
+                  v-bind:style="{
+                    backgroundColor: cookie ? 'rgba(14, 14, 14, 0.9)' : 'white',
+                    color: cookie ? 'white' : 'black',
+                  }"
+                >
                   <li
                     class="searchItem"
                     v-for="country in autoComplete"
                     :key="country"
                     @click="selectCountry(country)"
+                    v-bind:style="{
+                      backgroundColor: cookie
+                        ? 'rgba(14, 14, 14, 0.9)'
+                        : 'white',
+                      color: cookie ? 'white' : 'black',
+                    }"
                   >
                     {{ format(country) }}
                   </li>
@@ -75,22 +158,45 @@
             </form>
           </li>
           <li>
-            <router-link :to="{ name: 'home' }" class="nav-link">
+            <router-link
+              v-bind:style="{
+                color: cookie ? 'white' : 'black',
+              }"
+              :to="{ name: 'home' }"
+              class="nav-link"
+            >
               Countries
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'compare' }" class="nav-link">
+            <router-link
+              v-bind:style="{
+                color: cookie ? 'white' : 'black',
+              }"
+              :to="{ name: 'compare' }"
+              class="nav-link"
+            >
               Compare
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'about' }" class="nav-link">
+            <router-link
+              v-bind:style="{
+                color: cookie ? 'white' : 'black',
+              }"
+              :to="{ name: 'about' }"
+              class="nav-link"
+            >
               About
             </router-link>
           </li>
           <li @click="showNav">
-            <i class="nav-link closeBut fa fa-times"></i>
+            <i
+              class="nav-link closeBut fa fa-times"
+              v-bind:style="{
+                color: cookie ? 'white' : 'black',
+              }"
+            ></i>
           </li>
         </ul>
       </transition>
@@ -103,11 +209,12 @@ export default {
   data() {
     return {
       searchBar: {
-        value: ""
+        value: "",
       },
       clicked: false,
       countries: [],
-      autoComplete: []
+      autoComplete: [],
+      cookie: "",
     };
   },
   methods: {
@@ -127,7 +234,7 @@ export default {
       );
       this.$router.push({
         name: "country",
-        params: { name: input }
+        params: { name: input },
       });
     },
 
@@ -171,10 +278,10 @@ export default {
     getAllCountries() {
       let url = "https://api.covid19api.com/countries";
       fetch(url, { method: "GET" })
-        .then(response => {
+        .then((response) => {
           return response.json();
         })
-        .then(jsonData => {
+        .then((jsonData) => {
           for (let i in jsonData) {
             this.countries.push(jsonData[i].Country.toLowerCase());
           }
@@ -217,11 +324,20 @@ export default {
       });
 
       return this.remover(country);
-    }
+    },
+
+    checkCookie() {
+      if (this.$cookies.get("dark-mode") === null) {
+        this.cookie = false;
+      } else {
+        this.cookie = true;
+      }
+    },
   },
   mounted: function() {
     this.getAllCountries();
-  }
+    this.checkCookie();
+  },
 };
 </script>
 <style scoped>
@@ -242,7 +358,7 @@ export default {
   padding-top: 1%;
   border: none;
   background-color: rgba(255, 255, 255, 1);
-  padding-bottom: 2%;
+  padding-bottom: 1%;
 }
 
 .flex-form {
@@ -354,7 +470,6 @@ export default {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  background-color: rgba(255, 255, 255, 0.8);
   color: black;
   min-height: 100vh;
   align-items: center;

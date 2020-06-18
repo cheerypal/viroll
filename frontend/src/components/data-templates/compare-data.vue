@@ -1,22 +1,46 @@
 <template>
   <div>
     <div class="dataSection">
-      <h2>{{ countryOName }}</h2>
+      <h2
+        v-bind:style="{
+          color: cookie ? 'white' : 'black',
+        }"
+      >
+        {{ countryOName }}
+      </h2>
       <div class="flex-data-compare">
         <div class="dataItem">
-          <h3>Cases</h3>
+          <h3
+            v-bind:style="{
+              color: cookie ? 'white' : 'black',
+            }"
+          >
+            Cases
+          </h3>
           <h2 class="dataImportant">
             {{ formatNums(countryO.confirmed) }}
           </h2>
         </div>
         <div class="dataItem">
-          <h3>Recoveries</h3>
+          <h3
+            v-bind:style="{
+              color: cookie ? 'white' : 'black',
+            }"
+          >
+            Recoveries
+          </h3>
           <h2 class="dataImportant">
             {{ formatNums(countryO.recovered) }}
           </h2>
         </div>
         <div class="dataItem">
-          <h3>Deaths</h3>
+          <h3
+            v-bind:style="{
+              color: cookie ? 'white' : 'black',
+            }"
+          >
+            Deaths
+          </h3>
           <h2 class="dataImportant">
             {{ formatNums(countryO.dead) }}
           </h2>
@@ -24,40 +48,83 @@
       </div>
     </div>
     <div class="dataSection">
-      <h2>{{ countryTName }}</h2>
+      <h2
+        v-bind:style="{
+          color: cookie ? 'white' : 'black',
+        }"
+      >
+        {{ countryTName }}
+      </h2>
       <div class="flex-data-compare">
         <div class="dataItem">
-          <h3>Cases</h3>
+          <h3
+            v-bind:style="{
+              color: cookie ? 'white' : 'black',
+            }"
+          >
+            Cases
+          </h3>
           <h2 class="dataImportant">
             {{ formatNums(countryT.confirmed) }}
           </h2>
         </div>
         <div class="dataItem">
-          <h3>Recoveries</h3>
+          <h3
+            v-bind:style="{
+              color: cookie ? 'white' : 'black',
+            }"
+          >
+            Recoveries
+          </h3>
           <h2 class="dataImportant">
             {{ formatNums(countryT.recovered) }}
           </h2>
         </div>
         <div class="dataItem">
-          <h3>Deaths</h3>
+          <h3
+            v-bind:style="{
+              color: cookie ? 'white' : 'black',
+            }"
+          >
+            Deaths
+          </h3>
           <h2 class="dataImportant">
             {{ formatNums(countryT.dead) }}
           </h2>
         </div>
       </div>
     </div>
-    <hr />
+    <hr
+      v-bind:style="{
+        backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+      }"
+    />
   </div>
 </template>
 <script>
 export default {
   name: "compare_data",
   props: ["countryO", "countryT", "countryOName", "countryTName"],
+  data() {
+    return {
+      cookie: "",
+    };
+  },
   methods: {
     formatNums(number) {
       return number.toLocaleString();
-    }
-  }
+    },
+    checkCookie() {
+      if (this.$cookies.get("dark-mode") === null) {
+        this.cookie = false;
+      } else {
+        this.cookie = true;
+      }
+    },
+  },
+  mounted: function() {
+    this.checkCookie();
+  },
 };
 </script>
 <style scoped>

@@ -1,12 +1,21 @@
 <template>
-  <div>
+  <div
+    v-bind:style="{
+      backgroundColor: cookie ? 'black' : 'white',
+      color: cookie ? 'white' : 'black',
+    }"
+  >
     <NavBar />
     <div id="allCountries" class="container">
       <div class="titleSection">
         <h1>All Countries</h1>
         <h3>Coronavirus Statistics</h3>
       </div>
-      <hr />
+      <hr
+        v-bind:style="{
+          backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+        }"
+      />
       <div class="dataSection">
         <Summary
           title="World Total"
@@ -15,7 +24,11 @@
           :deaths="global.deaths"
         />
       </div>
-      <hr />
+      <hr
+        v-bind:style="{
+          backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+        }"
+      />
       <div class="dataSection">
         <h1 class="newSection">Countries</h1>
         <div class="flex-form">
@@ -24,36 +37,100 @@
           </div>
           <form class="custom-form-filter form-inline" @submit="sortCountries">
             <div>
-              <select class="form-control custom-select" v-model="form.choice">
-                <option value="cases_high_to_low">
+              <select
+                class="form-control custom-select"
+                v-model="form.choice"
+                v-bind:style="{
+                  backgroundColor: cookie ? 'rgba(14, 14, 14, 0.9)' : 'white',
+                  color: cookie ? 'white' : 'black',
+                  borderColor: cookie ? '#8E8E8E' : 'black',
+                }"
+              >
+                <option
+                  v-bind:style="{
+                    backgroundColor: cookie ? 'black' : 'white',
+                    color: cookie ? 'white' : 'black',
+                  }"
+                  value="cases_high_to_low"
+                >
                   Cases (Highest to Lowest)
                 </option>
-                <option value="cases_low_to_high">
+                <option
+                  v-bind:style="{
+                    backgroundColor: cookie ? 'black' : 'white',
+                    color: cookie ? 'white' : 'black',
+                  }"
+                  value="cases_low_to_high"
+                >
                   Cases (Lowest to Highest)
                 </option>
-                <option value="recov_high_to_low">
+                <option
+                  v-bind:style="{
+                    backgroundColor: cookie ? 'black' : 'white',
+                    color: cookie ? 'white' : 'black',
+                  }"
+                  value="recov_high_to_low"
+                >
                   Recoveries (Highest to Lowest)
                 </option>
-                <option value="recov_low_to_high">
+                <option
+                  v-bind:style="{
+                    backgroundColor: cookie ? 'black' : 'white',
+                    color: cookie ? 'white' : 'black',
+                  }"
+                  value="recov_low_to_high"
+                >
                   Recoveries (Lowest to Highest)
                 </option>
-                <option value="deaths_high_to_low">
+                <option
+                  v-bind:style="{
+                    backgroundColor: cookie ? 'black' : 'white',
+                    color: cookie ? 'white' : 'black',
+                  }"
+                  value="deaths_high_to_low"
+                >
                   Deaths (Highest to Lowest)
                 </option>
-                <option value="deaths_low_to_high">
+                <option
+                  v-bind:style="{
+                    backgroundColor: cookie ? 'black' : 'white',
+                    color: cookie ? 'white' : 'black',
+                  }"
+                  value="deaths_low_to_high"
+                >
                   Deaths (Lowest to Highest)
                 </option>
-                <option value="alpha">
+                <option
+                  v-bind:style="{
+                    backgroundColor: cookie ? 'black' : 'white',
+                    color: cookie ? 'white' : 'black',
+                  }"
+                  value="alpha"
+                >
                   Alphabetical
                 </option>
               </select>
             </div>
             <div>
-              <button class="custom-button" type="submit">Sort</button>
+              <button
+                class="custom-button"
+                type="submit"
+                v-bind:style="{
+                  backgroundColor: cookie ? 'rgba(14, 14, 14, 0.9)' : 'white',
+                  color: cookie ? 'white' : 'black',
+                  borderColor: cookie ? '#8E8E8E' : 'black',
+                }"
+              >
+                Sort
+              </button>
             </div>
           </form>
         </div>
-        <hr />
+        <hr
+          v-bind:style="{
+            backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+          }"
+        />
         <div class="countryFlex">
           <Country
             v-for="country in countries"
@@ -83,19 +160,20 @@ export default {
     NavBar,
     Country,
     Summary,
-    CustomFooter
+    CustomFooter,
   },
   data() {
     return {
       global: {
         confirmed: "",
         deaths: "",
-        recovered: ""
+        recovered: "",
       },
       countries: [],
       form: {
-        choice: "cases_high_to_low"
-      }
+        choice: "cases_high_to_low",
+      },
+      cookie: "",
     };
   },
 
@@ -104,15 +182,15 @@ export default {
     getGlobalTotal() {
       let url = "https://api.covid19api.com/world/total";
       fetch(url, { method: "GET" })
-        .then(response => {
+        .then((response) => {
           return response.json();
         })
-        .then(jsonData => {
+        .then((jsonData) => {
           this.global.confirmed = jsonData.TotalConfirmed;
           this.global.deaths = jsonData.TotalDeaths;
           this.global.recovered = jsonData.TotalRecovered;
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     },
@@ -121,10 +199,10 @@ export default {
     getAllCountries() {
       let url = "https://api.covid19api.com/countries";
       fetch(url, { method: "GET" })
-        .then(response => {
+        .then((response) => {
           return response.json();
         })
-        .then(jsonData => {
+        .then((jsonData) => {
           for (let i in jsonData) {
             this.getConfirmedAllCountries(jsonData[i].Slug);
           }
@@ -135,16 +213,16 @@ export default {
     getConfirmedAllCountries(country) {
       let url = "https://api.covid19api.com/total/country/" + country;
       fetch(url, { method: "GET" })
-        .then(response => {
+        .then((response) => {
           return response.json();
         })
-        .then(jsonData => {
+        .then((jsonData) => {
           if (jsonData[jsonData.length - 1].Confirmed >= 0) {
             this.countries.push({
               countryName: country,
               confirmed: jsonData[jsonData.length - 1].Confirmed,
               recoveries: jsonData[jsonData.length - 1].Recovered,
-              deaths: jsonData[jsonData.length - 1].Deaths
+              deaths: jsonData[jsonData.length - 1].Deaths,
             });
           }
           this.countries.sort((a, b) => {
@@ -208,13 +286,21 @@ export default {
       b = b.toLowerCase();
 
       return a < b ? -1 : a > b ? 1 : 0;
-    }
+    },
+    checkCookie() {
+      if (this.$cookies.get("dark-mode") === null) {
+        this.cookie = false;
+      } else {
+        this.cookie = true;
+      }
+    },
   },
   mounted: function() {
     //functions that are called on page load.
     this.getAllCountries();
     this.getGlobalTotal();
-  }
+    this.checkCookie();
+  },
 };
 </script>
 <style scoped>

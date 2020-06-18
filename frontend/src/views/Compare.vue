@@ -1,24 +1,57 @@
 <template>
   <div>
     <NavBar />
-    <div id="compare">
+    <div
+      id="compare"
+      v-bind:style="{
+        backgroundColor: cookie ? 'black' : 'white',
+        color: cookie ? 'white' : 'black',
+      }"
+    >
       <div class="container">
         <div class="titleSection">
           <h1>Compare Countries</h1>
           <h3>{{ issueName }} Statistics</h3>
         </div>
-        <hr />
+        <hr
+          v-bind:style="{
+            backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+          }"
+        />
         <div class="dataSection">
-          <h2>Compare any two countries of your liking below*</h2>
+          <h2
+            v-bind:style="{
+              color: cookie ? 'white' : 'black',
+            }"
+          >
+            Compare any two countries of your liking below*
+          </h2>
           <form class="form-compare" @submit="compareCountries">
             <div>
               <select
                 class="custom-select compare-select"
                 required="required"
                 v-model="form.country1"
+                v-bind:style="{
+                  backgroundColor: cookie ? 'rgba(14, 14, 14, 0.9)' : 'white',
+                  color: cookie ? 'white' : 'black',
+                  borderColor: cookie ? '#8E8E8E' : 'black',
+                }"
               >
-                <option disabled value>Country 1</option>
                 <option
+                  disabled
+                  value
+                  v-bind:style="{
+                    backgroundColor: cookie ? 'black' : 'white',
+                    color: cookie ? 'white' : 'black',
+                  }"
+                  >Country 1</option
+                >
+                <option
+                  v-bind:style="{
+                    backgroundColor: cookie ? 'black' : 'white',
+                    color: cookie ? 'white' : 'black',
+                  }"
                   v-for="country in countries"
                   :key="country"
                   :value="formatSearchInput(country)"
@@ -31,9 +64,26 @@
                 class="custom-select compare-select"
                 required="required"
                 v-model="form.country2"
+                v-bind:style="{
+                  backgroundColor: cookie ? 'rgba(14, 14, 14, 0.9)' : 'white',
+                  color: cookie ? 'white' : 'black',
+                  borderColor: cookie ? '#8E8E8E' : 'black',
+                }"
               >
-                <option disabled value>Country 2</option>
                 <option
+                  disabled
+                  value
+                  v-bind:style="{
+                    backgroundColor: cookie ? 'black' : 'white',
+                    color: cookie ? 'white' : 'black',
+                  }"
+                  >Country 2</option
+                >
+                <option
+                  v-bind:style="{
+                    backgroundColor: cookie ? 'black' : 'white',
+                    color: cookie ? 'white' : 'black',
+                  }"
                   v-for="country in countries"
                   :key="country"
                   :value="formatSearchInput(country)"
@@ -42,7 +92,15 @@
               </select>
             </div>
             <div>
-              <button class="custom-button compare-button" type="submit">
+              <button
+                class="custom-button compare-button"
+                type="submit"
+                v-bind:style="{
+                  backgroundColor: cookie ? 'rgba(14, 14, 14, 0.9)' : 'white',
+                  color: cookie ? 'white' : 'black',
+                  borderColor: cookie ? '#8E8E8E' : 'black',
+                }"
+              >
                 Compare
               </button>
             </div>
@@ -63,16 +121,17 @@ export default {
   name: "Compare",
   components: {
     NavBar,
-    CustomFooter
+    CustomFooter,
   },
   data() {
     return {
       form: {
         country1: "",
-        country2: ""
+        country2: "",
       },
       issueName: "Coronavirus",
-      countries: []
+      countries: [],
+      cookie: "",
     };
   },
   methods: {
@@ -81,8 +140,8 @@ export default {
         name: "compareCountries",
         params: {
           country1: this.form.country1,
-          country2: this.form.country2
-        }
+          country2: this.form.country2,
+        },
       });
     },
 
@@ -90,10 +149,10 @@ export default {
     getAllCountries() {
       let url = "https://api.covid19api.com/countries";
       fetch(url, { method: "GET" })
-        .then(response => {
+        .then((response) => {
           return response.json();
         })
-        .then(jsonData => {
+        .then((jsonData) => {
           for (let i in jsonData) {
             this.countries.push(this.format(jsonData[i].Slug));
           }
@@ -118,12 +177,20 @@ export default {
         .split(" ")
         .join("-")
         .toLowerCase();
-    }
+    },
+    checkCookie() {
+      if (this.$cookies.get("dark-mode") === null) {
+        this.cookie = false;
+      } else {
+        this.cookie = true;
+      }
+    },
   },
   mounted: function() {
     //Function that is called on page load.
     this.getAllCountries();
-  }
+    this.checkCookie();
+  },
 };
 </script>
 <style scoped>

@@ -1,13 +1,23 @@
 <template>
   <div>
     <NavBar />
-    <div id="country">
+    <div
+      id="country"
+      v-bind:style="{
+        backgroundColor: cookie ? 'black' : 'white',
+        color: cookie ? 'white' : 'black',
+      }"
+    >
       <div class="container">
         <div class="titleSection">
           <h1>{{ format(countryName) }}</h1>
           <h3>{{ issueName }} Statistics</h3>
         </div>
-        <hr />
+        <hr
+          v-bind:style="{
+            backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+          }"
+        />
         <div v-show="countryData.currentInfected != ''">
           <div class="dataSection">
             <Summary
@@ -25,7 +35,11 @@
               :deaths="countryData.totalDeaths"
             />
           </div>
-          <hr />
+          <hr
+            v-bind:style="{
+              backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+            }"
+          />
           <div class="compareSection">
             <div class="flex-form">
               <div class="form-title">
@@ -37,24 +51,51 @@
                     class="form-control custom-select"
                     v-model="cForm.country2"
                     required="required"
+                    v-bind:style="{
+                      backgroundColor: cookie
+                        ? 'rgba(14, 14, 14, 0.9)'
+                        : 'white',
+                      color: cookie ? 'white' : 'black',
+                      borderColor: cookie ? '#8E8E8E' : 'black',
+                    }"
                   >
                     <option disabled value>Country</option>
                     <option
                       v-for="country in countries"
                       :key="country"
                       :value="country"
+                      v-bind:style="{
+                        backgroundColor: cookie ? 'black' : 'white',
+                        color: cookie ? 'white' : 'black',
+                      }"
                     >
                       {{ format(country) }}
                     </option>
                   </select>
                 </div>
                 <div>
-                  <button class="custom-button" type="submit">Compare</button>
+                  <button
+                    class="custom-button"
+                    type="submit"
+                    v-bind:style="{
+                      backgroundColor: cookie
+                        ? 'rgba(14, 14, 14, 0.9)'
+                        : 'white',
+                      color: cookie ? 'white' : 'black',
+                      borderColor: cookie ? '#8E8E8E' : 'black',
+                    }"
+                  >
+                    Compare
+                  </button>
                 </div>
               </form>
             </div>
           </div>
-          <hr />
+          <hr
+            v-bind:style="{
+              backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+            }"
+          />
           <div class="chartSection">
             <h1>Charts</h1>
             <div class="flex-form">
@@ -69,66 +110,177 @@
                   <select
                     class="form-control custom-select"
                     v-model="form.daily"
+                    v-bind:style="{
+                      backgroundColor: cookie
+                        ? 'rgba(14, 14, 14, 0.9)'
+                        : 'white',
+                      color: cookie ? 'white' : 'black',
+                      borderColor: cookie ? '#8E8E8E' : 'black',
+                    }"
                   >
-                    <option v-bind:value="true">Change Data</option>
-                    <option v-bind:value="false">All Time Data</option>
+                    <option
+                      v-bind:style="{
+                        backgroundColor: cookie ? 'black' : 'white',
+                        color: cookie ? 'white' : 'black',
+                      }"
+                      v-bind:value="true"
+                      >Change Data</option
+                    >
+                    <option
+                      v-bind:style="{
+                        backgroundColor: cookie ? 'black' : 'white',
+                        color: cookie ? 'white' : 'black',
+                      }"
+                      v-bind:value="false"
+                      >All Time Data</option
+                    >
                   </select>
                 </div>
                 <div>
                   <select
                     class="form-control custom-select"
                     v-model="form.increments"
+                    v-bind:style="{
+                      backgroundColor: cookie
+                        ? 'rgba(14, 14, 14, 0.9)'
+                        : 'white',
+                      color: cookie ? 'white' : 'black',
+                      borderColor: cookie ? '#8E8E8E' : 'black',
+                    }"
                   >
-                    <option value="1">Every Recorded Day</option>
-                    <option value="7">Weekly Data</option>
-                    <option value="14">2 Week Data</option>
-                    <option value="30">Monthly Data (30 Days)</option>
+                    <option
+                      v-bind:style="{
+                        backgroundColor: cookie ? 'black' : 'white',
+                        color: cookie ? 'white' : 'black',
+                      }"
+                      value="1"
+                      >Every Recorded Day</option
+                    >
+                    <option
+                      v-bind:style="{
+                        backgroundColor: cookie ? 'black' : 'white',
+                        color: cookie ? 'white' : 'black',
+                      }"
+                      value="7"
+                      >Weekly Data</option
+                    >
+                    <option
+                      v-bind:style="{
+                        backgroundColor: cookie ? 'black' : 'white',
+                        color: cookie ? 'white' : 'black',
+                      }"
+                      value="14"
+                      >2 Week Data</option
+                    >
+                    <option
+                      v-bind:style="{
+                        backgroundColor: cookie ? 'black' : 'white',
+                        color: cookie ? 'white' : 'black',
+                      }"
+                      value="30"
+                      >Monthly Data (30 Days)</option
+                    >
                   </select>
                 </div>
                 <div>
-                  <button class="custom-button" type="submit">
+                  <button
+                    class="custom-button"
+                    type="submit"
+                    v-bind:style="{
+                      backgroundColor: cookie
+                        ? 'rgba(14, 14, 14, 0.9)'
+                        : 'white',
+                      color: cookie ? 'white' : 'black',
+                      borderColor: cookie ? '#8E8E8E' : 'black',
+                    }"
+                  >
                     Filter
                   </button>
                 </div>
               </form>
             </div>
           </div>
-          <hr />
+          <hr
+            v-bind:style="{
+              backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+            }"
+          />
           <div class="dataSection">
-            <h2>Confirmed Cases</h2>
+            <h2
+              v-bind:style="{
+                color: cookie ? 'white' : 'black',
+              }"
+            >
+              Confirmed Cases
+            </h2>
             <div class="chart-container">
               <canvas id="chart" class="charts" />
             </div>
           </div>
-          <hr />
+          <hr
+            v-bind:style="{
+              backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+            }"
+          />
           <div class="dataSection">
-            <h2>Recoveries</h2>
+            <h2
+              v-bind:style="{
+                color: cookie ? 'white' : 'black',
+              }"
+            >
+              Recoveries
+            </h2>
             <div class="chart-container">
               <canvas id="chartRecoveries" class="charts" />
             </div>
           </div>
-          <hr />
+          <hr
+            v-bind:style="{
+              backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+            }"
+          />
           <div class="dataSection">
-            <h2>Deaths</h2>
+            <h2
+              v-bind:style="{
+                color: cookie ? 'white' : 'black',
+              }"
+            >
+              Deaths
+            </h2>
             <div class="chart-container">
               <canvas id="chartDeaths" class="charts" />
             </div>
           </div>
         </div>
-
         <!--Error with finding data chunk-->
         <div v-show="countryData.currentInfected == ''">
           <div class="dataSection">
-            <h2>
+            <h2
+              v-bind:style="{
+                color: cookie ? 'white' : 'black',
+              }"
+            >
               Unfortunately we don't have data for {{ format(countryName) }}
             </h2>
             <p class="err">
               Please visit the
-              <router-link class="nav-links bold-link" :to="{ name: 'home' }">
+              <router-link
+                v-bind:style="{
+                  color: cookie ? 'white' : 'black',
+                }"
+                class="nav-links bold-link"
+                :to="{ name: 'home' }"
+              >
                 countries
               </router-link>
               page for the full list of
-              <router-link class="nav-links bold-link" :to="{ name: 'home' }">
+              <router-link
+                v-bind:style="{
+                  color: cookie ? 'white' : 'black',
+                }"
+                class="nav-links bold-link"
+                :to="{ name: 'home' }"
+              >
                 countries
               </router-link>
               <br />
@@ -162,6 +314,7 @@ export default {
   },
   data() {
     return {
+      cookie: "",
       //Main data stored.
       countryName: this.$route.params.name,
       issueName: "Coronavirus",
@@ -657,12 +810,20 @@ export default {
           param: { name: this.countryName },
         });
     },
+    checkCookie() {
+      if (this.$cookies.get("dark-mode") === null) {
+        this.cookie = false;
+      } else {
+        this.cookie = true;
+      }
+    },
   },
 
   mounted: function() {
     //Get data for the country that was searched for.
     this.getAllDataFromCountry();
     this.getAllOtherCountries();
+    this.checkCookie();
 
     //Set up variables for the charts
     const ctx = document.getElementById("chart").getContext("2d");
