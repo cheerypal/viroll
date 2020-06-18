@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view />
-    <cookie-law theme="base"></cookie-law>
+    <cookie-law theme="dark-lime"></cookie-law>
   </div>
 </template>
 <script>
