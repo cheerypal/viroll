@@ -166,5 +166,8 @@ export default {
   .flex-compare {
     padding-top: 5px;
   }
+  .dataImportant {
+    font-size: 1.4em;
+  }
 }
 </style>
