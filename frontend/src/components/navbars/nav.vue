@@ -84,7 +84,9 @@
           v-if="clicked"
           class="custom-nav-mobile fixed-top"
           v-bind:style="{
-            backgroundColor: cookie ? 'rgba(14, 14, 14, 0.9)' : 'white',
+            backgroundColor: cookie
+              ? 'rgba(14, 14, 14, 0.9)'
+              : 'rgba(255, 255, 255, 0.9)',
             color: cookie ? 'white' : 'black'
           }"
         >
