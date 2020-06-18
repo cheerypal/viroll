@@ -5,7 +5,7 @@
       id="compare"
       v-bind:style="{
         backgroundColor: cookie ? 'black' : 'white',
-        color: cookie ? 'white' : 'black',
+        color: cookie ? 'white' : 'black'
       }"
     >
       <div class="container">
@@ -14,7 +14,7 @@
         <div class="link-cont">
           <router-link
             v-bind:style="{
-              color: cookie ? 'white' : 'black',
+              color: cookie ? 'white' : 'black'
             }"
             class="bold-link"
             :to="{ name: 'compare' }"
@@ -23,7 +23,7 @@
         </div>
         <hr
           v-bind:style="{
-            backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+            backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6'
           }"
         />
         <div v-show="country1.confirmed != ''">
@@ -63,7 +63,7 @@
                           ? 'rgba(14, 14, 14, 0.9)'
                           : 'white',
                         color: cookie ? 'white' : 'black',
-                        borderColor: cookie ? '#8E8E8E' : 'black',
+                        borderColor: cookie ? '#8E8E8E' : 'black'
                       }"
                       class="form-control custom-select"
                       v-model="form.daily"
@@ -71,7 +71,7 @@
                       <option
                         v-bind:style="{
                           backgroundColor: cookie ? 'black' : 'white',
-                          color: cookie ? 'white' : 'black',
+                          color: cookie ? 'white' : 'black'
                         }"
                         v-bind:value="true"
                         >Change Data</option
@@ -79,7 +79,7 @@
                       <option
                         v-bind:style="{
                           backgroundColor: cookie ? 'black' : 'white',
-                          color: cookie ? 'white' : 'black',
+                          color: cookie ? 'white' : 'black'
                         }"
                         v-bind:value="false"
                         >All Time Data</option
@@ -93,7 +93,7 @@
                           ? 'rgba(14, 14, 14, 0.9)'
                           : 'white',
                         color: cookie ? 'white' : 'black',
-                        borderColor: cookie ? '#8E8E8E' : 'black',
+                        borderColor: cookie ? '#8E8E8E' : 'black'
                       }"
                       class="form-control custom-select"
                       v-model="form.increments"
@@ -101,7 +101,7 @@
                       <option
                         v-bind:style="{
                           backgroundColor: cookie ? 'black' : 'white',
-                          color: cookie ? 'white' : 'black',
+                          color: cookie ? 'white' : 'black'
                         }"
                         value="1"
                         >Every Recorded Day</option
@@ -109,7 +109,7 @@
                       <option
                         v-bind:style="{
                           backgroundColor: cookie ? 'black' : 'white',
-                          color: cookie ? 'white' : 'black',
+                          color: cookie ? 'white' : 'black'
                         }"
                         value="7"
                         >Weekly Data</option
@@ -117,7 +117,7 @@
                       <option
                         v-bind:style="{
                           backgroundColor: cookie ? 'black' : 'white',
-                          color: cookie ? 'white' : 'black',
+                          color: cookie ? 'white' : 'black'
                         }"
                         value="14"
                         >2 Week Data</option
@@ -125,7 +125,7 @@
                       <option
                         v-bind:style="{
                           backgroundColor: cookie ? 'black' : 'white',
-                          color: cookie ? 'white' : 'black',
+                          color: cookie ? 'white' : 'black'
                         }"
                         value="30"
                         >Monthly Data (30 Days)</option
@@ -139,7 +139,7 @@
                           ? 'rgba(14, 14, 14, 0.9)'
                           : 'white',
                         color: cookie ? 'white' : 'black',
-                        borderColor: cookie ? '#8E8E8E' : 'black',
+                        borderColor: cookie ? '#8E8E8E' : 'black'
                       }"
                       class="custom-button"
                       type="submit"
@@ -152,13 +152,13 @@
             </div>
             <hr
               v-bind:style="{
-                backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+                backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6'
               }"
             />
             <div class="dataSection">
               <h2
                 v-bind:style="{
-                  color: cookie ? 'white' : 'black',
+                  color: cookie ? 'white' : 'black'
                 }"
               >
                 Confirmed Cases
@@ -169,13 +169,13 @@
             </div>
             <hr
               v-bind:style="{
-                backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+                backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6'
               }"
             />
             <div class="dataSection">
               <h2
                 v-bind:style="{
-                  color: cookie ? 'white' : 'black',
+                  color: cookie ? 'white' : 'black'
                 }"
               >
                 Recoveries
@@ -186,13 +186,13 @@
             </div>
             <hr
               v-bind:style="{
-                backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+                backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6'
               }"
             />
             <div class="dataSection">
               <h2
                 v-bind:style="{
-                  color: cookie ? 'white' : 'black',
+                  color: cookie ? 'white' : 'black'
                 }"
               >
                 Deaths
@@ -209,7 +209,7 @@
           <div class="dataSection">
             <h2
               v-bind:style="{
-                color: cookie ? 'white' : 'black',
+                color: cookie ? 'white' : 'black'
               }"
             >
               Unfortunately we don't have data for {{ format(country1.name) }}
@@ -218,7 +218,7 @@
               Please visit the
               <router-link
                 v-bind:style="{
-                  color: cookie ? 'white' : 'black',
+                  color: cookie ? 'white' : 'black'
                 }"
                 class="nav-links bold-link"
                 :to="{ name: 'home' }"
@@ -228,7 +228,7 @@
               page for the full list of
               <router-link
                 v-bind:style="{
-                  color: cookie ? 'white' : 'black',
+                  color: cookie ? 'white' : 'black'
                 }"
                 class="nav-links bold-link"
                 :to="{ name: 'home' }"
@@ -245,7 +245,7 @@
               visit
               <router-link
                 v-bind:style="{
-                  color: cookie ? 'white' : 'black',
+                  color: cookie ? 'white' : 'black'
                 }"
                 class="nav-links bold-link"
                 :to="{ name: 'country', params: { name: country2.name } }"
@@ -259,7 +259,7 @@
           <div class="dataSection">
             <h2
               v-bind:style="{
-                color: cookie ? 'white' : 'black',
+                color: cookie ? 'white' : 'black'
               }"
             >
               Unfortunately we don't have data for {{ format(country2.name) }}
@@ -268,7 +268,7 @@
               Please visit the
               <router-link
                 v-bind:style="{
-                  color: cookie ? 'white' : 'black',
+                  color: cookie ? 'white' : 'black'
                 }"
                 class="nav-links bold-link"
                 :to="{ name: 'home' }"
@@ -278,7 +278,7 @@
               page for the full list of
               <router-link
                 v-bind:style="{
-                  color: cookie ? 'white' : 'black',
+                  color: cookie ? 'white' : 'black'
                 }"
                 class="nav-links bold-link"
                 :to="{ name: 'home' }"
@@ -295,7 +295,7 @@
               visit
               <router-link
                 v-bind:style="{
-                  color: cookie ? 'white' : 'black',
+                  color: cookie ? 'white' : 'black'
                 }"
                 class="nav-links bold-link"
                 :to="{ name: 'country', params: { name: country1.name } }"
@@ -323,7 +323,7 @@ export default {
   components: {
     NavBar,
     CompareData,
-    CustomFooter,
+    CustomFooter
   },
 
   data() {
@@ -337,8 +337,8 @@ export default {
         changeData: {
           confirmed: "",
           recovered: "",
-          dead: "",
-        },
+          dead: ""
+        }
       },
       country2: {
         name: this.$route.params.country2,
@@ -348,19 +348,19 @@ export default {
         changeData: {
           confirmed: "",
           recovered: "",
-          dead: "",
-        },
+          dead: ""
+        }
       },
       issueName: "Coronavirus",
       charts: {
         chart: "",
         chart1: "",
-        chart2: "",
+        chart2: ""
       },
 
       form: {
         daily: true,
-        increments: 1,
+        increments: 1
       },
 
       //Case chart data.
@@ -377,7 +377,7 @@ export default {
               borderWidth: 3,
               pointRadius: 0,
               pointHoverRadius: 5,
-              data: [],
+              data: []
             },
             {
               type: "line",
@@ -388,21 +388,21 @@ export default {
               borderWidth: 3,
               pointRadius: 0,
               pointHoverRadius: 5,
-              data: [],
-            },
-          ],
+              data: []
+            }
+          ]
         },
         lineChartOptions: {
           legend: {
-            position: "bottom",
+            position: "bottom"
           },
           hover: {
             mode: "nearest",
-            intersect: true,
+            intersect: true
           },
           tooltips: {
             mode: "index",
-            intersect: false,
+            intersect: false
           },
           responsive: true,
           maintainAspectRatio: false,
@@ -412,9 +412,9 @@ export default {
                 display: true,
                 scaleLabel: {
                   display: true,
-                  labelString: "Day",
-                },
-              },
+                  labelString: "Day"
+                }
+              }
             ],
             yAxes: [
               {
@@ -422,12 +422,12 @@ export default {
                 type: "linear",
                 scaleLabel: {
                   display: true,
-                  labelString: "Number of Cases",
-                },
-              },
-            ],
-          },
-        },
+                  labelString: "Number of Cases"
+                }
+              }
+            ]
+          }
+        }
       },
 
       //Recovery chart data.
@@ -444,7 +444,7 @@ export default {
               borderWidth: 3,
               pointRadius: 0,
               pointHoverRadius: 5,
-              data: [],
+              data: []
             },
             {
               type: "line",
@@ -455,19 +455,19 @@ export default {
               borderWidth: 3,
               pointRadius: 0,
               pointHoverRadius: 5,
-              data: [],
-            },
-          ],
+              data: []
+            }
+          ]
         },
         lineChartOptions: {
           legend: {
-            position: "bottom",
+            position: "bottom"
           },
           responsive: true,
           maintainAspectRatio: false,
           tooltips: {
             mode: "index",
-            intersect: false,
+            intersect: false
           },
           scales: {
             xAxes: [
@@ -475,9 +475,9 @@ export default {
                 display: true,
                 scaleLabel: {
                   display: true,
-                  labelString: "Day",
-                },
-              },
+                  labelString: "Day"
+                }
+              }
             ],
             yAxes: [
               {
@@ -485,12 +485,12 @@ export default {
                 type: "linear",
                 scaleLabel: {
                   display: true,
-                  labelString: "Number of Recoveries",
-                },
-              },
-            ],
-          },
-        },
+                  labelString: "Number of Recoveries"
+                }
+              }
+            ]
+          }
+        }
       },
 
       //Death chart data.
@@ -507,7 +507,7 @@ export default {
               borderWidth: 3,
               pointRadius: 0,
               pointHoverRadius: 5,
-              data: [],
+              data: []
             },
             {
               type: "line",
@@ -518,19 +518,19 @@ export default {
               borderWidth: 3,
               pointRadius: 0,
               pointHoverRadius: 5,
-              data: [],
-            },
-          ],
+              data: []
+            }
+          ]
         },
         lineChartOptions: {
           legend: {
-            position: "bottom",
+            position: "bottom"
           },
           responsive: true,
           maintainAspectRatio: false,
           tooltips: {
             mode: "index",
-            intersect: false,
+            intersect: false
           },
           scales: {
             xAxes: [
@@ -538,9 +538,9 @@ export default {
                 display: true,
                 scaleLabel: {
                   display: true,
-                  labelString: "Day",
-                },
-              },
+                  labelString: "Day"
+                }
+              }
             ],
             yAxes: [
               {
@@ -548,13 +548,13 @@ export default {
                 type: "linear",
                 scaleLabel: {
                   display: true,
-                  labelString: "Number of Deaths",
-                },
-              },
-            ],
-          },
-        },
-      },
+                  labelString: "Number of Deaths"
+                }
+              }
+            ]
+          }
+        }
+      }
     };
   },
   methods: {
@@ -563,10 +563,10 @@ export default {
       let url =
         "https://api.covid19api.com/total/country/" + this.country1.name;
       fetch(url, { method: "GET" })
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((jsonData) => {
+        .then(jsonData => {
           //This section looks at getting data for the top section of the page
           //This will be displayed as stand alone data.
           let today = jsonData.length - 1;
@@ -588,10 +588,10 @@ export default {
       let url =
         "https://api.covid19api.com/total/country/" + this.country2.name;
       fetch(url, { method: "GET" })
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((jsonData) => {
+        .then(jsonData => {
           //This section looks at getting data for the top section of the page
           //This will be displayed as stand alone data.
           let today = jsonData.length - 1;
@@ -613,10 +613,10 @@ export default {
       let url =
         "https://api.covid19api.com/total/country/" + this.country1.name;
       fetch(url, { method: "GET" })
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((jsonData) => {
+        .then(jsonData => {
           //checks to make sure that if the there is already data available then it will delete all the current data before adding new data to the chart
           if (this.chartData.data.datasets[0].data.length > 0) {
             this.chartData.data.labels = [];
@@ -660,7 +660,7 @@ export default {
           //Get min and max for the graph
           chart.update();
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -670,10 +670,10 @@ export default {
       let url =
         "https://api.covid19api.com/total/country/" + this.country1.name;
       fetch(url, { method: "GET" })
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((jsonData) => {
+        .then(jsonData => {
           //checks to make sure that if the there is already data available then it will delete all the current data before adding new data to the chart
           if (this.chartDataRecoveries.data.datasets[0].data.length > 0) {
             this.chartDataRecoveries.data.labels = [];
@@ -715,7 +715,7 @@ export default {
           this.chartDataRecoveries.data.datasets[0].data.reverse();
           chart.update();
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -725,10 +725,10 @@ export default {
       let url =
         "https://api.covid19api.com/total/country/" + this.country1.name;
       fetch(url, { method: "GET" })
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((jsonData) => {
+        .then(jsonData => {
           //checks to make sure that if the there is already data available then it will delete all the current data before adding new data to the chart
           if (this.chartDataDeaths.data.datasets[0].data.length > 0) {
             this.chartDataDeaths.data.labels = [];
@@ -771,7 +771,7 @@ export default {
           this.chartDataDeaths.data.datasets[0].data.reverse();
           chart.update();
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -781,10 +781,10 @@ export default {
       let url =
         "https://api.covid19api.com/total/country/" + this.country2.name;
       fetch(url, { method: "GET" })
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((jsonData) => {
+        .then(jsonData => {
           if (this.chartData.data.datasets[1].data.length > 0) {
             this.chartData.data.datasets[1].data = [];
           }
@@ -818,10 +818,10 @@ export default {
       let url =
         "https://api.covid19api.com/total/country/" + this.country2.name;
       fetch(url, { method: "GET" })
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((jsonData) => {
+        .then(jsonData => {
           if (this.chartDataRecoveries.data.datasets[1].data.length > 0) {
             this.chartDataRecoveries.data.datasets[1].data = [];
           }
@@ -857,10 +857,10 @@ export default {
       let url =
         "https://api.covid19api.com/total/country/" + this.country2.name;
       fetch(url, { method: "GET" })
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((jsonData) => {
+        .then(jsonData => {
           if (this.chartDataDeaths.data.datasets[1].data.length > 0) {
             this.chartDataDeaths.data.datasets[1].data = [];
           }
@@ -939,7 +939,7 @@ export default {
       } else {
         this.cookie = true;
       }
-    },
+    }
   },
   mounted: function() {
     //Get summary data for the countries.
@@ -955,19 +955,19 @@ export default {
     this.charts.chart = new Chart(ctx, {
       type: this.chartData.type,
       data: this.chartData.data,
-      options: this.chartData.lineChartOptions,
+      options: this.chartData.lineChartOptions
     });
 
     this.charts.chart1 = new Chart(ctx1, {
       type: this.chartDataRecoveries.type,
       data: this.chartDataRecoveries.data,
-      options: this.chartDataRecoveries.lineChartOptions,
+      options: this.chartDataRecoveries.lineChartOptions
     });
 
     this.charts.chart2 = new Chart(ctx2, {
       type: this.chartDataDeaths.type,
       data: this.chartDataDeaths.data,
-      options: this.chartDataDeaths.lineChartOptions,
+      options: this.chartDataDeaths.lineChartOptions
     });
 
     //Generate the charts when the page loads.
@@ -978,7 +978,7 @@ export default {
       this.form.increments,
       this.form.daily
     );
-  },
+  }
 };
 </script>
 <style scoped>

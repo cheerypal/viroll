@@ -5,7 +5,7 @@
       id="NotFound"
       v-bind:style="{
         backgroundColor: cookie ? 'black' : 'white',
-        color: cookie ? 'white' : 'black',
+        color: cookie ? 'white' : 'black'
       }"
     >
       <div class="container">
@@ -13,7 +13,7 @@
           <h1>404 Page Not Found</h1>
           <h3
             v-bind:style="{
-              color: cookie ? 'white' : 'black',
+              color: cookie ? 'white' : 'black'
             }"
           >
             Unfortunately the page you were looking for was not found
@@ -21,7 +21,7 @@
         </div>
         <hr
           v-bind:style="{
-            backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+            backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6'
           }"
         />
       </div>
@@ -36,12 +36,12 @@ export default {
   name: "NotFound",
   components: {
     NavBar,
-    CustomFooter,
+    CustomFooter
   },
   data() {
     return {
       search: this.$route.params.name,
-      cookie: "",
+      cookie: ""
     };
   },
   methods: {
@@ -54,11 +54,11 @@ export default {
       } else {
         this.cookie = true;
       }
-    },
+    }
   },
   mounted: function() {
     this.checkCookie();
-  },
+  }
 };
 </script>
 <style scoped>

@@ -4,7 +4,7 @@
       id="custom-footer"
       v-bind:style="{
         backgroundColor: cookie ? 'black' : 'white',
-        color: cookie ? 'white' : 'black',
+        color: cookie ? 'white' : 'black'
       }"
     >
       <div class="container">
@@ -13,7 +13,7 @@
             :to="{ name: 'about' }"
             class="spacer dataItem"
             v-bind:style="{
-              color: cookie ? 'white' : 'black',
+              color: cookie ? 'white' : 'black'
             }"
           >
             About
@@ -22,7 +22,7 @@
             class="spacer dataItem"
             href="https://github.com/cheerypal/viroll"
             v-bind:style="{
-              color: cookie ? 'white' : 'black',
+              color: cookie ? 'white' : 'black'
             }"
           >
             Github
@@ -52,7 +52,7 @@
           Data was fetched from
           <a
             v-bind:style="{
-              color: cookie ? 'white' : 'black',
+              color: cookie ? 'white' : 'black'
             }"
             class="dataItem"
             href="https://covid19api.com/"
@@ -62,7 +62,7 @@
           An API created by
           <a
             v-bind:style="{
-              color: cookie ? 'white' : 'black',
+              color: cookie ? 'white' : 'black'
             }"
             class="dataItem"
             href="https://ksred.me/"
@@ -71,7 +71,7 @@
           who sourced the data from
           <a
             v-bind:style="{
-              color: cookie ? 'white' : 'black',
+              color: cookie ? 'white' : 'black'
             }"
             class="dataItem"
             href="https://github.com/CSSEGISandData/COVID-19"
@@ -89,9 +89,9 @@ export default {
     return {
       updatedAt: "",
       form: {
-        checked: this.$cookies.get("dark-mode"),
+        checked: this.$cookies.get("dark-mode")
       },
-      cookie: "",
+      cookie: ""
     };
   },
   methods: {
@@ -119,10 +119,10 @@ export default {
     getTimeUpdated() {
       let url = "https://api.covid19api.com/total/country/united-kingdom";
       fetch(url, { method: "GET" })
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((jsonData) => {
+        .then(jsonData => {
           this.updatedAt = jsonData[jsonData.length - 1].Date;
         });
     },
@@ -143,12 +143,12 @@ export default {
     timeFormatter(time) {
       time = time.substring(11, 16);
       return time;
-    },
+    }
   },
   mounted: function() {
     this.getTimeUpdated();
     this.checkCookie();
-  },
+  }
 };
 </script>
 <style scoped>

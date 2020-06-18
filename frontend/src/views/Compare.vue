@@ -5,7 +5,7 @@
       id="compare"
       v-bind:style="{
         backgroundColor: cookie ? 'black' : 'white',
-        color: cookie ? 'white' : 'black',
+        color: cookie ? 'white' : 'black'
       }"
     >
       <div class="container">
@@ -15,13 +15,13 @@
         </div>
         <hr
           v-bind:style="{
-            backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+            backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6'
           }"
         />
         <div class="dataSection">
           <h2
             v-bind:style="{
-              color: cookie ? 'white' : 'black',
+              color: cookie ? 'white' : 'black'
             }"
           >
             Compare any two countries of your liking below*
@@ -35,7 +35,7 @@
                 v-bind:style="{
                   backgroundColor: cookie ? 'rgba(14, 14, 14, 0.9)' : 'white',
                   color: cookie ? 'white' : 'black',
-                  borderColor: cookie ? '#8E8E8E' : 'black',
+                  borderColor: cookie ? '#8E8E8E' : 'black'
                 }"
               >
                 <option
@@ -43,14 +43,14 @@
                   value
                   v-bind:style="{
                     backgroundColor: cookie ? 'black' : 'white',
-                    color: cookie ? 'white' : 'black',
+                    color: cookie ? 'white' : 'black'
                   }"
                   >Country 1</option
                 >
                 <option
                   v-bind:style="{
                     backgroundColor: cookie ? 'black' : 'white',
-                    color: cookie ? 'white' : 'black',
+                    color: cookie ? 'white' : 'black'
                   }"
                   v-for="country in countries"
                   :key="country"
@@ -67,7 +67,7 @@
                 v-bind:style="{
                   backgroundColor: cookie ? 'rgba(14, 14, 14, 0.9)' : 'white',
                   color: cookie ? 'white' : 'black',
-                  borderColor: cookie ? '#8E8E8E' : 'black',
+                  borderColor: cookie ? '#8E8E8E' : 'black'
                 }"
               >
                 <option
@@ -75,14 +75,14 @@
                   value
                   v-bind:style="{
                     backgroundColor: cookie ? 'black' : 'white',
-                    color: cookie ? 'white' : 'black',
+                    color: cookie ? 'white' : 'black'
                   }"
                   >Country 2</option
                 >
                 <option
                   v-bind:style="{
                     backgroundColor: cookie ? 'black' : 'white',
-                    color: cookie ? 'white' : 'black',
+                    color: cookie ? 'white' : 'black'
                   }"
                   v-for="country in countries"
                   :key="country"
@@ -98,7 +98,7 @@
                 v-bind:style="{
                   backgroundColor: cookie ? 'rgba(14, 14, 14, 0.9)' : 'white',
                   color: cookie ? 'white' : 'black',
-                  borderColor: cookie ? '#8E8E8E' : 'black',
+                  borderColor: cookie ? '#8E8E8E' : 'black'
                 }"
               >
                 Compare
@@ -121,17 +121,17 @@ export default {
   name: "Compare",
   components: {
     NavBar,
-    CustomFooter,
+    CustomFooter
   },
   data() {
     return {
       form: {
         country1: "",
-        country2: "",
+        country2: ""
       },
       issueName: "Coronavirus",
       countries: [],
-      cookie: "",
+      cookie: ""
     };
   },
   methods: {
@@ -140,8 +140,8 @@ export default {
         name: "compareCountries",
         params: {
           country1: this.form.country1,
-          country2: this.form.country2,
-        },
+          country2: this.form.country2
+        }
       });
     },
 
@@ -149,10 +149,10 @@ export default {
     getAllCountries() {
       let url = "https://api.covid19api.com/countries";
       fetch(url, { method: "GET" })
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((jsonData) => {
+        .then(jsonData => {
           for (let i in jsonData) {
             this.countries.push(this.format(jsonData[i].Slug));
           }
@@ -184,13 +184,13 @@ export default {
       } else {
         this.cookie = true;
       }
-    },
+    }
   },
   mounted: function() {
     //Function that is called on page load.
     this.getAllCountries();
     this.checkCookie();
-  },
+  }
 };
 </script>
 <style scoped>

@@ -2,7 +2,7 @@
   <div
     v-bind:style="{
       backgroundColor: cookie ? 'black' : 'white',
-      color: cookie ? 'white' : 'black',
+      color: cookie ? 'white' : 'black'
     }"
   >
     <NavBar />
@@ -13,7 +13,7 @@
       </div>
       <hr
         v-bind:style="{
-          backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+          backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6'
         }"
       />
       <div class="dataSection">
@@ -26,7 +26,7 @@
       </div>
       <hr
         v-bind:style="{
-          backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+          backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6'
         }"
       />
       <div class="dataSection">
@@ -43,13 +43,13 @@
                 v-bind:style="{
                   backgroundColor: cookie ? 'rgba(14, 14, 14, 0.9)' : 'white',
                   color: cookie ? 'white' : 'black',
-                  borderColor: cookie ? '#8E8E8E' : 'black',
+                  borderColor: cookie ? '#8E8E8E' : 'black'
                 }"
               >
                 <option
                   v-bind:style="{
                     backgroundColor: cookie ? 'black' : 'white',
-                    color: cookie ? 'white' : 'black',
+                    color: cookie ? 'white' : 'black'
                   }"
                   value="cases_high_to_low"
                 >
@@ -58,7 +58,7 @@
                 <option
                   v-bind:style="{
                     backgroundColor: cookie ? 'black' : 'white',
-                    color: cookie ? 'white' : 'black',
+                    color: cookie ? 'white' : 'black'
                   }"
                   value="cases_low_to_high"
                 >
@@ -67,7 +67,7 @@
                 <option
                   v-bind:style="{
                     backgroundColor: cookie ? 'black' : 'white',
-                    color: cookie ? 'white' : 'black',
+                    color: cookie ? 'white' : 'black'
                   }"
                   value="recov_high_to_low"
                 >
@@ -76,7 +76,7 @@
                 <option
                   v-bind:style="{
                     backgroundColor: cookie ? 'black' : 'white',
-                    color: cookie ? 'white' : 'black',
+                    color: cookie ? 'white' : 'black'
                   }"
                   value="recov_low_to_high"
                 >
@@ -85,7 +85,7 @@
                 <option
                   v-bind:style="{
                     backgroundColor: cookie ? 'black' : 'white',
-                    color: cookie ? 'white' : 'black',
+                    color: cookie ? 'white' : 'black'
                   }"
                   value="deaths_high_to_low"
                 >
@@ -94,7 +94,7 @@
                 <option
                   v-bind:style="{
                     backgroundColor: cookie ? 'black' : 'white',
-                    color: cookie ? 'white' : 'black',
+                    color: cookie ? 'white' : 'black'
                   }"
                   value="deaths_low_to_high"
                 >
@@ -103,7 +103,7 @@
                 <option
                   v-bind:style="{
                     backgroundColor: cookie ? 'black' : 'white',
-                    color: cookie ? 'white' : 'black',
+                    color: cookie ? 'white' : 'black'
                   }"
                   value="alpha"
                 >
@@ -118,7 +118,7 @@
                 v-bind:style="{
                   backgroundColor: cookie ? 'rgba(14, 14, 14, 0.9)' : 'white',
                   color: cookie ? 'white' : 'black',
-                  borderColor: cookie ? '#8E8E8E' : 'black',
+                  borderColor: cookie ? '#8E8E8E' : 'black'
                 }"
               >
                 Sort
@@ -128,7 +128,7 @@
         </div>
         <hr
           v-bind:style="{
-            backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+            backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6'
           }"
         />
         <div class="countryFlex">
@@ -160,20 +160,20 @@ export default {
     NavBar,
     Country,
     Summary,
-    CustomFooter,
+    CustomFooter
   },
   data() {
     return {
       global: {
         confirmed: "",
         deaths: "",
-        recovered: "",
+        recovered: ""
       },
       countries: [],
       form: {
-        choice: "cases_high_to_low",
+        choice: "cases_high_to_low"
       },
-      cookie: "",
+      cookie: ""
     };
   },
 
@@ -182,15 +182,15 @@ export default {
     getGlobalTotal() {
       let url = "https://api.covid19api.com/world/total";
       fetch(url, { method: "GET" })
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((jsonData) => {
+        .then(jsonData => {
           this.global.confirmed = jsonData.TotalConfirmed;
           this.global.deaths = jsonData.TotalDeaths;
           this.global.recovered = jsonData.TotalRecovered;
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -199,10 +199,10 @@ export default {
     getAllCountries() {
       let url = "https://api.covid19api.com/countries";
       fetch(url, { method: "GET" })
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((jsonData) => {
+        .then(jsonData => {
           for (let i in jsonData) {
             this.getConfirmedAllCountries(jsonData[i].Slug);
           }
@@ -213,16 +213,16 @@ export default {
     getConfirmedAllCountries(country) {
       let url = "https://api.covid19api.com/total/country/" + country;
       fetch(url, { method: "GET" })
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((jsonData) => {
+        .then(jsonData => {
           if (jsonData[jsonData.length - 1].Confirmed >= 0) {
             this.countries.push({
               countryName: country,
               confirmed: jsonData[jsonData.length - 1].Confirmed,
               recoveries: jsonData[jsonData.length - 1].Recovered,
-              deaths: jsonData[jsonData.length - 1].Deaths,
+              deaths: jsonData[jsonData.length - 1].Deaths
             });
           }
           this.countries.sort((a, b) => {
@@ -293,14 +293,14 @@ export default {
       } else {
         this.cookie = true;
       }
-    },
+    }
   },
   mounted: function() {
     //functions that are called on page load.
     this.getAllCountries();
     this.getGlobalTotal();
     this.checkCookie();
-  },
+  }
 };
 </script>
 <style scoped>

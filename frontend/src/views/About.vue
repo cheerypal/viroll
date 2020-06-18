@@ -5,7 +5,7 @@
       id="about"
       v-bind:style="{
         backgroundColor: cookie ? 'black' : 'white',
-        color: cookie ? 'white' : 'black',
+        color: cookie ? 'white' : 'black'
       }"
     >
       <div class="container">
@@ -13,12 +13,12 @@
           <h1>About Us</h1>
           <hr
             v-bind:style="{
-              backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+              backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6'
             }"
           />
           <h2
             v-bind:style="{
-              color: cookie ? 'white' : 'black',
+              color: cookie ? 'white' : 'black'
             }"
           >
             We are a Coronavirus Statistics Site
@@ -48,13 +48,13 @@
           <h1>Our Datasource</h1>
           <hr
             v-bind:style="{
-              backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+              backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6'
             }"
           />
           <h2>
             <a
               v-bind:style="{
-                color: cookie ? 'white' : 'black',
+                color: cookie ? 'white' : 'black'
               }"
               href="https://covid19api.com/"
               >COVID 19 API</a
@@ -65,7 +65,7 @@
               VIROLL uses a public API/Datasource that was created by
               <a
                 v-bind:style="{
-                  color: cookie ? 'white' : 'black',
+                  color: cookie ? 'white' : 'black'
                 }"
                 class="bold-important"
                 href="https://ksred.me/"
@@ -75,7 +75,7 @@
               who sourced the data from
               <a
                 v-bind:style="{
-                  color: cookie ? 'white' : 'black',
+                  color: cookie ? 'white' : 'black'
                 }"
                 class="bold-important"
                 href="https://github.com/CSSEGISandData/COVID-19"
@@ -87,7 +87,7 @@
               Please support this API by going to
               <a
                 v-bind:style="{
-                  color: cookie ? 'white' : 'black',
+                  color: cookie ? 'white' : 'black'
                 }"
                 class="bold-important"
                 href="https://covid19api.com/"
@@ -99,7 +99,7 @@
               Documentation for the API/Datasource is
               <a
                 v-bind:style="{
-                  color: cookie ? 'white' : 'black',
+                  color: cookie ? 'white' : 'black'
                 }"
                 class="bold-important"
                 href="https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest"
@@ -109,7 +109,7 @@
             <li>
               <a
                 v-bind:style="{
-                  color: cookie ? 'white' : 'black',
+                  color: cookie ? 'white' : 'black'
                 }"
                 class="bold-important"
                 href="https://covid19api.com/"
@@ -124,7 +124,7 @@
           <h1>Our Site is a PWA</h1>
           <hr
             v-bind:style="{
-              backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+              backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6'
             }"
           />
           <p class="custom-para">
@@ -161,7 +161,7 @@
           <h1>Report a problem</h1>
           <hr
             v-bind:style="{
-              backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+              backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6'
             }"
           />
           <ul>
@@ -169,7 +169,7 @@
               If you have any issues you can email me directly
               <a
                 v-bind:style="{
-                  color: cookie ? 'white' : 'black',
+                  color: cookie ? 'white' : 'black'
                 }"
                 class="bold-important"
                 href="mailto:ejg9@hw.ac.uk"
@@ -181,7 +181,7 @@
               Create an issue on the
               <a
                 v-bind:style="{
-                  color: cookie ? 'white' : 'black',
+                  color: cookie ? 'white' : 'black'
                 }"
                 class="bold-important"
                 href="https://github.com/cheerypal/viroll"
@@ -203,11 +203,11 @@ export default {
   name: "about",
   components: {
     NavBar,
-    CustomFooter,
+    CustomFooter
   },
   data() {
     return {
-      cookie: "",
+      cookie: ""
     };
   },
   methods: {
@@ -217,11 +217,11 @@ export default {
       } else {
         this.cookie = true;
       }
-    },
+    }
   },
   mounted: function() {
     this.checkCookie();
-  },
+  }
 };
 </script>
 <style scoped>

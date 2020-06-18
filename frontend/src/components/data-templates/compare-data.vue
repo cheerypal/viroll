@@ -3,7 +3,7 @@
     <div class="dataSection">
       <h2
         v-bind:style="{
-          color: cookie ? 'white' : 'black',
+          color: cookie ? 'white' : 'black'
         }"
       >
         {{ countryOName }}
@@ -12,7 +12,7 @@
         <div class="dataItem">
           <h3
             v-bind:style="{
-              color: cookie ? 'white' : 'black',
+              color: cookie ? 'white' : 'black'
             }"
           >
             Cases
@@ -24,7 +24,7 @@
         <div class="dataItem">
           <h3
             v-bind:style="{
-              color: cookie ? 'white' : 'black',
+              color: cookie ? 'white' : 'black'
             }"
           >
             Recoveries
@@ -36,7 +36,7 @@
         <div class="dataItem">
           <h3
             v-bind:style="{
-              color: cookie ? 'white' : 'black',
+              color: cookie ? 'white' : 'black'
             }"
           >
             Deaths
@@ -50,7 +50,7 @@
     <div class="dataSection">
       <h2
         v-bind:style="{
-          color: cookie ? 'white' : 'black',
+          color: cookie ? 'white' : 'black'
         }"
       >
         {{ countryTName }}
@@ -59,7 +59,7 @@
         <div class="dataItem">
           <h3
             v-bind:style="{
-              color: cookie ? 'white' : 'black',
+              color: cookie ? 'white' : 'black'
             }"
           >
             Cases
@@ -71,7 +71,7 @@
         <div class="dataItem">
           <h3
             v-bind:style="{
-              color: cookie ? 'white' : 'black',
+              color: cookie ? 'white' : 'black'
             }"
           >
             Recoveries
@@ -83,7 +83,7 @@
         <div class="dataItem">
           <h3
             v-bind:style="{
-              color: cookie ? 'white' : 'black',
+              color: cookie ? 'white' : 'black'
             }"
           >
             Deaths
@@ -96,7 +96,7 @@
     </div>
     <hr
       v-bind:style="{
-        backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6',
+        backgroundColor: cookie ? '#2D2D2D' : '#F6F6F6'
       }"
     />
   </div>
@@ -107,7 +107,7 @@ export default {
   props: ["countryO", "countryT", "countryOName", "countryTName"],
   data() {
     return {
-      cookie: "",
+      cookie: ""
     };
   },
   methods: {
@@ -120,11 +120,11 @@ export default {
       } else {
         this.cookie = true;
       }
-    },
+    }
   },
   mounted: function() {
     this.checkCookie();
-  },
+  }
 };
 </script>
 <style scoped>

@@ -4,7 +4,7 @@
       class="custom-navbar fixed-top"
       v-bind:style="{
         backgroundColor: cookie ? 'black' : 'white',
-        color: cookie ? 'white' : 'black',
+        color: cookie ? 'white' : 'black'
       }"
     >
       <div class="container">
@@ -13,7 +13,7 @@
             :to="{ name: 'home' }"
             class="brand-logo"
             v-bind:style="{
-              color: cookie ? 'white' : 'black',
+              color: cookie ? 'white' : 'black'
             }"
           >
             VIROLL
@@ -25,7 +25,7 @@
             v-bind:style="{
               backgroundColor: cookie ? 'rgba(14, 14, 14, 0.9)' : 'white',
               color: cookie ? 'white' : 'black',
-              borderColor: cookie ? '#8E8E8E' : 'black',
+              borderColor: cookie ? '#8E8E8E' : 'black'
             }"
           >
             <div class="flex-form">
@@ -37,7 +37,7 @@
                 v-on:keyup="countryComplete"
                 v-bind:style="{
                   backgroundColor: cookie ? 'rgba(14, 14, 14, 0.9)' : 'white',
-                  color: cookie ? 'white' : 'black',
+                  color: cookie ? 'white' : 'black'
                 }"
               />
               <div class="input-group-append">
@@ -45,7 +45,7 @@
                   <i
                     class="fa fa-search"
                     v-bind:style="{
-                      color: cookie ? 'white' : 'black',
+                      color: cookie ? 'white' : 'black'
                     }"
                   ></i>
                 </button>
@@ -56,7 +56,7 @@
                 class="searchList"
                 v-bind:style="{
                   backgroundColor: cookie ? 'rgba(14, 14, 14, 0.9)' : 'white',
-                  color: cookie ? 'white' : 'black',
+                  color: cookie ? 'white' : 'black'
                 }"
               >
                 <li
@@ -66,7 +66,7 @@
                   @click="selectCountry(country)"
                   v-bind:style="{
                     backgroundColor: cookie ? 'rgba(14, 14, 14, 0.9)' : 'white',
-                    color: cookie ? 'white' : 'black',
+                    color: cookie ? 'white' : 'black'
                   }"
                 >
                   {{ format(country) }}
@@ -85,14 +85,14 @@
           class="custom-nav-mobile fixed-top"
           v-bind:style="{
             backgroundColor: cookie ? 'rgba(14, 14, 14, 0.9)' : 'white',
-            color: cookie ? 'white' : 'black',
+            color: cookie ? 'white' : 'black'
           }"
         >
           <router-link
             :to="{ name: 'home' }"
             class="nav-link-logo nav-link"
             v-bind:style="{
-              color: cookie ? 'white' : 'black',
+              color: cookie ? 'white' : 'black'
             }"
           >
             VIROLL
@@ -105,7 +105,7 @@
               v-bind:style="{
                 backgroundColor: cookie ? 'rgba(14, 14, 14, 0.9)' : 'white',
                 color: cookie ? 'white' : 'black',
-                borderColor: cookie ? '#8E8E8E' : 'black',
+                borderColor: cookie ? '#8E8E8E' : 'black'
               }"
             >
               <div class="flex-form">
@@ -117,7 +117,7 @@
                   v-on:keyup="countryComplete"
                   v-bind:style="{
                     backgroundColor: cookie ? 'rgba(14, 14, 14, 0.9)' : 'white',
-                    color: cookie ? 'white' : 'black',
+                    color: cookie ? 'white' : 'black'
                   }"
                 />
                 <div class="input-group-append">
@@ -125,7 +125,7 @@
                     <i
                       class="fa fa-search"
                       v-bind:style="{
-                        color: cookie ? 'white' : 'black',
+                        color: cookie ? 'white' : 'black'
                       }"
                     ></i>
                   </button>
@@ -136,7 +136,7 @@
                   class="searchList"
                   v-bind:style="{
                     backgroundColor: cookie ? 'rgba(14, 14, 14, 0.9)' : 'white',
-                    color: cookie ? 'white' : 'black',
+                    color: cookie ? 'white' : 'black'
                   }"
                 >
                   <li
@@ -148,7 +148,7 @@
                       backgroundColor: cookie
                         ? 'rgba(14, 14, 14, 0.9)'
                         : 'white',
-                      color: cookie ? 'white' : 'black',
+                      color: cookie ? 'white' : 'black'
                     }"
                   >
                     {{ format(country) }}
@@ -160,7 +160,7 @@
           <li>
             <router-link
               v-bind:style="{
-                color: cookie ? 'white' : 'black',
+                color: cookie ? 'white' : 'black'
               }"
               :to="{ name: 'home' }"
               class="nav-link"
@@ -171,7 +171,7 @@
           <li>
             <router-link
               v-bind:style="{
-                color: cookie ? 'white' : 'black',
+                color: cookie ? 'white' : 'black'
               }"
               :to="{ name: 'compare' }"
               class="nav-link"
@@ -182,7 +182,7 @@
           <li>
             <router-link
               v-bind:style="{
-                color: cookie ? 'white' : 'black',
+                color: cookie ? 'white' : 'black'
               }"
               :to="{ name: 'about' }"
               class="nav-link"
@@ -194,7 +194,7 @@
             <i
               class="nav-link closeBut fa fa-times"
               v-bind:style="{
-                color: cookie ? 'white' : 'black',
+                color: cookie ? 'white' : 'black'
               }"
             ></i>
           </li>
@@ -209,12 +209,12 @@ export default {
   data() {
     return {
       searchBar: {
-        value: "",
+        value: ""
       },
       clicked: false,
       countries: [],
       autoComplete: [],
-      cookie: "",
+      cookie: ""
     };
   },
   methods: {
@@ -234,7 +234,7 @@ export default {
       );
       this.$router.push({
         name: "country",
-        params: { name: input },
+        params: { name: input }
       });
     },
 
@@ -278,10 +278,10 @@ export default {
     getAllCountries() {
       let url = "https://api.covid19api.com/countries";
       fetch(url, { method: "GET" })
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((jsonData) => {
+        .then(jsonData => {
           for (let i in jsonData) {
             this.countries.push(jsonData[i].Country.toLowerCase());
           }
@@ -332,12 +332,12 @@ export default {
       } else {
         this.cookie = true;
       }
-    },
+    }
   },
   mounted: function() {
     this.getAllCountries();
     this.checkCookie();
-  },
+  }
 };
 </script>
 <style scoped>

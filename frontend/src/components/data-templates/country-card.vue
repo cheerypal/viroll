@@ -9,7 +9,7 @@
         v-bind:style="{
           backgroundColor: cookie ? 'rgba(14, 14, 14, 0.9)' : 'white',
           color: cookie ? 'white' : 'black',
-          borderColor: cookie ? '#8E8E8E' : 'black',
+          borderColor: cookie ? '#8E8E8E' : 'black'
         }"
       >
         <h4 class="custom-card-heading">{{ format(countryName) }}</h4>
@@ -32,7 +32,7 @@ export default {
   props: ["countryName", "cases", "recoveries", "deaths"],
   data() {
     return {
-      cookie: "",
+      cookie: ""
     };
   },
   methods: {
@@ -56,11 +56,11 @@ export default {
       } else {
         this.cookie = true;
       }
-    },
+    }
   },
   mounted: function() {
     this.checkCookie();
-  },
+  }
 };
 </script>
 <style scoped>
