@@ -205,14 +205,15 @@
         </div>
 
         <!--Error with finding data chunks-->
-        <div v-show="country1.confirmed == ''">
+        <div v-if="country1.confirmed == '' || country2.confirmed == ''">
           <div class="dataSection">
             <h2
               v-bind:style="{
                 color: cookie ? 'white' : 'black'
               }"
             >
-              Unfortunately we don't have data for {{ format(country1.name) }}
+              Unfortunately we don't have data for
+              {{ format(checkCountry(country1, country2)) }}
             </h2>
             <p class="err">
               Please visit the
@@ -248,59 +249,14 @@
                   color: cookie ? 'white' : 'black'
                 }"
                 class="nav-links bold-link"
-                :to="{ name: 'country', params: { name: country2.name } }"
-              >
-                {{ format(country2.name) }} </router-link
-              >country page.
-            </p>
-          </div>
-        </div>
-        <div v-show="country2.confirmed == ''">
-          <div class="dataSection">
-            <h2
-              v-bind:style="{
-                color: cookie ? 'white' : 'black'
-              }"
-            >
-              Unfortunately we don't have data for {{ format(country2.name) }}
-            </h2>
-            <p class="err">
-              Please visit the
-              <router-link
-                v-bind:style="{
-                  color: cookie ? 'white' : 'black'
+                :to="{
+                  name: 'country',
+                  params: { name: flip(checkCountry(country1, country2)) }
                 }"
-                class="nav-links bold-link"
-                :to="{ name: 'home' }"
               >
-                countries
-              </router-link>
-              page for the full list of
-              <router-link
-                v-bind:style="{
-                  color: cookie ? 'white' : 'black'
-                }"
-                class="nav-links bold-link"
-                :to="{ name: 'home' }"
-              >
-                countries
-              </router-link>
-              <br />
-              or
-              <br />
-              search for another country using the search bar
-              <br />
-              or
-              <br />
-              visit
-              <router-link
-                v-bind:style="{
-                  color: cookie ? 'white' : 'black'
-                }"
-                class="nav-links bold-link"
-                :to="{ name: 'country', params: { name: country1.name } }"
-              >
-                {{ format(country1.name) }} </router-link
+                {{
+                  format(flip(checkCountry(country1, country2)))
+                }} </router-link
               >country page.
             </p>
           </div>
@@ -933,6 +889,24 @@ export default {
       let day = date.substring(8, 10);
       return day + "/" + month + "/" + year;
     },
+
+    checkCountry(country1, country2) {
+      if (country1.confirmed == "") {
+        return country1.name;
+      } else if (country2.confirmed == "") {
+        return country2.name;
+      }
+    },
+
+    flip(country) {
+      if (country === this.$route.params.country1) {
+        return this.country2.name;
+      } else {
+        return this.country1.name;
+      }
+    },
+
+    //cookie method for darkmode
     checkCookie() {
       if (this.$cookies.get("dark-mode") === null) {
         this.cookie = false;
