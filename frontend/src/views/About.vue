@@ -39,8 +39,16 @@
               filtered to see spikes and overall accumulated data.
             </li>
             <li>
-              Currently being maintained by Euan Gordon, a 4th year Computer
-              Science student at Heriot Watt University, Edinburgh.
+              Currently being maintained by
+              <a
+                href="https://euangordon.me"
+                class="bold-important"
+                v-bind:style="{
+                  color: cookie ? 'white' : 'black'
+                }"
+                >Euan Gordon</a
+              >, a 4th year Computer Science student at Heriot Watt University,
+              Edinburgh.
             </li>
           </ul>
         </div>
