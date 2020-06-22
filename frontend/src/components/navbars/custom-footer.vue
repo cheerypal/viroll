@@ -43,7 +43,7 @@
           </p>
         </div>
         <div class="text-center">
-          Data updated on {{ dateFormatter(updatedAt) }} at
+          Data recorded up to: {{ dateFormatter(updatedAt) }} -
           {{ timeFormatter(updatedAt) }}am
           <br />
           <br />
