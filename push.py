@@ -29,6 +29,7 @@ def main ():
            cp = cmd.run('npm run build', check=True, shell=True)
            print(cp)
 
+        os.chdir(os.path.abspath("C:/Users/euang/Documents/viroll"))
         cp = cmd.run("git add .", check=True, shell=True)
         print(cp)
         cp = cmd.run(f"git commit -m '{commitMsg}'", check=True, shell=True)
@@ -37,7 +38,7 @@ def main ():
         print(cp)
 
     if heroku == True:
-        os.chdir(os.path.abspath("C:/Users/euang/Documents/viroll"))
+        
         cp = cmd.run("git subtree --prefix frontend push heroku master" , check=True, shell=True)
         print(cp)
 
