@@ -1,24 +1,38 @@
 <template>
   <div>
-    <h2 v-bind:style="{color: cookie ? 'white' : 'black'}">Country Ranking*</h2>
+    <h2 v-bind:style="{ color: cookie ? 'white' : 'black' }">
+      Country Ranking*
+    </h2>
     <div class="dataFlex">
       <div class="dataItem">
-        <h3 v-bind:style="{
+        <h3
+          v-bind:style="{
             color: cookie ? 'white' : 'black'
-          }">Cases</h3>
-        <h2 class="dataImportant">{{caseR}}/{{total}}</h2>
+          }"
+        >
+          Cases
+        </h3>
+        <h2 class="dataImportant">{{ caseR }}/{{ total }}</h2>
       </div>
       <div class="dataItem">
-        <h3 v-bind:style="{
+        <h3
+          v-bind:style="{
             color: cookie ? 'white' : 'black'
-          }">Recoveries</h3>
-        <h2 class="dataImportant">{{recoveryR}}/{{total}}</h2>
+          }"
+        >
+          Recoveries
+        </h3>
+        <h2 class="dataImportant">{{ recoveryR }}/{{ total }}</h2>
       </div>
       <div class="dataItem">
-        <h3 v-bind:style="{
+        <h3
+          v-bind:style="{
             color: cookie ? 'white' : 'black'
-          }">Deaths</h3>
-        <h2 class="dataImportant">{{deathR}}/{{total}}</h2>
+          }"
+        >
+          Deaths
+        </h3>
+        <h2 class="dataImportant">{{ deathR }}/{{ total }}</h2>
       </div>
     </div>
   </div>
