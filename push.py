@@ -16,12 +16,10 @@ def main ():
             heroku = True
 
     commitMsg = input("Type your commit msg here:\n")
-    
-    
 
     if lint == True or heroku == True:
-        cp = cmd.run("cd frontend", check=True, shell=True)
-        print(cp)
+        os.system("cd frontend")
+        
         if lint == True:
            cp = cmd.run("npm run lint", check=True, shell=True)
            print(cp)
@@ -29,14 +27,12 @@ def main ():
            cp = cmd.run('npm run build', check=True, shell=True)
            print(cp)
 
-    print("ssssss")
     cp = cmd.run("git add .", check=True, shell=True)
     print(cp)
     cp = cmd.run(f"git commit -m '{commitMsg}'", check=True, shell=True)
     print(cp)
     cp = cmd.run("git push", check=True, shell=True)
     print(cp)
-    print("sss")
 
     if heroku == True:
         cp = cmd.run("git subtree --prefix frontend push heroku master" , check=True, shell=True)
