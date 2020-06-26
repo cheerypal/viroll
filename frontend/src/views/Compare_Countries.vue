@@ -223,27 +223,18 @@
                 }"
                 class="nav-links bold-link"
                 :to="{ name: 'home' }"
-              >
-                countries
-              </router-link>
-              page for the full list of
+                >countries</router-link
+              >page for the full list of
               <router-link
                 v-bind:style="{
                   color: cookie ? 'white' : 'black'
                 }"
                 class="nav-links bold-link"
                 :to="{ name: 'home' }"
+                >countries</router-link
               >
-                countries
-              </router-link>
-              <br />
-              or
-              <br />
-              search for another country using the search bar
-              <br />
-              or
-              <br />
-              visit
+              <br />or <br />search for another country using the search bar
+              <br />or <br />visit
               <router-link
                 v-bind:style="{
                   color: cookie ? 'white' : 'black'
@@ -529,12 +520,30 @@ export default {
           this.country1.confirmed = jsonData[today].Confirmed;
           this.country1.recovered = jsonData[today].Recovered;
           this.country1.dead = jsonData[today].Deaths;
+
+          //IF chunk for if the API has an error that will trigger data to be lost
           this.country1.changeData.confirmed =
             jsonData[today].Confirmed - jsonData[today - 1].Confirmed;
+
+          if (this.country1.changeData.confirmed === this.country1.confirmed) {
+            this.country1.changeData.confirmed = "API Err";
+          }
+
+          //IF chunk for if the API has an error that will trigger data to be lost
           this.country1.changeData.recovered =
             jsonData[today].Recovered - jsonData[today - 1].Recovered;
+
+          if (this.country1.changeData.recovered === this.country1.recovered) {
+            this.country1.changeData.recovered = "API Err";
+          }
+
+          //IF chunk for if the API has an error that will trigger data to be lost
           this.country1.changeData.dead =
             jsonData[today].Deaths - jsonData[today - 1].Deaths;
+
+          if (this.country1.changeData.dead === this.country1.dead) {
+            this.country1.changeData.dead = "API Err";
+          }
         })
         .catch(() => {});
     },
@@ -554,12 +563,27 @@ export default {
           this.country2.confirmed = jsonData[today].Confirmed;
           this.country2.recovered = jsonData[today].Recovered;
           this.country2.dead = jsonData[today].Deaths;
+
+          //IF chunk for if the API has an error that will trigger data to be lost
           this.country2.changeData.confirmed =
             jsonData[today].Confirmed - jsonData[today - 1].Confirmed;
+          if (this.country2.changeData.confirmed === this.country2.confirmed) {
+            this.country2.changeData.confirmed = "API Err";
+          }
+
+          //IF chunk for if the API has an error that will trigger data to be lost
           this.country2.changeData.recovered =
             jsonData[today].Recovered - jsonData[today - 1].Recovered;
+          if (this.country2.changeData.recovered === this.country2.recovered) {
+            this.country2.changeData.recovered = "API Err";
+          }
+
+          //IF chunk for if the API has an error that will trigger data to be lost
           this.country2.changeData.dead =
             jsonData[today].Deaths - jsonData[today - 1].Deaths;
+          if (this.country2.changeData.dead === this.country2.dead) {
+            this.country2.changeData.dead = "API Err";
+          }
         })
         .catch(() => {});
     },
@@ -598,10 +622,14 @@ export default {
             let size = this.chartData.data.datasets[0].data.length;
             for (let i = 0; i < size; i++) {
               let j = i + 1;
-              this.chartData.data.datasets[0].data[i] =
-                this.chartData.data.datasets[0].data[i] -
-                this.chartData.data.datasets[0].data[j];
-
+              //IF chunk for if the API has an error that will trigger data to be lost
+              if (this.chartData.data.datasets[0].data[j] === 0) {
+                this.chartData.data.datasets[0].data[i] = 0;
+              } else {
+                this.chartData.data.datasets[0].data[i] =
+                  this.chartData.data.datasets[0].data[i] -
+                  this.chartData.data.datasets[0].data[j];
+              }
               //If the value is a value that is below 0 then the value will be replaced by 0.
               if (this.chartData.data.datasets[0].data[i] < 0) {
                 this.chartData.data.datasets[0].data[i] = 0;
@@ -656,10 +684,14 @@ export default {
             let size = this.chartDataRecoveries.data.datasets[0].data.length;
             for (let i = 0; i < size; i++) {
               let j = i + 1;
-              this.chartDataRecoveries.data.datasets[0].data[i] =
-                this.chartDataRecoveries.data.datasets[0].data[i] -
-                this.chartDataRecoveries.data.datasets[0].data[j];
-
+              //IF chunk for if the API has an error that will trigger data to be lost
+              if (this.chartDataRecoveries.data.datasets[0].data[j] === 0) {
+                this.chartDataRecoveries.data.datasets[0].data[i] = 0;
+              } else {
+                this.chartDataRecoveries.data.datasets[0].data[i] =
+                  this.chartDataRecoveries.data.datasets[0].data[i] -
+                  this.chartDataRecoveries.data.datasets[0].data[j];
+              }
               if (this.chartDataRecoveries.data.datasets[0].data[i] < 0) {
                 this.chartDataRecoveries.data.datasets[0].data[i] = 0;
               }
@@ -712,10 +744,14 @@ export default {
             let size = this.chartDataDeaths.data.datasets[0].data.length;
             for (let i = 0; i < size; i++) {
               let j = i + 1;
-              this.chartDataDeaths.data.datasets[0].data[i] =
-                this.chartDataDeaths.data.datasets[0].data[i] -
-                this.chartDataDeaths.data.datasets[0].data[j];
-
+              //IF chunk for if the API has an error that will trigger data to be lost
+              if (this.chartDataDeaths.data.datasets[0].data[j] === 0) {
+                this.chartDataDeaths.data.datasets[0].data[i] = 0;
+              } else {
+                this.chartDataDeaths.data.datasets[0].data[i] =
+                  this.chartDataDeaths.data.datasets[0].data[i] -
+                  this.chartDataDeaths.data.datasets[0].data[j];
+              }
               if (this.chartDataDeaths.data.datasets[0].data[i] < 0) {
                 this.chartDataDeaths.data.datasets[0].data[i] = 0;
               }
@@ -754,10 +790,14 @@ export default {
             let size = this.chartData.data.datasets[1].data.length;
             for (let i = 0; i < size; i++) {
               let j = i + 1;
-              this.chartData.data.datasets[1].data[i] =
-                this.chartData.data.datasets[1].data[i] -
-                this.chartData.data.datasets[1].data[j];
-
+              //IF chunk for if the API has an error that will trigger data to be lost
+              if (this.chartData.data.datasets[1].data[j] === 0) {
+                this.chartData.data.datasets[1].data[i] = 0;
+              } else {
+                this.chartData.data.datasets[1].data[i] =
+                  this.chartData.data.datasets[1].data[i] -
+                  this.chartData.data.datasets[1].data[j];
+              }
               if (this.chartData.data.datasets[1].data[i] < 0) {
                 this.chartData.data.datasets[1].data[i] = 0;
               }
@@ -793,10 +833,14 @@ export default {
             let size = this.chartDataRecoveries.data.datasets[1].data.length;
             for (let i = 0; i < size; i++) {
               let j = i + 1;
-              this.chartDataRecoveries.data.datasets[1].data[i] =
-                this.chartDataRecoveries.data.datasets[1].data[i] -
-                this.chartDataRecoveries.data.datasets[1].data[j];
-
+              //IF chunk for if the API has an error that will trigger data to be lost
+              if (this.chartDataRecoveries.data.datasets[1].data[j] === 0) {
+                this.chartDataRecoveries.data.datasets[1].data[i] = 0;
+              } else {
+                this.chartDataRecoveries.data.datasets[1].data[i] =
+                  this.chartDataRecoveries.data.datasets[1].data[i] -
+                  this.chartDataRecoveries.data.datasets[1].data[j];
+              }
               if (this.chartDataRecoveries.data.datasets[1].data[i] < 0) {
                 this.chartDataRecoveries.data.datasets[1].data[i] = 0;
               }
@@ -832,10 +876,14 @@ export default {
             let size = this.chartDataDeaths.data.datasets[1].data.length;
             for (let i = 0; i < size; i++) {
               let j = i + 1;
-              this.chartDataDeaths.data.datasets[1].data[i] =
-                this.chartDataDeaths.data.datasets[1].data[i] -
-                this.chartDataDeaths.data.datasets[1].data[j];
-
+              //IF chunk for if the API has an error that will trigger data to be lost
+              if (this.chartDataDeaths.data.datasets[1].data[j] === 0) {
+                this.chartDataDeaths.data.datasets[1].data[i] = 0;
+              } else {
+                this.chartDataDeaths.data.datasets[1].data[i] =
+                  this.chartDataDeaths.data.datasets[1].data[i] -
+                  this.chartDataDeaths.data.datasets[1].data[j];
+              }
               if (this.chartDataDeaths.data.datasets[1].data[i] < 0) {
                 this.chartDataDeaths.data.datasets[1].data[i] = 0;
               }
