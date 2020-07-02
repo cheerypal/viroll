@@ -526,7 +526,7 @@ export default {
             jsonData[today].Confirmed - jsonData[today - 1].Confirmed;
 
           if (this.country1.changeData.confirmed === this.country1.confirmed) {
-            this.country1.changeData.confirmed = "API Err";
+            this.country1.changeData.confirmed = "N/A";
           }
 
           //IF chunk for if the API has an error that will trigger data to be lost
@@ -534,7 +534,7 @@ export default {
             jsonData[today].Recovered - jsonData[today - 1].Recovered;
 
           if (this.country1.changeData.recovered === this.country1.recovered) {
-            this.country1.changeData.recovered = "API Err";
+            this.country1.changeData.recovered = "N/A";
           }
 
           //IF chunk for if the API has an error that will trigger data to be lost
@@ -542,7 +542,7 @@ export default {
             jsonData[today].Deaths - jsonData[today - 1].Deaths;
 
           if (this.country1.changeData.dead === this.country1.dead) {
-            this.country1.changeData.dead = "API Err";
+            this.country1.changeData.dead = "N/A";
           }
         })
         .catch(() => {});
@@ -568,21 +568,21 @@ export default {
           this.country2.changeData.confirmed =
             jsonData[today].Confirmed - jsonData[today - 1].Confirmed;
           if (this.country2.changeData.confirmed === this.country2.confirmed) {
-            this.country2.changeData.confirmed = "API Err";
+            this.country2.changeData.confirmed = "N/A";
           }
 
           //IF chunk for if the API has an error that will trigger data to be lost
           this.country2.changeData.recovered =
             jsonData[today].Recovered - jsonData[today - 1].Recovered;
           if (this.country2.changeData.recovered === this.country2.recovered) {
-            this.country2.changeData.recovered = "API Err";
+            this.country2.changeData.recovered = "N/A";
           }
 
           //IF chunk for if the API has an error that will trigger data to be lost
           this.country2.changeData.dead =
             jsonData[today].Deaths - jsonData[today - 1].Deaths;
           if (this.country2.changeData.dead === this.country2.dead) {
-            this.country2.changeData.dead = "API Err";
+            this.country2.changeData.dead = "N/A";
           }
         })
         .catch(() => {});

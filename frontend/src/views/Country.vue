@@ -537,19 +537,19 @@ export default {
             this.countryChange.currentInfected ===
             this.countryData.currentInfected
           ) {
-            this.countryChange.currentInfected = "API Err";
+            this.countryChange.currentInfected = "N/A";
           }
 
           //IF chunk for if the API has an error that will trigger data to be lost
           this.countryChange.totalDeaths = cData.Deaths - cData2.Deaths;
           if (this.countryChange.totalDeaths === this.countryData.totalDeaths) {
-            this.countryChange.totalDeaths = "API Err";
+            this.countryChange.totalDeaths = "N/A";
           }
 
           //IF chunk for if the API has an error that will trigger data to be lost
           this.countryChange.recovered = cData.Recovered - cData2.Recovered;
           if (this.countryChange.recovered === this.countryData.recovered) {
-            this.countryChange.recovered = "API Err";
+            this.countryChange.recovered = "N/A";
           }
         })
         .catch(err => {
