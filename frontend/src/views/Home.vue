@@ -207,10 +207,10 @@ export default {
         .then(jsonData => {
           for (let i in jsonData.Countries) {
             this.countries.push({
-              countryName: jsonData.countries[i].Country,
-              confirmed: jsonData.countries[i].TotalConfirmed,
-              recovered: jsonData.countries[i].TotalRecovered,
-              deaths: jsonData.countries[i].TotalDeaths
+              countryName: jsonData.Countries[i].Country,
+              confirmed: jsonData.Countries[i].TotalConfirmed,
+              recovered: jsonData.Countries[i].TotalRecovered,
+              deaths: jsonData.Countries[i].TotalDeaths
             });
           }
           this.countries.sort((a, b) => {
