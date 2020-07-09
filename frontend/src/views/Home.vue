@@ -196,19 +196,31 @@ export default {
     },
 
     //gets all the countries with data from the api.
+    //This method was changed due to a change to the way the API deals with requests
+    //This new way is more effective than the last as it as O(1) requests and an O(n) loop to go through them all
     getAllCountries() {
-      let url = "https://api.covid19api.com/countries";
+      let url = "https://api.covid19api.com/summary";
       fetch(url, { method: "GET" })
         .then(response => {
           return response.json();
         })
         .then(jsonData => {
-          for (let i in jsonData) {
-            this.getConfirmedAllCountries(jsonData[i].Slug);
+          for (let i in jsonData.Countries) {
+            this.countries.push({
+              countryName: jsonData.countries[i].Country,
+              confirmed: jsonData.countries[i].TotalConfirmed,
+              recovered: jsonData.countries[i].TotalRecovered,
+              deaths: jsonData.countries[i].TotalDeaths
+            });
           }
-        });
+          this.countries.sort((a, b) => {
+            return b.confirmed - a.confirmed;
+          });
+        })
+        .catch(() => {});
     },
 
+    //Dead Method. Will Keep for just in case use
     //Get all countries case numbers and place in json with countries name
     getConfirmedAllCountries(country) {
       let url = "https://api.covid19api.com/total/country/" + country;
