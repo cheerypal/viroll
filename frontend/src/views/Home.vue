@@ -207,17 +207,20 @@ export default {
         .then(jsonData => {
           for (let i in jsonData.Countries) {
             this.countries.push({
-              countryName: jsonData.Countries[i].Country,
+              countryName: jsonData.Countries[i].Slug,
               confirmed: jsonData.Countries[i].TotalConfirmed,
-              recovered: jsonData.Countries[i].TotalRecovered,
+              recoveries: jsonData.Countries[i].TotalRecovered,
               deaths: jsonData.Countries[i].TotalDeaths
             });
           }
+
           this.countries.sort((a, b) => {
             return b.confirmed - a.confirmed;
           });
         })
-        .catch(() => {});
+        .catch(err => {
+          console.log(err);
+        });
     },
 
     //Dead Method. Will Keep for just in case use

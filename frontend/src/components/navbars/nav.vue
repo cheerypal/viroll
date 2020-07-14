@@ -285,7 +285,7 @@ export default {
         })
         .then(jsonData => {
           for (let i in jsonData) {
-            this.countries.push(jsonData[i].Country.toLowerCase());
+            this.countries.push(jsonData[i].Slug.toLowerCase());
           }
           this.countries.sort();
         })
