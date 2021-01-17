@@ -18,6 +18,24 @@
   src: url("./assets/Fonts/Roboto/Roboto-Black.ttf");
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1a893c;
+  border-radius: 0px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #167533;
+}
+
 body {
   font-family: "Roboto-Reg" !important;
   color: black;
