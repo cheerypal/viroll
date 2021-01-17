@@ -14,25 +14,6 @@ Application Features:
 
 - Application uses an external public api to get up to date and accurate data on the coronavirus pandemic
 
-
-## `.github`
-
-Contains the automated testing script which is triggered when a new commit is pushed to master
-
-## `.vscode`
-
-Contains the config file to auto lint on save (personal file)
-
-## `frontend`
-
-Contains all source code for the web application
-
-- Application has been made using the [Vue.js](https://vuejs.org/) framework due to the easiness of making dynamic single page web applications.
-
-## `UI`
-
-Contains all the UI mockups and XD files
-
 # HEROKU
 
 This application has been pushed to heroku and is currently on Free Dyno Usage (550hrs of use per month on the herok servers)
@@ -44,44 +25,6 @@ This application is making use of the public API - COVID19API. This API was crea
 Documentation for the API - [POSTMAN](https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest)
 
 Please support this API buy going to their site - [COVID19API](https://covid19api.com/)
-
-# Node Execution
-
-## Project setup
-
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-
-```
-npm run build
-```
-
-### Run your unit tests
-
-```
-npm run test:unit
-```
-
-### Lints and fixes files
-
-```
-npm run lint
-```
-
-### Run the Build file with Node Express
-
-```
-npm start
-```
 
 ---
 
